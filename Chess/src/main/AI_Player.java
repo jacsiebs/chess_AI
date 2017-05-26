@@ -11,6 +11,10 @@ public class AI_Player implements Player {
 	private char currTurn;// keeps track of which player is currently moving
 	private BookSet opening_moves;
 
+	
+	/* Currently broken - will be fixed and upgraded once the chess rules are 
+	 * completely tested.
+	 */
 	public AI_Player(char color, Board board) {
 		this.color = color;
 		currTurn = color;

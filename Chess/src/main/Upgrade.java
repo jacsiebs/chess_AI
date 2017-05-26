@@ -8,8 +8,9 @@ package main;
  */
 public class Upgrade extends Move {
 	
-	protected Piece upgraded;
+	private Piece upgraded;
 	
+	// capture and upgrade
 	public Upgrade(Pawn p, int yto, int xto, Piece upgraded, Piece removed) {
 		super(p, yto, xto, removed);
 		this.upgraded = upgraded;
@@ -43,6 +44,10 @@ public class Upgrade extends Move {
 			}
 		}
 		return true;
+	}
+	
+	public Piece getUpgraded() {
+		return upgraded;
 	}
 
 	@Override

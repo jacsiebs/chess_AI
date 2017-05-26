@@ -13,17 +13,25 @@ package main;
 public class Move {
 	protected Piece piece;
 	protected Piece removed;// The piece removed by this move, null if none. Also contains the castled piece.
+	// the location the piece will be moved to
 	protected int xto;
 	protected int yto;
+	// used for undo operations since the piece's coordinates change - set in constructor
+	protected int xfrom;
+	protected int yfrom;
 	
 	public Move(Piece p, int yto, int xto) {
 		piece = p;
+		xfrom = p.x;
+		yfrom = p.y;
 		this.xto= xto;
 		this.yto= yto;
 	}
 	
 	public Move(Piece p, int yto, int xto, Piece removed) {
 		piece = p;
+		xfrom = p.x;
+		yfrom = p.y;
 		this.xto= xto;
 		this.yto= yto;
 		this.removed = removed;
@@ -37,9 +45,10 @@ public class Move {
 		removed = p;
 	}
 	
-	public Piece getRemovedPiece() throws NoSuchPieceException {
+	public Piece getRemovedPiece() {
 		if(removed == null) 
-			throw new NoSuchPieceException("Attempted to get a removed piece that does not exist.");
+			throw new NoSuchPieceException("Attempted to get a removed piece that does not exist."
+					+ "/n/tMove: " + toString());
 		return removed;
 	}
 	
@@ -97,7 +106,7 @@ public class Move {
 		if(removed == null) {
 			return new Move(piece.clone(), yto, xto);
 		}
-		return new Move(piece.clone(), yto, xto, removed);
+		return new Move(piece.clone(), yto, xto, removed.clone());
 	}
 	
 	

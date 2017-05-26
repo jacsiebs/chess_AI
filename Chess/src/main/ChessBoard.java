@@ -77,7 +77,7 @@ public class ChessBoard {
 
 	// stats
 	private int numMoves = 0;
-	private long turnTime;
+	private long turnTime;// Time taken for the AI to move
 
 	// used for tracking the clicks used to make moves
 	boolean firstPress = true;
@@ -302,25 +302,25 @@ public class ChessBoard {
 								}
 							}
 						}
-						// secondPress
+						// secondPress - create a move
 						else {
-							Move m;
-							// castle
-							if (board.getPiece(yPress, xPress) instanceof King
-									&& Math.abs(b.getXPos() - board.getPiece(yPress, xPress).x) > 1) {
-								m = new Castle(board.getPiece(yPress, xPress), b.getYPos(), b.getXPos(),
-										(Rook) board.getPiece(b.getYPos(), b.getXPos()));
-							} else {
-								m = new Move(board.getPiece(yPress, xPress), b.getYPos(), b.getXPos());
-							}
-							// validity check
-							if (isValidMove(m)) {
-								move(m);
-								// reset for next player's turn
-								firstPress = true;
-							} else {
-								displayMessage("Not a valid move.");
-							}
+//							Move m;
+//							// castle
+//							if (board.getPiece(yPress, xPress) instanceof King
+//									&& Math.abs(b.getXPos() - board.getPiece(yPress, xPress).x) > 1) {
+//								m = new Castle((King) board.getPiece(yPress, xPress), b.getYPos(), b.getXPos(),
+//										(Rook) board.getPiece(b.getYPos(), b.getXPos()));
+//							} else {
+//								m = new Move(board.getPiece(yPress, xPress), b.getYPos(), b.getXPos());
+//							}
+//							// validity check
+//							if (isValidMove(m)) {
+//								move(m);
+//								// reset for next player's turn
+//								firstPress = true;
+//							} else {
+//								displayMessage("Not a valid move.");
+//							}
 						}
 					}
 				}
@@ -615,37 +615,13 @@ public class ChessBoard {
 	 * 
 	 */
 	public void move(Move m) {
+
+		// apply the move on the game board
+		board.applyMove(m);
+		
 		// Graphics
 		make_move_UI(m);
 
-		// remove the double forward pawn move once it has moved
-		Piece q = m.getSelectedPiece();
-		if (q instanceof Pawn) {
-			Pawn pq = (Pawn) q;
-			if (pq.firstMove())
-				pq.setAsMoved();
-		}
-		if (q instanceof King) {
-			King kq = (King) q;
-			if (kq.firstMove())
-				kq.setAsMoved();
-		}
-
-		// check if this move is a castle
-		if (m instanceof Castle) {
-			
-			Piece rm = board.applyMove(m);
-			// re-add the rook to the board
-			board.placePiece(((Castle) m).getCastled());// this is the rook
-		} else {
-
-			// apply the move on the game board
-			// if a piece was removed as a result of the move - store it so it
-			// can
-			// be undone later
-			Piece rm = board.applyMove(m);
-		}
-		// not undoing - save move info so it can be undone
 		numMoves++;
 		if (currentPlayer == player1)
 			displayMessage(player1.getName() + " " + m.toString());
@@ -660,25 +636,7 @@ public class ChessBoard {
 
 		// AI makes its move here unless next player is human
 		if (!currentPlayer.isHuman()) {
-			Date start = new Date();
-
-			Move AI_move = currentPlayer.nextMove(board, 3);
-			// DELETE THIS
-			System.out.println(AI_move);
-
-			Piece p = board.applyMove(AI_move);
-
-			make_move_UI(AI_move);
-
-			// next player's turn
-			if (currentPlayer == player1)
-				currentPlayer = player2;
-			else
-				currentPlayer = player1;
-
-			Date end = new Date();
-			turnTime = end.getTime() - start.getTime();
-
+			turnTime = makeAIMove();
 		}
 
 		// remove any border highlights from the last move
@@ -690,11 +648,52 @@ public class ChessBoard {
 		//board.displayBoard();
 		// System.out.println("--------------------------------");
 	}
+	
+	private long makeAIMove() {
+		Date start = new Date();
+
+		Move AI_move = currentPlayer.nextMove(board, 3);
+		displayMessage(currentPlayer.getName() + " move: " + AI_move);// TODO make look nicer
+
+		board.applyMove(AI_move);
+
+		make_move_UI(AI_move);
+
+		// next player's turn
+		if (currentPlayer == player1)
+			currentPlayer = player2;
+		else
+			currentPlayer = player1;
+
+		Date end = new Date();
+		return end.getTime() - start.getTime();
+	}
 
 	// makes the move on the UI but not on the game board
-	public void make_move_UI(Move m) {
-		buttonBoard[m.getPieceY()][m.getPieceX()].removePiece();
-		buttonBoard[m.yto][m.xto].setPiece(m.getSelectedPiece().type, m.getSelectedPiece().color);
+	// always make the move on the board prior to the UI
+	private void make_move_UI(Move m) {
+		if(m instanceof Castle) {
+			Castle c = (Castle) m;
+			// move king
+			buttonBoard[c.yfrom][c.xfrom].removePiece();
+			buttonBoard[c.yto][c.xto].setPiece(c.getSelectedPiece().type, c.getSelectedPiece().color);
+			// move rook
+			buttonBoard[c.castled_yFrom][c.castled_xFrom].removePiece();
+			buttonBoard[c.castled_yto][c.castled_xto].setPiece(c.getCastled().type, c.getCastled().color);
+		} else if(m instanceof Upgrade) {
+			Upgrade u = (Upgrade) m;
+			buttonBoard[u.yfrom][u.xfrom].removePiece();
+			buttonBoard[u.yto][u.xto].setPiece(u.getUpgraded().type, u.getUpgraded().color);
+		} else if(m instanceof EnPassant) {
+			EnPassant ep = (EnPassant) m;
+			buttonBoard[ep.yfrom][ep.xfrom].removePiece();
+			buttonBoard[ep.yto][ep.xto].setPiece(m.getSelectedPiece().type, m.getSelectedPiece().color);
+			// remove captured piece
+			buttonBoard[ep.getRemovedPiece().y][ep.getRemovedPiece().x].removePiece();
+		} else {
+			buttonBoard[m.yfrom][m.xfrom].removePiece();
+			buttonBoard[m.yto][m.xto].setPiece(m.getSelectedPiece().type, m.getSelectedPiece().color);
+		}
 	}
 
 	public void clearPieces() {

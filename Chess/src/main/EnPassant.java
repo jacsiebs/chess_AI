@@ -2,9 +2,9 @@ package main;
 
 public class EnPassant extends Move {
 	
-	public EnPassant(Piece p, int yto, int xto, Piece captured) {
-		super(p, yto, xto);
-		removed = captured.clone();
+	// Use the removed Piece and not the (yto, xto) to rebuild state for undoing
+	public EnPassant(Pawn p, int yto, int xto, Pawn captured) {
+		super(p, yto, xto, captured);
 	}
 	
 	@Override
@@ -44,6 +44,6 @@ public class EnPassant extends Move {
 	
 	@Override
 	public EnPassant clone() {
-		return new EnPassant(piece.clone(), yto, xto, removed.clone());
+		return new EnPassant((Pawn) piece.clone(), yto, xto, (Pawn) removed.clone());
 	}
 }

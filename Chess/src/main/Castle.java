@@ -1,28 +1,35 @@
 package main;
 
+/**
+ * @author Jacob Siebert
+ * 
+ * A Castle Move
+ *  - The King is the selected piece
+ *  - The Old Rook Location is saved in the castled_xFrom vars
+ *  - The New Rook Location is saved in the castled Rook
+ *
+ */
 public class Castle extends Move {
 
-	private Rook castled;
+	private Rook castled;// The castled rook
+	// The castled position of the Rook
+	protected int castled_yto;
+	protected int castled_xto;
+	// The old position of the castled Rook
+	protected int castled_yFrom;
+	protected int castled_xFrom;
 
-	// castle move constructor
-	public Castle(Piece p, int yto, int xto, Rook cast) {
-		// ROMOVE TODO
-		super(p, yto, xto);
-
-		if (cast == null) {
-			throw new NoSuchPieceException("Castle piece is null");
-		}
-
-		castled = cast.clone();
-		// set the rook position based on which side it comes from
-		if (cast.x == 7) {
-			removed.setYX(cast.y, xto - 1);
-		} else if (cast.x == 0) {
-			removed.setYX(cast.y, xto + 1);
-		} else {
-			// DELETE THIS TODO
-			System.out.println("This should not be here. A castle move which is not correct.");
-		}
+	/* Note: The castled Rook's (y, x) and firstMove must be updated in applyMove() */
+	public Castle(King k, int yto, int xto, Rook cast, int cast_yto, int cast_xto) {
+		
+		super(k, yto, xto, cast);
+		
+		castled = cast;
+		castled_yFrom = castled.y;
+		castled_xFrom = castled.x;
+		
+		castled_yto = cast_yto;
+		castled_xto = cast_xto;
 	}
 
 	public Rook getCastled() {
@@ -63,6 +70,6 @@ public class Castle extends Move {
 	
 	@Override
 	public Castle clone() {
-		return new Castle(piece.clone(), yto, xto, castled.clone());
+		return new Castle((King) piece.clone(), yto, xto, castled.clone(), castled_yto, castled_xto);
 	}
 }
