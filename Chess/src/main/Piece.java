@@ -8,6 +8,7 @@ public abstract class Piece {
 	// protected boolean isThreatened;
 	// 0 = white; 1 = tan
 	protected char color;
+	protected int timesMoved;
 	// counts (y,x) from top left corner
 	protected int x;
 	protected int y;
@@ -17,11 +18,33 @@ public abstract class Piece {
 	 * k - King, q - Queen, p - Pawn, r -Rook, b - Bishop, n - Knight
 	 */
 	protected char type;
+	
+	// timesMoved assumed to be 0
+	public Piece(char color, int y, int x) {
+		this.color = color;
+		this.y = y;
+		this.x = x;
+		timesMoved = 0;
+	}
+	
+	public Piece(char color, int y, int x, int timesMoved) {
+		this.color = color;
+		this.y = y;
+		this.x = x;
+		this.timesMoved = timesMoved;
+	}
 
 	public boolean isOpponent(Piece opp) {
 		if (opp.color == color)
 			return false;
 		return true;
+	}
+	
+	public boolean hasMoved() {
+		if(timesMoved == 0) {
+			return true;
+		}
+		return false;
 	}
 	
 	public char getType() {
@@ -55,11 +78,17 @@ public abstract class Piece {
 	// overridden for pieces where the firstMove boolean must be compared as well
 	// does not check the pieces current valid moves for equality
 	public boolean equals(Piece p) {
-		if(y != p.y || x != p.x || type != p.type || color != p.color) {
+		if(y != p.y || x != p.x || type != p.type || color != p.color || timesMoved != p.timesMoved) {
 			return false;
 		}
 		return true;
 	}
 	
-
+	// used for testing
+	public boolean equalsIgnoreTimesMoved(Piece p) {
+		if(y != p.y || x != p.x || type != p.type || color != p.color) {
+			return false;
+		}
+		return true;
+	}
 }

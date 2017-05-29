@@ -4,43 +4,16 @@ import java.util.ArrayList;
 
 public class Rook extends Piece {
 	
-	private boolean firstMove;
-	
-	// assume firstMove = true
 	public Rook(char color, int y, int x) {
-		this.color = color;
-		this.y = y;
-		this.x = x;
+		super(color, y, x);
 		value = 5;
 		type = 'r';
-		firstMove = true;
 	}
 	
-	public Rook(char color, int y, int x, boolean firstMove) {
-		this.color = color;
-		this.y = y;
-		this.x = x;
+	public Rook(char color, int y, int x, int timesMoved) {
+		super(color, y, x, timesMoved);
 		value = 5;
 		type = 'r';
-		this.firstMove = firstMove;
-	}
-
-	public Rook(char color, int y, int x, boolean firstMove, ArrayList<Move> validMoves) {
-		this.color = color;
-		this.y = y;
-		this.x = x;
-		value = 5;
-		type = 'r';
-		this.validMoves = validMoves;
-		this.firstMove = firstMove;
-	}
-	
-	public boolean firstMove() {
-		return firstMove;
-	}
-	
-	public void setAsMoved() {
-		firstMove = false;
 	}
 	
 	public String getName() {
@@ -49,22 +22,11 @@ public class Rook extends Piece {
 	
 	@Override
 	public Rook clone() {
-		return new Rook(color, y, x, firstMove);
+		return new Rook(color, y, x, timesMoved);
 	}
 
 	@Override
 	public String toString() {
-		return "Rook at (" + y + ", " + x + ") -- FirstMove = " + firstMove;
-	}
-	
-	@Override
-	public boolean equals(Piece p) {
-		if(y != p.y || x != p.x || type != p.type || color != p.color) {
-			return false;
-		}
-		if(firstMove != ((Rook) p).firstMove()) {
-			return false;
-		}
-		return true;
+		return "Rook at (" + y + ", " + x + ") -- Times Moved = " + timesMoved;
 	}
 }

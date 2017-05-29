@@ -1,39 +1,55 @@
 package main;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.text.SimpleDateFormat;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 import java.util.Stack;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-/**
- * TODO current: Considerations: - We only need to generate moves that differ
- * from the last turn - keep track of which pieces are move and removed each
- * turn - must work with undoing - add a piece component to move so they can be
- * searched through - remove moves associated with lost pieces and update moves
- * of moved pieces - in addition must add moves that can occupy the empty space
- * - and must remove moves that overlap with the moved piece - and must see if
- * the king is in check and remove any moves which put it in check TODO next: -
- * Set up a basic SBE
- * 
- * TODO long-term: - resize the toolbar buttons because of something with the
- * boarders - add relevant messages - message scroll bar to see old messages -
- * add more stats TODO bug fixes: - minmax always returning 0 for sbe
- * 
- * - Kings: Each Piece contains a boolean which stores whether or not the piece
- * is currently threat Whenever a piece moves
- * 
- * 
- * 
+/**TODO List:
+ * 1. Test upgrades on UI
+ * 2. Test everything more in depth
+ * 3. Loading games from files
+ * 4. Exporting games to files
+ * 5. Checkmates!
+ * 6. Update AI until functional (Test)
+ * 7. Optimize AI
+ * 8. Test AI
+ * 9. AI Book Moves
+ * 10. UI upgrade
+ * 11. AI vs AI
+ * 12. Optimize move generation
+ * 13. Test rigorously
+ * 14. Embed in a website
+ * 15. Undoing moves
+ * 16. Refactor unnecessary stuff
+ * 		-firstMove replaced by timesMove = 0
  * 
  * @author Jacob Siebert
  *
@@ -54,6 +70,12 @@ public class ChessBoard {
 	final static int TOOLBAR_BUTTON_HEIGHT = 40;
 	final static String WELCOME_MESSAGE = " Welcome! Press Start to begin a new game.";
 	final static int NUM_STATS = 5;// number of stats being displayed
+	
+	// game modes (who is playing who)
+	public final static int H_v_H = 0;// human vs human
+	public final static int H_v_AI = 1;// human vs AI
+	public final static int AI_v_AI = 2;// AI vs AI
+	
 	// panels
 	JPanel boardUI;
 	JPanel stats;
@@ -83,6 +105,7 @@ public class ChessBoard {
 	boolean firstPress = true;
 	int xPress;
 	int yPress;
+	Piece selected;// the piece clicked by the current player
 
 	public ChessBoard() {
 		initUI(false);
@@ -97,9 +120,13 @@ public class ChessBoard {
 		});
 
 	}
+	
+	protected Board getBoard() {
+		return board;
+	}
 
 	// sets up the user interface
-	private void initUI(boolean fullscreen) {
+	protected void initUI(boolean fullscreen) {
 		frame = new JFrame("Chess Game");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -248,85 +275,195 @@ public class ChessBoard {
 		
 		// add ability to move pieces
 		board_button.addActionListener(new ActionListener() {
-			// first button press chooses which piece to move
+			// first button press chooses which piece to move and second press 
+			// makes the move and executes it if valid
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// For debugging only
-				if (debug) {
-					PieceButton debug_b = (PieceButton) e.getSource();
-					if (debug_b.hasPiece()) {
-						debugPiece(board.getPiece(debug_b.getYPos(), debug_b.getXPos()));
-					}
-				} else {
-					// only works if a human player is up
-					if (currentPlayer.isHuman()) {
-						PieceButton b = (PieceButton) e.getSource();
-						// only allow player to select its own
-						// pieces
-						// the first click selects the piece to move
-						// and
-						// the next click where to move to
-
-						if (firstPress) {
-							if (b.hasPiece()) {
-								xPress = b.getXPos();
-								yPress = b.getYPos();
-
-								// player1 can only move tans
-								if (currentPlayer == player1) {
-									if (board.getPiece(yPress, xPress).color == Piece.TAN) {
-										displayMessage(player1.getName() + " moving " + ((char) (xPress + 65))
-												+ (8 - yPress) + " to...");
-										b.setBorder(BorderFactory.createLineBorder(Color.RED, 5));
-										changedBorders.add(b);
-										firstPress = !firstPress;
-										showPossibleMoves(yPress, xPress);// TODO
-																			// temporary
-									} else {
-										displayMessage("Cannot move opponent's pieces.");
-									}
-								}
-								// player2 may only move whites
-								else {
-									if (board.getPiece(yPress, xPress).color == Piece.WHITE) {
-										displayMessage(player2.getName() + " moving " + ((char) (xPress + 65))
-												+ (8 - yPress) + " to...");
-										b.setBorder(BorderFactory.createLineBorder(Color.RED));
-										changedBorders.add(b);
-										firstPress = !firstPress;
-										showPossibleMoves(yPress, xPress);// TODO
-																			// temporary
-									} else {
-										displayMessage("Cannot move opponent's pieces.");
-									}
-								}
-							}
-						}
-						// secondPress - create a move
-						else {
-//							Move m;
-//							// castle
-//							if (board.getPiece(yPress, xPress) instanceof King
-//									&& Math.abs(b.getXPos() - board.getPiece(yPress, xPress).x) > 1) {
-//								m = new Castle((King) board.getPiece(yPress, xPress), b.getYPos(), b.getXPos(),
-//										(Rook) board.getPiece(b.getYPos(), b.getXPos()));
-//							} else {
-//								m = new Move(board.getPiece(yPress, xPress), b.getYPos(), b.getXPos());
-//							}
-//							// validity check
-//							if (isValidMove(m)) {
-//								move(m);
-//								// reset for next player's turn
-//								firstPress = true;
-//							} else {
-//								displayMessage("Not a valid move.");
-//							}
-						}
-					}
+				// only allow button use if a human player is up
+				if (currentPlayer.isHuman()) {
+					pressedPieceButton((PieceButton) e.getSource());
 				}
 			}
 		});
 		return board_button;
+	}
+	
+	/**Called when a PieceButton is selected by a current human's turn
+	 * @param pb - The selected PieceButton
+	 */
+	private void pressedPieceButton(PieceButton pb) {
+		if (firstPress) {
+			selectPiece(pb);
+		} 
+		// secondPress
+		else {
+			Move chosenMove = formulateMove(pb);
+			// validity check
+			if (isValidMove(chosenMove)) {
+				// execute the move
+				move(chosenMove);
+			} else {
+				displayMessage("Not a valid move.");
+				clearBorders();
+			}
+			// TODO if invalid - should firstpress be reset?
+			// reset for next player's turn or new move
+			firstPress = true;
+		}
+	}
+	
+	/**Called when a user clicks a PieceButton and firstPress=true.
+	 * Stores the Piece (if it exists and is valid) in the selected Piece
+	 * for use by formulateMove() which deals with the second press.
+	 * A valid piece must exist and is the current player's color.
+	 * Also sets the value of firstPress - if not a valid selected Piece
+	 * firstPress remains true, if valid selection -> fristPress=false.
+	 * 
+	 * @param selected - the PieceButton clicked by the player
+	 */
+	private void selectPiece(PieceButton selected_button) {
+		// check if a piece even exists on this button - if not ignore it
+		if (selected_button.hasPiece()) {
+			xPress = selected_button.getXPos();
+			yPress = selected_button.getYPos();
+			selected = board.getPiece(yPress, xPress);
+			// player1 can only move tans
+			if (currentPlayer == player1) {
+				if (selected.color == Piece.TAN) {
+					displayMessage(player1.getName() + " moving " + ((char) (xPress + 65))
+							+ (8 - yPress) + " to...");
+					selected_button.setBorder(BorderFactory.createLineBorder(Color.RED, 5));
+					changedBorders.add(selected_button);
+					firstPress = false;
+					showPossibleMoves(yPress, xPress);// TODO temporary
+					return;
+				}
+			}
+			// player2 may only move whites
+			else {
+				if (board.getPiece(yPress, xPress).color == Piece.WHITE) {
+					displayMessage(player2.getName() + " moving " + ((char) (xPress + 65))
+							+ (8 - yPress) + " to...");
+					selected_button.setBorder(BorderFactory.createLineBorder(Color.RED));
+					changedBorders.add(selected_button);
+					firstPress = false;
+					showPossibleMoves(yPress, xPress);// TODO temporary
+					return;
+				}
+			}
+			// player had selected the wrong color
+			displayMessage("Cannot move opponent's pieces.");
+			selected = null;
+		}
+	}
+
+	/**Called when a player has pressed a second PieceButton after selecting a valid Piece to move.
+	 * Generates the intended move from the selected Piece, and second PieceButton pressed.
+	 * This Move can also be a Pawn Upgrade, EnPassant, or Castle.
+	 * The Move could be valid or invalid - must check it once returned.
+	 * 
+	 * @param second_selected_button - The PieceButton pressed second by the current player
+	 * @return The Move formulated from the player's button presses
+	 */
+	private Move formulateMove(PieceButton second_selected_button) {
+		// ensure that a selected piece exists
+		if(selected == null) {
+			throw new NoSuchPieceException("Selected Piece did not exist but formulateMove() was called.");
+		}
+		// secondPress - create a move
+		int secondXPress = second_selected_button.getXPos();
+		int secondYPress = second_selected_button.getYPos();
+		Piece secondPress = board.getPiece(secondYPress, secondXPress);// can be null
+	
+		/* Castle Move
+		 * 1. Selected Piece is a king
+		 * 2. The king is attempting to move more than 1 squares away 
+		 * 
+		 * These conditions do not necessarily mean the castle is valid but the only
+		 * time a king can move 2 squares away is a castle.
+		 */
+		if (selected instanceof King && Math.abs(xPress - secondXPress) > 1) {
+			// check king's side or queen's side castle
+			if(xPress > secondXPress) {
+				// Queen's side
+				if(board.getPiece(secondYPress, 0) != null) {
+					return new Castle((King) selected, yPress, xPress - 2,
+							(Rook) board.getPiece(secondYPress, 0), secondYPress, 3);
+				}
+			} else {
+				// king's side
+				if(board.getPiece(secondYPress, 7) != null) {
+					return new Castle((King) selected, selected.y, selected.x + 2,
+							(Rook) board.getPiece(secondYPress, 7), secondYPress, 5);
+				}
+			}
+		}
+		/* EnPassant Move
+		 * 1. Selected Piece is a Pawn in the proper row (depending on color)
+		 * 2. An enemy Pawn exists below for tans (or above for whites) the second pressed button
+		 * 3. The Pawn from (2) has made a double pawn forward move the previous turn
+		 */
+		Pawn lastDoublePawn = board.getLastDoublePawn();
+		if(lastDoublePawn != null && selected instanceof Pawn && secondPress == null) {
+			Piece captured;
+			if(selected.color == Piece.TAN) {
+				captured = board.getPiece(second_selected_button.getYPos() + 1, second_selected_button.getXPos());
+			} else {
+				captured = board.getPiece(second_selected_button.getYPos() - 1, second_selected_button.getXPos());
+			}
+			if(captured != null && captured.equals(lastDoublePawn)) {
+				return new EnPassant((Pawn) selected, secondYPress, secondXPress, (Pawn) captured);
+			}
+
+		}
+		/* Upgrade Pawn Move
+		 * 1. Must be a pawn advancing into the last row opposite its side
+		 * 
+		 * Open a menu to allow the player to choose which piece to upgrade to.
+		 * Only open this menu if the move is actually valid - must be able to 
+		 * move into the last row through a forward move or capture.
+		 */
+		if(selected instanceof Pawn) {
+			if(selected.color == Piece.TAN) {
+				// only open the upgrade menu if it is truly valid
+				if(yPress == 1 && secondYPress == 0) {
+					int xdif = xPress - secondXPress;
+					/* Valid if: 
+					 * 1. The forward move is not blocked
+					 * 2. The Pawn can capture
+					 */
+					if( (xdif == 0 && board.getPiece(0, selected.x) == null)
+							|| (board.getPiece(0, xPress - xdif) != null 
+								&& board.getPiece(0, xPress - xdif).isOpponent(selected))) {
+						char type = upgradeMenu();
+						return new Upgrade((Pawn) selected, secondYPress, secondXPress, 
+								type, selected.color, board.getPiece(secondYPress, secondXPress));
+					}
+				}
+			} 
+			// white
+			else {
+				if (yPress == 6 && secondYPress == 7) {
+					// only open the upgrade menu if it is truly valid
+					int xdif = xPress - secondXPress;
+					/*
+					 * Valid if: 
+					 * 1. The forward move is not blocked 
+					 * 2. The Pawn can capture
+					 */
+					if ((xdif == 0 && board.getPiece(7, xPress) == null)
+							|| (board.getPiece(7, xPress - xdif) != null
+									&& board.getPiece(7, xPress - xdif).isOpponent(selected))) {
+						char type = upgradeMenu();
+						return new Upgrade((Pawn) selected, secondYPress,
+								secondXPress, type, selected.color,
+								board.getPiece(secondYPress, secondXPress));
+					}
+				}
+			}
+		}
+		// all other moves
+		return new Move(selected, secondYPress, secondXPress, board.getPiece(secondYPress, secondXPress));
 	}
 
 	private JButton getDebugButton() {
@@ -526,7 +663,8 @@ public class ChessBoard {
 	}
 
 	/*
-	 * Starts the game in the desired mode, gets user info, and allocates memory
+	 * Starts the game in the desired mode, gets user info, and allocates memory.
+	 * Called once a user begins a game by pressing "start"
 	 * 
 	 * @param gameMode - 0: Human vs Human, 1: Human vs AI, 2: AI vs AI
 	 */
@@ -554,13 +692,36 @@ public class ChessBoard {
 		}
 		// TODO: load game
 		else if (gameType == Board.LOAD_GAME) {
-
+//			loadGameFromFile();
+			
+		}
+		// generally just used in testing
+		else if(gameType == Board.EMPTY) {
+			currentPlayer = player1;
+			getPlayerInfo();
 		}
 		// return UI and game to initial setup
 		else {
 			clearPieces();
 		}
 		initStats();
+	}
+	
+	// TODO handle errors
+	private void loadGameFromFile() {
+//		// prompt user for filename
+//		String filename = JOptionPane.showInputDialog(frame, "Enter a filename:", "Load Game");
+//		try {
+//			File game = new File(filename);
+//			Scanner sc_game = new Scanner(game);
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		while(sc_game.hasNext()) {
+//			
+//		}
+		
 	}
 
 	/*
@@ -572,7 +733,7 @@ public class ChessBoard {
 		ArrayList<Move> validMoves = board.generateValidMoves(m.getSelectedPiece());
 
 		for (Move vm : validMoves) {
-			if (m.equals(vm))
+			if (vm.equals(m))
 				return true;
 		}
 		return false;
@@ -616,25 +777,27 @@ public class ChessBoard {
 	 */
 	public void move(Move m) {
 
-		// apply the move on the game board
+		// apply the move on the game board - game logic
 		board.applyMove(m);
 		
-		// Graphics
+		// Graphics - UI
 		make_move_UI(m);
 
-		numMoves++;
 		if (currentPlayer == player1)
 			displayMessage(player1.getName() + " " + m.toString());
 		else
 			displayMessage(player2.getName() + " " + m.toString());
 
 		// next player's turn
-		if (currentPlayer == player1)
+		numMoves++;
+		if (currentPlayer == player1) {
 			currentPlayer = player2;
-		else
+		}
+		else {
 			currentPlayer = player1;
+		}
 
-		// AI makes its move here unless next player is human
+		// AI makes its move here unless next player
 		if (!currentPlayer.isHuman()) {
 			turnTime = makeAIMove();
 		}
@@ -644,9 +807,9 @@ public class ChessBoard {
 		updateStats();
 
 		// DELETE THIS
-		// System.out.println("--------------------------------");
-		//board.displayBoard();
-		// System.out.println("--------------------------------");
+		System.out.println("--------------------------------");
+		board.displayBoard();
+		System.out.println("--------------------------------");
 	}
 	
 	private long makeAIMove() {
@@ -669,8 +832,11 @@ public class ChessBoard {
 		return end.getTime() - start.getTime();
 	}
 
-	// makes the move on the UI but not on the game board
-	// always make the move on the board prior to the UI
+	/**Executes the given move on the user interface only.
+	 * Does not affect any underlying game logic.
+	 * Make the move on the Board prior to calling this method.
+	 * @param m - The move to make on the UI
+	 */
 	private void make_move_UI(Move m) {
 		if(m instanceof Castle) {
 			Castle c = (Castle) m;
@@ -683,6 +849,7 @@ public class ChessBoard {
 		} else if(m instanceof Upgrade) {
 			Upgrade u = (Upgrade) m;
 			buttonBoard[u.yfrom][u.xfrom].removePiece();
+			// will overwrite a the capture piece if it exists
 			buttonBoard[u.yto][u.xto].setPiece(u.getUpgraded().type, u.getUpgraded().color);
 		} else if(m instanceof EnPassant) {
 			EnPassant ep = (EnPassant) m;
@@ -692,6 +859,7 @@ public class ChessBoard {
 			buttonBoard[ep.getRemovedPiece().y][ep.getRemovedPiece().x].removePiece();
 		} else {
 			buttonBoard[m.yfrom][m.xfrom].removePiece();
+			// will overwrite a the capture piece if it exists
 			buttonBoard[m.yto][m.xto].setPiece(m.getSelectedPiece().type, m.getSelectedPiece().color);
 		}
 	}
@@ -730,11 +898,32 @@ public class ChessBoard {
 			changedBorders.push(buttonBoard[m.yto][m.xto]);
 		}
 	}
+	
+	/**TODO
+	 * Opens a menu for upgrading Pawns -- player chooses from queen, bishop, rook, or knight
+	 * @return the type of the user's upgraded choice
+	 */
+	private char upgradeMenu() {
+//		// 0=queen, 1=rook, 2=knight, 3=bishop
+//		int choice = JOptionPane.showOptionDialog(frame, "Select an upgraded piece:", "Upgrade",
+//				JOptionPane., JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
+//		switch(choice) {
+//		case 0:
+//			return 'q';
+//		case 1:
+//			return 'r';
+//		case 2: 
+//			return 'n';
+//		case 3:
+//			return 'b';
+//		}
+		return 'q';
+	}
 
 	/*
 	 * Clears all non-black borders
 	 */
-	public void clearBorders() {
+	private void clearBorders() {
 		while (!changedBorders.isEmpty()) {
 			changedBorders.pop().setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 		}
@@ -812,5 +1001,13 @@ public class ChessBoard {
 	public void displayMessage(String s) {
 		message.setText(s);
 		messages.add(message);
+	}
+	
+	public Player getPlayer1() {
+		return player1;
+	}
+	
+	public Player getPlayer2() {
+		return player2;
 	}
 }

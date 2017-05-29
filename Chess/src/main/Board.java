@@ -51,11 +51,7 @@ public class Board {
 		moves = new Stack<Move>();
 		whiteLocations = new ArrayList<Piece>();
 		tanLocations = new ArrayList<Piece>();
-		// List order:
-		// King
-		// Pawns
-		// Else
-		// set up pieces
+		
 		if (NEW_GAME == boardType) {
 			board[0][4] = new King(Piece.WHITE, 0, 4);
 			whiteLocations.add(board[0][4]);
@@ -202,6 +198,10 @@ public class Board {
 	public King getTanKing() {
 		return tanKing;
 	}
+	
+	public Pawn getLastDoublePawn() {
+		return lastDoublePawn;
+	}
 
 	public int[][] getTanLocations() {
 		int[][] coords = new int[tanLocations.size()][2];
@@ -273,6 +273,7 @@ public class Board {
 			board[removed.y][removed.x] = null;
 			// move capturing pawn
 			moved.setYX(m.yto, m.xto);
+			moved.timesMoved++;
 			board[m.yfrom][m.xfrom] = null;
 			board[m.yto][m.xto] = moved;
 		}
@@ -282,15 +283,15 @@ public class Board {
 			// also set both these pieces as having been moved
 			Rook castled = castledMove.getCastled();
 			castled.setYX(castledMove.castled_yto, castledMove.castled_xto);
-			castled.setAsMoved();
+			castled.timesMoved++;
 			board[castledMove.castled_yto][castledMove.castled_xto] = castled;
 			board[castledMove.castled_yFrom][castledMove.castled_xFrom] = null;
 			
 			King k = (King) moved;
+			moved.timesMoved++;
 			k.setYX(m.yto, m.xto);
-			k.setAsMoved();
+			board[m.yto][m.xto] = k;	
 			board[m.yfrom][m.xfrom] = null;
-			board[m.yto][m.xto] = k;		
 		}
 		else if(m instanceof Upgrade) {
 			Upgrade upMove = (Upgrade) m;
@@ -298,6 +299,7 @@ public class Board {
 			removed = m.getRemovedPiece();
 			// upgraded piece already has y,x set - The Pawn does not need to be updated
 			Piece upgraded = upMove.getUpgraded();
+			upgraded.timesMoved = moved.timesMoved + 1;
 			board[m.yto][m.xto] = upgraded;
 			// remove the Pawn from the locations list and add the new upgraded piece
 			removePieceFromLocationsList(moved);
@@ -314,20 +316,14 @@ public class Board {
 			// Move piece and update its x and y
 			board[m.getPieceY()][m.getPieceX()] = null;
 			moved.setYX(m.yto, m.xto);
+			moved.timesMoved++;
 			board[m.yto][m.xto] = moved;
 			// If a Rook, King, or Pawn has moved, record this
 			if(moved instanceof Pawn) {
-				((Pawn) moved).setAsMoved();
 				// If this was a double forward pawn move, record it for potential en-passant moves
 				if (Math.abs(m.yto - m.yfrom) > 1) {
 					lastDoublePawn = (Pawn) moved;
 				}
-			}
-			if(moved instanceof Rook) {
-				((Rook) moved).setAsMoved();
-			}
-			if(moved instanceof King) {
-				((King) moved).setAsMoved();
 			}
 		}
 
@@ -367,7 +363,7 @@ public class Board {
 	}
 
 	// get all pieces which are close by or pressure this square
-	// Efficiency upgrade - change this algo to only include relevant pieces
+	// Efficiency upgrade - change this algorithm to only include relevant pieces
 	// (not all ones nearby)
 	private ArrayList<Piece> getRelatedPieces(int y, int x) {
 		ArrayList<Piece> relatedPieces = new ArrayList<Piece>();
@@ -528,26 +524,47 @@ public class Board {
 	 */
 	public Move undoLastMove() {
 		Move undo = moves.pop();
-		// remove the moved piece and replace it with the old piece if it
-		// existed
-		try {
-			board[undo.yto][undo.xto] = undo.getRemovedPiece();
-		} catch (NoSuchPieceException e) {
-			board[undo.yto][undo.xto] = null;
+		Piece moved = undo.getSelectedPiece();
+		moved.timesMoved--;
+		// check for a Move subclass
+		if(undo instanceof Castle) {
+			Castle undo_castle = (Castle) undo;
+			Rook castled = undo_castle.getCastled();
+			// move rook back
+			board[undo_castle.castled_yto][undo_castle.castled_xto] = null;
+			board[undo_castle.castled_yFrom][undo_castle.castled_xFrom] = castled;
+			castled.timesMoved--;
+			// move king back
+			board[undo_castle.yto][undo_castle.xto] = null;
+			board[undo_castle.yfrom][undo_castle.xfrom] = null;
+		} else if(undo instanceof Upgrade) {
+			board[undo.yto][undo.xto] = null;// remove upgraded piece
+			board[undo.yfrom][undo.xfrom] = moved;// this is the original pawn
+		} else if(undo instanceof EnPassant) {
+			
+		} 
+		// all normal moves
+		else {
+			// remove the moved piece and replace it with the old piece if it existed
+			Piece removed = undo.getRemovedPiece();
+			// the destination square gets the removed piece or is cleared if it is null
+			board[undo.yto][undo.xto] = removed;
+			// replaced the moved piece
+			board[undo.yfrom][undo.xfrom] = moved;
 		}
-		// replaced the moved piece
-		board[undo.getPieceY()][undo.getPieceX()] = undo.getSelectedPiece();
-
-		// update valid moves
-		ArrayList<Piece> affected = getRelatedPieces(undo.yto, undo.xto);
-		for (Piece regenMoves : affected) {
-			regenMoves.setValidMoves(generateValidMoves(regenMoves));
-		}
-		// search and update pieces affected by the opening at the old position
-		affected = getRelatedPieces(undo.getPieceY(), undo.getPieceX());
-		for (Piece regenMoves : affected) {
-			regenMoves.setValidMoves(generateValidMoves(regenMoves));
-		}
+		
+		// TODO more efficient 
+//		// update valid moves
+//		ArrayList<Piece> affected = getRelatedPieces(undo.yto, undo.xto);
+//		for (Piece regenMoves : affected) {
+//			regenMoves.setValidMoves(generateValidMoves(regenMoves));
+//		}
+//		// search and update pieces affected by the opening at the old position
+//		affected = getRelatedPieces(undo.getPieceY(), undo.getPieceX());
+//		for (Piece regenMoves : affected) {
+//			regenMoves.setValidMoves(generateValidMoves(regenMoves));
+//		}
+		generateAllMoves();
 		return undo;
 	}
 
@@ -1432,7 +1449,7 @@ public class Board {
 				if (pawn.y - 1 > 1) {
 					if (board[pawn.y - 1][pawn.x] == null) {
 						validMoves.add(new Move(p, pawn.y - 1, pawn.x));
-						if (pawn.firstMove()) {
+						if (pawn.hasMoved()) {
 							if (pawn.y - 2 >= 0) {
 								if (board[p.y - 2][p.x] == null) {
 									validMoves.add(new Move(p, pawn.y - 2, pawn.x));
@@ -1443,13 +1460,13 @@ public class Board {
 					if (pawn.x + 1 < 8) {
 						if (board[pawn.y - 1][pawn.x + 1] != null) {
 							if (pawn.isOpponent(board[pawn.y - 1][pawn.x + 1]))
-								validMoves.add(new Move(p, pawn.y - 1, pawn.x + 1));
+								validMoves.add(new Move(p, pawn.y - 1, pawn.x + 1, board[pawn.y - 1][pawn.x + 1]));
 						}
 					}
 					if (pawn.x - 1 >= 0) {
 						if (board[pawn.y - 1][pawn.x - 1] != null) {
 							if (pawn.isOpponent(board[pawn.y - 1][pawn.x - 1]))
-								validMoves.add(new Move(p, pawn.y - 1, pawn.x - 1));
+								validMoves.add(new Move(p, pawn.y - 1, pawn.x - 1, board[pawn.y - 1][pawn.x - 1]));
 						}
 					}
 				}
@@ -1471,7 +1488,7 @@ public class Board {
 						validMoves.add(new Upgrade(pawn, 0, pawn.x, new Queen(pawn.color, 0, pawn.x)));
 						validMoves.add(new Upgrade(pawn, 0, pawn.x, new Bishop(pawn.color, 0, pawn.x)));
 						validMoves.add(new Upgrade(pawn, 0, pawn.x, new Knight(pawn.color, 0, pawn.x)));
-						validMoves.add(new Upgrade(pawn, 0, pawn.x, new Rook(pawn.color, 0, pawn.x, false)));
+						validMoves.add(new Upgrade(pawn, 0, pawn.x, new Rook(pawn.color, 0, pawn.x)));
 					}
 					// Capture and Upgrade - store removed piece in the move here
 					if (pawn.x > 0 && board[0][pawn.x - 1] != null && board[0][pawn.x - 1].isOpponent(pawn)) {
@@ -1481,7 +1498,7 @@ public class Board {
 								board[0][pawn.x - 1]));
 						validMoves.add(new Upgrade(pawn, 0, pawn.x - 1, new Knight(pawn.color, 0, pawn.x - 1),
 								board[0][pawn.x - 1]));
-						validMoves.add(new Upgrade(pawn, 0, pawn.x - 1, new Rook(pawn.color, 0, pawn.x - 1, false),
+						validMoves.add(new Upgrade(pawn, 0, pawn.x - 1, new Rook(pawn.color, 0, pawn.x - 1),
 								board[0][pawn.x - 1]));
 					}
 					if (pawn.x < 7 && board[0][pawn.x + 1] != null && board[0][pawn.x + 1].isOpponent(pawn)) {
@@ -1491,19 +1508,19 @@ public class Board {
 								board[0][pawn.x + 1]));
 						validMoves.add(new Upgrade(pawn, 0, pawn.x + 1, new Knight(pawn.color, 0, pawn.x + 1),
 								board[0][pawn.x + 1]));
-						validMoves.add(new Upgrade(pawn, 0, pawn.x + 1, new Rook(pawn.color, 0, pawn.x + 1, false),
+						validMoves.add(new Upgrade(pawn, 0, pawn.x + 1, new Rook(pawn.color, 0, pawn.x + 1),
 								board[0][pawn.x + 1]));
 					}
 				}
 			}
 
-			// white
+			// white pawns
 			// player2's pawns must move down
 			else {
 				if (pawn.y + 1 < 6) {
 					if (board[pawn.y + 1][pawn.x] == null) {
 						validMoves.add(new Move(p, pawn.y + 1, pawn.x));
-						if (pawn.firstMove()) {
+						if (pawn.hasMoved()) {
 							if (pawn.y + 2 < 8) {
 								if (board[pawn.y + 2][pawn.x] == null) {
 									validMoves.add(new Move(p, pawn.y + 2, pawn.x));
@@ -1514,13 +1531,13 @@ public class Board {
 					if (pawn.x + 1 < 8) {
 						if (board[pawn.y + 1][pawn.x + 1] != null) {
 							if (pawn.isOpponent(board[pawn.y + 1][pawn.x + 1]))
-								validMoves.add(new Move(p, pawn.y + 1, pawn.x + 1));
+								validMoves.add(new Move(p, pawn.y + 1, pawn.x + 1, board[pawn.y + 1][pawn.x + 1]));
 						}
 					}
 					if (pawn.x - 1 >= 0) {
 						if (board[pawn.y + 1][pawn.x - 1] != null) {
 							if (pawn.isOpponent(board[pawn.y + 1][pawn.x - 1]))
-								validMoves.add(new Move(p, pawn.y + 1, pawn.x - 1));
+								validMoves.add(new Move(p, pawn.y + 1, pawn.x - 1, board[pawn.y + 1][pawn.x - 1]));
 						}
 					}
 				}
@@ -1539,7 +1556,7 @@ public class Board {
 						validMoves.add(new Upgrade(pawn, 7, pawn.x, new Queen(pawn.color, 7, pawn.x)));
 						validMoves.add(new Upgrade(pawn, 7, pawn.x, new Bishop(pawn.color, 7, pawn.x)));
 						validMoves.add(new Upgrade(pawn, 7, pawn.x, new Knight(pawn.color, 7, pawn.x)));
-						validMoves.add(new Upgrade(pawn, 7, pawn.x, new Rook(pawn.color, 7, pawn.x, false)));
+						validMoves.add(new Upgrade(pawn, 7, pawn.x, new Rook(pawn.color, 7, pawn.x)));
 					}
 					if (pawn.x > 0 && board[7][pawn.x - 1] != null && board[7][pawn.x - 1].isOpponent(pawn)) {
 						validMoves.add(new Upgrade(pawn, 7, pawn.x - 1, new Queen(pawn.color, 7, pawn.x - 1),
@@ -1548,7 +1565,7 @@ public class Board {
 								board[7][pawn.x - 1]));
 						validMoves.add(new Upgrade(pawn, 7, pawn.x - 1, new Knight(pawn.color, 7, pawn.x - 1),
 								board[7][pawn.x - 1]));
-						validMoves.add(new Upgrade(pawn, 7, pawn.x - 1, new Rook(pawn.color, 7, pawn.x - 1, false),
+						validMoves.add(new Upgrade(pawn, 7, pawn.x - 1, new Rook(pawn.color, 7, pawn.x - 1),
 								board[7][pawn.x - 1]));
 					}
 					if (pawn.x < 7 && board[7][pawn.x + 1] != null && board[7][pawn.x + 1].isOpponent(pawn)) {
@@ -1558,7 +1575,7 @@ public class Board {
 								board[7][pawn.x + 1]));
 						validMoves.add(new Upgrade(pawn, 7, pawn.x + 1, new Knight(pawn.color, 7, pawn.x + 1),
 								board[7][pawn.x + 1]));
-						validMoves.add(new Upgrade(pawn, 7, pawn.x + 1, new Rook(pawn.color, 7, pawn.x + 1, false),
+						validMoves.add(new Upgrade(pawn, 7, pawn.x + 1, new Rook(pawn.color, 7, pawn.x + 1),
 								board[7][pawn.x + 1]));
 					}
 				}
@@ -1571,7 +1588,7 @@ public class Board {
 					if (board[p.y + j][p.x + i] == null) {
 						validMoves.add(new Move(p, p.y + j, p.x + i));
 					} else if (p.isOpponent(board[p.y + j][p.x + i])) {
-						validMoves.add(new Move(p, p.y + j, p.x + i));
+						validMoves.add(new Move(p, p.y + j, p.x + i, board[p.y + j][p.x + i]));
 					}
 				}
 				switch (k) {
@@ -1618,7 +1635,7 @@ public class Board {
 			 3. Rook unmoved
 			 4. Clear path between king and rook
 			 5. No square that the king must cross is threatened.*/
-			if (kTemp.firstMove() && !check) {
+			if (kTemp.hasMoved() && !check) {
 				int i = kTemp.x - 1;
 				// check if the Queen's side castle is open
 				while (i >= 0 && board[kTemp.y][i] == null) {
@@ -1633,7 +1650,7 @@ public class Board {
 				if (board[kTemp.y][i] != null) {
 					if (board[kTemp.y][i] instanceof Rook) {
 						Rook rook = ((Rook) board[kTemp.y][i]);
-						if(rook.firstMove()) {
+						if(rook.hasMoved()) {
 							validMoves.add(new Castle(kTemp, kTemp.y, kTemp.x - 2, rook, rook.y, rook.x + 3));
 						}
 					}
@@ -1641,7 +1658,6 @@ public class Board {
 				
 				// check if the King's Side castle is open
 				i = kTemp.x + 1;
-				// check if the left castle is open
 				while (i < 8 && board[kTemp.y][i] == null) {
 					// only check for threats on squares where the king crosses or ends up
 					if(i < 7) {
@@ -1655,7 +1671,7 @@ public class Board {
 					// if the rook is in the original square
 					if (board[kTemp.y][i] instanceof Rook) {
 						Rook rook = ((Rook) board[kTemp.y][i]);
-						if (rook.firstMove()) {
+						if (rook.hasMoved()) {
 							validMoves.add(new Castle(kTemp, kTemp.y, kTemp.x + 2, rook, rook.y, rook.x - 2));
 						}
 					}
@@ -1668,7 +1684,7 @@ public class Board {
 					if (board[p.y + 1][p.x] == null) {
 						validMoves.add(new Move(p, p.y + 1, p.x));
 					} else if (p.isOpponent(board[p.y + 1][p.x])) {
-						validMoves.add(new Move(p, p.y + 1, p.x));
+						validMoves.add(new Move(p, p.y + 1, p.x, board[p.y + 1][p.x]));
 					}
 				}
 				if (p.x + 1 < 8) {
@@ -1676,7 +1692,7 @@ public class Board {
 						if (board[p.y + 1][p.x + 1] == null) {
 							validMoves.add(new Move(p, p.y + 1, p.x + 1));
 						} else if (p.isOpponent(board[p.y + 1][p.x + 1])) {
-							validMoves.add(new Move(p, p.y + 1, p.x + 1));
+							validMoves.add(new Move(p, p.y + 1, p.x + 1, board[p.y + 1][p.x + 1]));
 						}
 					}
 				}
@@ -1685,7 +1701,7 @@ public class Board {
 						if (board[p.y + 1][p.x - 1] == null) {
 							validMoves.add(new Move(p, p.y + 1, p.x - 1));
 						} else if (p.isOpponent(board[p.y + 1][p.x - 1])) {
-							validMoves.add(new Move(p, p.y + 1, p.x - 1));
+							validMoves.add(new Move(p, p.y + 1, p.x - 1, board[p.y + 1][p.x - 1]));
 						}
 					}
 				}
@@ -1695,7 +1711,7 @@ public class Board {
 					if (board[p.y - 1][p.x] == null) {
 						validMoves.add(new Move(p, p.y - 1, p.x));
 					} else if (p.isOpponent(board[p.y - 1][p.x])) {
-						validMoves.add(new Move(p, p.y - 1, p.x));
+						validMoves.add(new Move(p, p.y - 1, p.x, board[p.y - 1][p.x]));
 					}
 				}
 				if (p.x + 1 < 8) {
@@ -1703,7 +1719,7 @@ public class Board {
 						if (board[p.y - 1][p.x + 1] == null) {
 							validMoves.add(new Move(p, p.y - 1, p.x + 1));
 						} else if (p.isOpponent(board[p.y - 1][p.x + 1])) {
-							validMoves.add(new Move(p, p.y - 1, p.x + 1));
+							validMoves.add(new Move(p, p.y - 1, p.x + 1, board[p.y - 1][p.x + 1]));
 						}
 					}
 				}
@@ -1712,7 +1728,7 @@ public class Board {
 						if (board[p.y - 1][p.x - 1] == null) {
 							validMoves.add(new Move(p, p.y - 1, p.x - 1));
 						} else if (p.isOpponent(board[p.y - 1][p.x - 1])) {
-							validMoves.add(new Move(p, p.y - 1, p.x - 1));
+							validMoves.add(new Move(p, p.y - 1, p.x - 1, board[p.y - 1][p.x - 1]));
 						}
 					}
 				}
@@ -1722,7 +1738,7 @@ public class Board {
 					if (board[p.y][p.x - 1] == null) {
 						validMoves.add(new Move(p, p.y, p.x - 1));
 					} else if (p.isOpponent(board[p.y][p.x - 1])) {
-						validMoves.add(new Move(p, p.y, p.x - 1));
+						validMoves.add(new Move(p, p.y, p.x - 1, board[p.y][p.x - 1]));
 					}
 				}
 			}
@@ -1731,7 +1747,7 @@ public class Board {
 					if (board[p.y][p.x + 1] == null) {
 						validMoves.add(new Move(p, p.y, p.x + 1));
 					} else if (p.isOpponent(board[p.y][p.x + 1])) {
-						validMoves.add(new Move(p, p.y, p.x + 1));
+						validMoves.add(new Move(p, p.y, p.x + 1, board[p.y][p.x + 1]));
 					}
 				}
 			}
@@ -1824,7 +1840,7 @@ public class Board {
 		}
 		if (j < 8 && i < 8) {
 			if (p.isOpponent(board[j][i])) {
-				diaMoves.add(new Move(p, j, i));
+				diaMoves.add(new Move(p, j, i, board[j][i]));
 			}
 		}
 		// search down-left
@@ -1837,7 +1853,7 @@ public class Board {
 		}
 		if (j < 8 && i >= 0) {
 			if (p.isOpponent(board[j][i])) {
-				diaMoves.add(new Move(p, j, i));
+				diaMoves.add(new Move(p, j, i, board[j][i]));
 			}
 		}
 		// search up-left
@@ -1850,7 +1866,7 @@ public class Board {
 		}
 		if (j >= 0 && i >= 0) {
 			if (p.isOpponent(board[j][i])) {
-				diaMoves.add(new Move(p, j, i));
+				diaMoves.add(new Move(p, j, i, board[j][i]));
 			}
 		}
 		// search up-right
@@ -1863,7 +1879,7 @@ public class Board {
 		}
 		if (j >= 0 && i < 8) {
 			if (p.isOpponent(board[j][i])) {
-				diaMoves.add(new Move(p, j, i));
+				diaMoves.add(new Move(p, j, i, board[j][i]));
 			}
 		}
 		return diaMoves;
@@ -1882,7 +1898,7 @@ public class Board {
 		}
 		if (j < 8) {
 			if (p.isOpponent(board[j][i])) {
-				strMoves.add(new Move(p, j, i));
+				strMoves.add(new Move(p, j, i, board[j][i]));
 			}
 		}
 		// search left
@@ -1894,7 +1910,7 @@ public class Board {
 		}
 		if (i >= 0) {
 			if (p.isOpponent(board[j][i])) {
-				strMoves.add(new Move(p, j, i));
+				strMoves.add(new Move(p, j, i, board[j][i]));
 			}
 		}
 		// search up
@@ -1906,7 +1922,7 @@ public class Board {
 		}
 		if (j >= 0) {
 			if (p.isOpponent(board[j][i])) {
-				strMoves.add(new Move(p, j, i));
+				strMoves.add(new Move(p, j, i, board[j][i]));
 			}
 		}
 		// search right
@@ -1918,12 +1934,13 @@ public class Board {
 		}
 		if (i < 8) {
 			if (p.isOpponent(board[j][i])) {
-				strMoves.add(new Move(p, j, i));
+				strMoves.add(new Move(p, j, i, board[j][i]));
 			}
 		}
 		return strMoves;
 	}
 
+	// TODO remove all these methods and replace all instances with placePiece()
 	// returns true on success (no other piece at that location already)
 	public boolean setPiece(Bishop p) {
 		if (board[p.y][p.x] == null) {

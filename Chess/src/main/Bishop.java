@@ -1,24 +1,17 @@
 package main;
 
-import java.util.ArrayList;
-
 public class Bishop extends Piece {
 	
 	public Bishop(char color, int y, int x) {
-		this.color = color;
-		this.y = y;
-		this.x = x;
+		super(color, y, x);
 		value = 3;
 		type = 'b';
 	}
 
-	public Bishop(char color, int y, int x, ArrayList<Move> validMoves) {
-		this.color = color;
-		this.y = y;
-		this.x = x;
+	public Bishop(char color, int y, int x, int timesMoved) {
+		super(color, y, x, timesMoved);
 		value = 3;
 		type = 'b';
-		this.validMoves = validMoves;
 	}
 	
 	public String getName() {
@@ -27,7 +20,7 @@ public class Bishop extends Piece {
 	
 	@Override
 	public Bishop clone() {
-		return new Bishop(color, y, x);
+		return new Bishop(color, y, x, timesMoved);
 	}
 
 	@Override

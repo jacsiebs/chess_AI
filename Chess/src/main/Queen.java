@@ -5,25 +5,20 @@ import java.util.ArrayList;
 public class Queen extends Piece {
 	
 	public Queen(char color, int y, int x) {
-		this.color = color;
-		this.y = y;
-		this.x = x;
+		super(color, y, x);
 		value = 9;
 		type = 'q';
 	}
 
-	public Queen(char color, int y, int x, ArrayList<Move> validMoves) {
-		this.color = color;
-		this.y = y;
-		this.x = x;
+	public Queen(char color, int y, int x, int timesMoved) {
+		super(color, y, x, timesMoved);
 		value = 9;
 		type = 'q';
-		this.validMoves = validMoves;
 	}
 	
 	@Override
 	public Queen clone() {
-		return new Queen(color, y, x);
+		return new Queen(color, y, x, timesMoved);
 	}
 	
 	public String getName() {

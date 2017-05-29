@@ -15,7 +15,26 @@ public class Upgrade extends Move {
 		super(p, yto, xto, removed);
 		this.upgraded = upgraded;
 	}
-	
+
+	// capture and upgrade - create new upgraded piece given type and color
+	public Upgrade(Pawn p, int yto, int xto, char up_type, char up_color, Piece removed) {
+		super(p, yto, xto, removed);
+		switch(up_type) {
+		case 'q':
+			upgraded = new Queen(up_color, yto, xto);
+			break;
+		case 'r':
+			upgraded = new Rook(up_color, yto, xto);
+			break;
+		case 'n':
+			upgraded = new Knight(up_color, yto, xto);
+			break;
+		case 'b':
+			upgraded = new Bishop(up_color, yto, xto);
+			break;
+		}
+	}
+
 	// no piece removed 
 	public Upgrade(Pawn p, int yto, int xto, Piece upgraded) {
 		super(p, yto, xto);

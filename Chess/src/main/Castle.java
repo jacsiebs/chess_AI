@@ -22,7 +22,11 @@ public class Castle extends Move {
 	/* Note: The castled Rook's (y, x) and firstMove must be updated in applyMove() */
 	public Castle(King k, int yto, int xto, Rook cast, int cast_yto, int cast_xto) {
 		
-		super(k, yto, xto, cast);
+		super(k, yto, xto);
+		
+		if(cast == null) {
+			throw new NoSuchPieceException("Null Rook when trying to create a Castle");
+		}
 		
 		castled = cast;
 		castled_yFrom = castled.y;
@@ -49,7 +53,10 @@ public class Castle extends Move {
 		if (!piece.equals(m.getSelectedPiece())) {
 			return false;
 		}
-		if (!c.castled.equals(castled)) {
+		if (!c.getCastled().equals(castled)) {
+			return false;
+		}
+		if(c.castled_yto != castled_yto || c.castled_xto != castled_xto) {
 			return false;
 		}
 		// removed piece is null for any castle moves

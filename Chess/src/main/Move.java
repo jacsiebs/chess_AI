@@ -20,6 +20,7 @@ public class Move {
 	protected int xfrom;
 	protected int yfrom;
 	
+	// The removed piece is assumed to be null
 	public Move(Piece p, int yto, int xto) {
 		piece = p;
 		xfrom = p.x;
@@ -28,6 +29,7 @@ public class Move {
 		this.yto= yto;
 	}
 	
+	// With removed piece specified - can be null if a removed piece does not exist
 	public Move(Piece p, int yto, int xto, Piece removed) {
 		piece = p;
 		xfrom = p.x;
@@ -45,10 +47,8 @@ public class Move {
 		removed = p;
 	}
 	
+	// can be a null Piece
 	public Piece getRemovedPiece() {
-		if(removed == null) 
-			throw new NoSuchPieceException("Attempted to get a removed piece that does not exist."
-					+ "/n/tMove: " + toString());
 		return removed;
 	}
 	

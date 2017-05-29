@@ -1,24 +1,17 @@
 package main;
 
-import java.util.ArrayList;
-
 public class Knight extends Piece {
 	
 	public Knight(char color, int y, int x) {
-		this.color = color;
-		this.y = y;
-		this.x = x;
+		super(color, y, x);
 		value = 3;
 		type = 'n';
 	}
 
-	public Knight(char color, int y, int x, ArrayList<Move> validMoves) {
-		this.color = color;
-		this.y = y;
-		this.x = x;
+	public Knight(char color, int y, int x, int timesMoved) {
+		super(color, y, x, timesMoved);
 		value = 3;
 		type = 'n';
-		this.validMoves = validMoves;
 	}
 	
 	public String getName() {
@@ -27,7 +20,7 @@ public class Knight extends Piece {
 	
 	@Override
 	public Knight clone() {
-		return new Knight(color, y, x);
+		return new Knight(color, y, x, timesMoved);
 	}
 
 	@Override

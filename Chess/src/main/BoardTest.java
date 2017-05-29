@@ -29,12 +29,12 @@ public class BoardTest {
 	
 	// adds a generic tan king at (7,7) - bottom right corner
 	private void addTanKing() {
-		sut.placePiece(new King(Piece.TAN, 7, 7, false));
+		sut.placePiece(new King(Piece.TAN, 7, 7));
 	}
 	
 	// adds a generic white king at (0,0) - top left corner
 	private void addWhiteKing() {
-		sut.placePiece(new King(Piece.WHITE, 0, 0, false));
+		sut.placePiece(new King(Piece.WHITE, 0, 0));
 	}
 	
 	/**
