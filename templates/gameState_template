@@ -1,0 +1,38 @@
+/ This is a template for a Board which can loaded into a Chess game
+/ Lines that begin with '/' are ignored
+/ Purpose is ability to save and load game states
+/ As well as to easily specify test cases through a visual representation
+/ Enter the info directly after the '=' ignoring ()
+/
+/ Optional info:
+/ 	Whose turn is it? Tan if not specified
+turn=(tan/white)
+/ 	Player names - assumed to be "player1" and "player2" if not specified
+player1Name=
+player2Name=
+/ gameMode - 0=human vs human, 1=human vs AI, 2=AI vs AI. Assumed to be 0 if not specified
+gameMode=
+
+/ Required game jacob.siebert.chessai.board:
+/	R-rook, K-king, Q-queen, B-bishop, N-knight, P-pawn
+/	A capital letter represents a white jacob.siebert.chessai.piece and a lower case letter a tan jacob.siebert.chessai.piece
+/	The number directly following the character indicates how many moves this jacob.siebert.chessai.piece has made
+/		Only 0-99 are valid
+/		If no number is specified it is assumed to be 0
++---+---+---+---+---+---+---+---+
+| R | N |   |   | K |   |   | R |
++---+---+---+---+---+---+---+---+
+| P | P | P |   | B | P | P | P |
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   | N1|   |   |
++---+---+---+---+---+---+---+---+
+|q10|   |   | Q1| P1|   |   |   |
++---+---+---+---+---+---+---+---+
+|   |   |   | p1|   |   |   |   |
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |
++---+---+---+---+---+---+---+---+
+| p | p | p |   |   | p | p | p |
++---+---+---+---+---+---+---+---+
+| r | n | b | k1|   | b | n | r |
++---+---+---+---+---+---+---+---+
