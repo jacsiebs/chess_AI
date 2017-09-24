@@ -2,90 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8a0377d-18da-4d97-a66d-57dc1918c0d1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/jacob.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/preferred-vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/Promotion.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/.classpath" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/.project" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/.settings/org.eclipse.jdt.core.prefs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/AI_Player.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/Bishop.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/Board.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/BoardTest.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/BookSet.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/Castle.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/ChessAssertions.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/ChessBoard$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/ChessBoard$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/ChessBoard$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/ChessBoard$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/ChessBoard$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/ChessBoard$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/ChessBoard$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/ChessBoard$8.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/ChessBoard$9.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/ChessBoard.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/ChessBoardTest.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/EnPassant.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/HumanPlayer.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/IconGrabber.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/King.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/Knight.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/Move.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/MoveTest.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/NoSuchPieceException.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/Pawn.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/Piece.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/PieceButton.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/PieceTest.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/Player.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/Queen.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/Rook.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/SpriteSheet.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/Square.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/ThreatPathsUnitTest.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/ThreateningUnitTest.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/bin/main/Upgrade.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Chess/src/main/Upgrade.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/cancel_button_icon.png" afterPath="$PROJECT_DIR$/src/main/resources/cancel_button_icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/gameState_template" afterPath="$PROJECT_DIR$/templates/gameState_template" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/sprites.png" afterPath="$PROJECT_DIR$/src/main/resources/sprites.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/AI_Player.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/player/AI_Player.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/Bishop.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/piece/Bishop.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/Board.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/board/Board.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/BoardTest.java" afterPath="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/BoardTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/BookSet.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/BookSet.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/Castle.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/Castle.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/ChessAssertions.java" afterPath="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/assertion/ChessAssertions.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/ChessBoard.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/app/ChessBoard.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/ChessBoardTest.java" afterPath="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/ChessBoardTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/EnPassant.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/EnPassant.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/HumanPlayer.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/player/HumanPlayer.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/IconGrabber.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/ui/IconGrabber.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/King.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/piece/King.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/Knight.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/piece/Knight.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/Move.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/Move.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/MoveTest.java" afterPath="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/MoveTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/NoSuchPieceException.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/exception/NoSuchPieceException.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/Pawn.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/piece/Pawn.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/Piece.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/piece/Piece.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/PieceButton.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/ui/PieceButton.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/PieceTest.java" afterPath="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/PieceTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/Player.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/player/Player.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/Queen.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/piece/Queen.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/Rook.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/piece/Rook.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/SpriteSheet.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/ui/SpriteSheet.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/Square.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/board/Square.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/ThreatPathsUnitTest.java" afterPath="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/ThreatPathsUnitTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/src/main/ThreateningUnitTest.java" afterPath="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/ThreateningUnitTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Chess/undo_button_icon.png" afterPath="$PROJECT_DIR$/src/main/resources/undo_button_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/util/ChessTestingUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/chess_AI.iml" afterPath="$PROJECT_DIR$/.idea/chess_AI.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/app/ChessBoard.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/app/ChessBoard.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/BoardTest.java" afterPath="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/BoardTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/ChessBoardTest.java" afterPath="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/ChessBoardTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/Chess/target/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -99,34 +23,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ThreatPathsUnitTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/ThreatPathsUnitTest.java">
+      <file leaf-file-name="ThreateningUnitTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/ThreateningUnitTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+            <state relative-caret-position="342">
+              <caret line="21" column="31" lean-forward="false" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AI_Player.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/player/AI_Player.java">
+      <file leaf-file-name="PieceTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/PieceTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2016">
-              <caret line="124" column="46" lean-forward="false" selection-start-line="124" selection-start-column="46" selection-end-line="124" selection-end-column="46" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#808#814#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChessAssertions.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/assertion/ChessAssertions.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+            <state relative-caret-position="144">
+              <caret line="10" column="5" lean-forward="false" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -135,8 +46,8 @@
       <file leaf-file-name="ChessBoard.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/app/ChessBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="486" column="39" lean-forward="false" selection-start-line="486" selection-start-column="39" selection-end-line="486" selection-end-column="39" />
+            <state relative-caret-position="217">
+              <caret line="66" column="22" lean-forward="false" selection-start-line="66" selection-start-column="21" selection-end-line="66" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3853#3854#0" expanded="true" />
@@ -150,25 +61,18 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PieceButton.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/ui/PieceButton.java">
+      <file leaf-file-name="Board.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/board/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="13" column="12" lean-forward="false" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
+            <state relative-caret-position="214">
+              <caret line="581" column="28" lean-forward="false" selection-start-line="581" selection-start-column="28" selection-end-line="581" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HumanPlayer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/player/HumanPlayer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
-              <caret line="11" column="11" lean-forward="false" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#37216#37222#0" expanded="true" />
+                <element signature="e#50633#50639#0" expanded="true" />
+                <element signature="e#51745#51751#0" expanded="true" />
+                <element signature="e#52510#52516#0" expanded="true" />
+                <element signature="e#53774#53780#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -177,8 +81,8 @@
       <file leaf-file-name="BoardTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/BoardTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2845">
-              <caret line="257" column="19" lean-forward="true" selection-start-line="257" selection-start-column="19" selection-end-line="257" selection-end-column="19" />
+            <state relative-caret-position="-36">
+              <caret line="46" column="28" lean-forward="false" selection-start-line="46" selection-start-column="28" selection-end-line="46" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -190,7 +94,7 @@
         <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/MoveTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="432">
-              <caret line="32" column="5" lean-forward="true" selection-start-line="22" selection-start-column="4" selection-end-line="32" selection-end-column="5" />
+              <caret line="32" column="5" lean-forward="false" selection-start-line="22" selection-start-column="4" selection-end-line="32" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -199,24 +103,41 @@
       <file leaf-file-name="ChessBoardTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/ChessBoardTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="810">
-              <caret line="71" column="13" lean-forward="false" selection-start-line="71" selection-start-column="13" selection-end-line="71" selection-end-column="13" />
-              <folding />
+            <state relative-caret-position="196">
+              <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/player/Player.java">
+      <file leaf-file-name="ChessTestingUtil.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/util/ChessTestingUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="2" column="41" lean-forward="false" selection-start-line="2" selection-start-column="41" selection-end-line="2" selection-end-column="41" />
-              <folding />
+            <state relative-caret-position="445">
+              <caret line="39" column="5" lean-forward="false" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#697#698#0" expanded="true" />
+                <element signature="e#766#767#0" expanded="true" />
+                <element signature="e#893#894#0" expanded="true" />
+                <element signature="e#950#951#0" expanded="true" />
+                <element signature="e#1077#1078#0" expanded="true" />
+                <element signature="e#1136#1137#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -256,10 +177,8 @@
         <option value="$PROJECT_DIR$/Chess/.gitignore" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/Chess/src/test/java/jacob/siebert/chessai/assertion/ChessAssertions.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/assertion/ChessAssertions.java" />
-        <option value="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/ChessBoardTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/PieceTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/ThreateningUnitTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/ui/IconGrabber.java" />
@@ -276,10 +195,21 @@
         <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/player/AI_Player.java" />
         <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/ui/PieceButton.java" />
         <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/player/HumanPlayer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/app/ChessBoard.java" />
         <option value="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/MoveTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/app/ChessBoard.java" />
+        <option value="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/ChessBoardTest.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/log4j.properties" />
+        <option value="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/util/ChessTestingUtil.java" />
         <option value="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/BoardTest.java" />
       </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
@@ -438,6 +368,13 @@
               <item name="chess_AI" type="b2602c69:ProjectViewProjectNode" />
               <item name="chess_AI" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chess_AI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chess_AI" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -496,6 +433,17 @@
               <item name="chessai" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="chess_AI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chess_AI" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jacob" type="462c0819:PsiDirectoryNode" />
+              <item name="siebert" type="462c0819:PsiDirectoryNode" />
+              <item name="chessai" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -512,6 +460,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/Chess/src/main/resources" />
     <property name="ignore_missing_gitignore" value="true" />
     <property name="add_unversioned_files" value="true" />
+    <property name="SearchEverywhereHistoryKey" value="placePi&#9;PSI&#9;JAVA://jacob.siebert.chessai.board.Board#placePiece" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -630,6 +579,9 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="a8a0377d-18da-4d97-a66d-57dc1918c0d1" name="Default" comment="" />
@@ -658,9 +610,9 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24442737" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1906226" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917318" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22059953" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -817,39 +769,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="10" lean-forward="false" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Chess/ChessAI.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="15" column="14" lean-forward="false" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/PieceTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="5" lean-forward="true" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/ThreateningUnitTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="21" column="31" lean-forward="false" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -966,37 +890,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/board/Square.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/Castle.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-631">
           <caret line="24" column="10" lean-forward="false" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2102#2103#0" expanded="true" />
-            <element signature="e#2201#2202#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/board/Board.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="257" column="16" lean-forward="false" selection-start-line="257" selection-start-column="16" selection-end-line="257" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#37216#37222#0" expanded="true" />
-            <element signature="e#50633#50639#0" expanded="true" />
-            <element signature="e#51745#51751#0" expanded="true" />
-            <element signature="e#52510#52516#0" expanded="true" />
-            <element signature="e#53774#53780#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#2102#2103#0" expanded="false" />
+            <element signature="e#2201#2202#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1006,8 +907,8 @@
         <state relative-caret-position="324">
           <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
           <folding>
-            <element signature="e#1245#1246#0" expanded="true" />
-            <element signature="e#1328#1329#0" expanded="true" />
+            <element signature="e#1245#1246#0" expanded="false" />
+            <element signature="e#1328#1329#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1025,7 +926,7 @@
         <state relative-caret-position="170">
           <caret line="13" column="12" lean-forward="false" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1035,8 +936,8 @@
         <state relative-caret-position="2016">
           <caret line="124" column="46" lean-forward="false" selection-start-line="124" selection-start-column="46" selection-end-line="124" selection-end-column="46" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#808#814#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#808#814#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1046,23 +947,7 @@
         <state relative-caret-position="157">
           <caret line="11" column="11" lean-forward="false" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
           <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/app/ChessBoard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="486" column="39" lean-forward="false" selection-start-line="486" selection-start-column="39" selection-end-line="486" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3853#3854#0" expanded="true" />
-            <element signature="e#3904#3905#0" expanded="true" />
-            <element signature="e#16372#16373#0" expanded="true" />
-            <element signature="e#16397#16398#0" expanded="true" />
-            <element signature="e#17643#17644#0" expanded="true" />
-            <element signature="e#17668#17669#0" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1075,34 +960,123 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/MoveTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/board/Square.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="32" column="5" lean-forward="true" selection-start-line="22" selection-start-column="4" selection-end-line="32" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/ChessBoardTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="71" column="13" lean-forward="false" selection-start-line="71" selection-start-column="13" selection-end-line="71" selection-end-column="13" />
+        <state relative-caret-position="36">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/ThreatPathsUnitTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
+        <state relative-caret-position="72">
           <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/ThreateningUnitTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="21" column="31" lean-forward="false" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/PieceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="10" column="5" lean-forward="false" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/MoveTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="32" column="5" lean-forward="false" selection-start-line="22" selection-start-column="4" selection-end-line="32" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/app/ChessBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="66" column="22" lean-forward="false" selection-start-line="66" selection-start-column="21" selection-end-line="66" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3853#3854#0" expanded="true" />
+            <element signature="e#3904#3905#0" expanded="true" />
+            <element signature="e#16372#16373#0" expanded="true" />
+            <element signature="e#16397#16398#0" expanded="true" />
+            <element signature="e#17643#17644#0" expanded="true" />
+            <element signature="e#17668#17669#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/ChessBoardTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="24" column="10" lean-forward="true" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/board/Board.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="581" column="28" lean-forward="false" selection-start-line="581" selection-start-column="28" selection-end-line="581" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#37216#37222#0" expanded="true" />
+            <element signature="e#50633#50639#0" expanded="true" />
+            <element signature="e#51745#51751#0" expanded="true" />
+            <element signature="e#52510#52516#0" expanded="true" />
+            <element signature="e#53774#53780#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/util/ChessTestingUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="445">
+          <caret line="39" column="5" lean-forward="false" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#697#698#0" expanded="true" />
+            <element signature="e#766#767#0" expanded="true" />
+            <element signature="e#893#894#0" expanded="true" />
+            <element signature="e#950#951#0" expanded="true" />
+            <element signature="e#1077#1078#0" expanded="true" />
+            <element signature="e#1136#1137#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/BoardTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2845">
-          <caret line="257" column="19" lean-forward="true" selection-start-line="257" selection-start-column="19" selection-end-line="257" selection-end-column="19" />
+        <state relative-caret-position="-36">
+          <caret line="46" column="28" lean-forward="false" selection-start-line="46" selection-start-column="28" selection-end-line="46" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

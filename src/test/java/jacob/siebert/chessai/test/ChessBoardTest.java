@@ -7,14 +7,15 @@ import jacob.siebert.chessai.piece.King;
 import jacob.siebert.chessai.piece.Pawn;
 import jacob.siebert.chessai.piece.Piece;
 import jacob.siebert.chessai.piece.Queen;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ChessBoardTest {
 
-	ChessBoard sut;
-	Board sut_board;
+	private ChessBoard sut;
+	private Board sut_board;
 	
 	/**
 	 * @param chessBoardY - The Y coordinate on a standard chess jacob.siebert.chessai.board

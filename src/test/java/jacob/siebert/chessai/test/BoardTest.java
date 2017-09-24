@@ -33,34 +33,8 @@ import org.junit.Test;
  */
 public class BoardTest {
 
-	Board sut;// system under test
-	Piece[][] board;// points to the Piece[][] in the sut Board
-	
-	// adds a generic tan king at (7,7) - bottom right corner
-	private void addTanKing() {
-		sut.placePiece(new King(Piece.TAN, 7, 7));
-	}
-	
-	// adds a generic white king at (0,0) - top left corner
-	private void addWhiteKing() {
-		sut.placePiece(new King(Piece.WHITE, 0, 0));
-	}
-	
-	/**
-	 * @param chessBoardY - The Y coordinate on a standard chess board
-	 * @return The y index of the board array
-	 */
-	private int y(int chessBoardY) {
-		return 8 - chessBoardY;
-	}
-	
-	/**
-	 * @param chessBoardX - The character representing x coordinate on a standard chess board
-	 * @return The x coordinate of the board array
-	 */
-	private int x(char chessBoardX) {
-		return ((int) chessBoardX) - 97;// 97 is ascii for 'a'
-	}
+	private Board sut;// system under test
+	private Piece[][] board;// points to the Piece[][] in the sut Board
 	
 	@Before
 	public void setUp() {
@@ -71,7 +45,6 @@ public class BoardTest {
 	// remove references
 	@After
 	public void tearDown() {
-//		sut.displayBoard();
 		sut = null;
 		board = null;
 		System.out.println("\n*******************************************************"
