@@ -19,8 +19,12 @@ gameMode=
 /	The number directly following the character indicates how many moves this piece has made
 /		Only 0-99 are valid
 /		If no number is specified it is assumed to be 0
+/       If the piece has only moved a single digits worth of times
+/         then syntax is: "...| P1|..."
+/       If a king is placed in its non-standard position, it must have a non-zero # of moves
+/       Each side must have a king
 +---+---+---+---+---+---+---+---+
-| R | N |   |   | K |   |   | R |
+| R | N |   |   | K1|   |   | R |
 +---+---+---+---+---+---+---+---+
 | P | P | P |   | B | P | P | P |
 +---+---+---+---+---+---+---+---+
@@ -39,19 +43,20 @@ gameMode=
 
 / blank board
 +---+---+---+---+---+---+---+---+
-|   |   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |   |  0
 +---+---+---+---+---+---+---+---+
-|   |   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |   |  1
 +---+---+---+---+---+---+---+---+
-|   |   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |   |  2
 +---+---+---+---+---+---+---+---+
-|   |   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |   |  3
 +---+---+---+---+---+---+---+---+
-|   |   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |   |  4
 +---+---+---+---+---+---+---+---+
-|   |   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |   |  5
 +---+---+---+---+---+---+---+---+
-|   |   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |   |  6
 +---+---+---+---+---+---+---+---+
-|   |   |   |   |   |   |   |   |
+|   |   |   |   |   |   |   |   |  7
 +---+---+---+---+---+---+---+---+
+/ 0   1   2   3   4   5   6   7

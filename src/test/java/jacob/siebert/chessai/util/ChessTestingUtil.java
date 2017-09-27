@@ -26,15 +26,16 @@ public class ChessTestingUtil {
     public static File loadGameFile(String filename) {
         File file;
         // Get file from resources folder
-        URL url = ChessBoard.class.getClassLoader().getResource("/resource/test.txt");
+        URL url = ChessBoard.class.getClassLoader().getResource(filename);
+        if(url == null) {
+            LOG.debug("Game File not found for file: " + filename + "\n");
+            return null;
+        }
         // TODO: clean up
         try {
             file = new File(url.toURI());
-        } catch(NullPointerException e) {
-            LOG.debug(e.toString());
-            return null;
-        } catch(URISyntaxException e) {
-            LOG.debug(e.toString());
+        } catch(Exception e) {
+            LOG.debug("Game File Load FAILED for file: " + filename + "\n" + e.getMessage());
             return null;
         }
         return file;

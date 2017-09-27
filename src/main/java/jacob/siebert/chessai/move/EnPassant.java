@@ -22,7 +22,7 @@ public class EnPassant extends Move {
 		if (!piece.equals(m.getSelectedPiece())) {
 			return false;
 		}
-		// check the jacob.siebert.chessai.piece removed by performing the moves if it exists
+		// check the piece removed by performing the moves if it exists
 		if (removed != null) {
 			if (m.getRemovedPiece() == null) {
 				return false;

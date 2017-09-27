@@ -2,3 +2,10 @@ java.lang.NullPointerException
 java.lang.NullPointerException
 Spritesheet file not found or couldn't be loaded. (sprites.png)
 Initializing new board with default peices
+java.lang.NullPointerException
+java.lang.NullPointerException
+java.lang.NullPointerException
+GameState file malformed: Expected '|' and got " + curr
+GameState file malformed: Expected '|' and got " + curr
+GameState file malformed: Expected '|' and got " + curr
+GameState file malformed: Expected '|' and got " + curr

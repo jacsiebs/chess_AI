@@ -81,7 +81,7 @@ public class ChessAssertions {
 				pass = false;
 			}
 		}
-		// test the length of the jacob.siebert.chessai.move lists
+		// test the length of the move lists
 		if(expected.size() != actual.size()) {
 			System.out.println(" Expected validMoves to contain " + expected.size()
 				+ " moves.\n\t However the actual validMoves contains " + actual.size() + " moves.");

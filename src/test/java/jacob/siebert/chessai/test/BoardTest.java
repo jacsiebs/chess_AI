@@ -19,6 +19,8 @@ import jacob.siebert.chessai.util.ChessTestingUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A suite of tests for the board class.
@@ -35,6 +37,8 @@ import org.junit.Test;
  * @author Jacob Siebert
  */
 public class BoardTest {
+
+	private static Logger LOG = LoggerFactory.getLogger(BoardTest.class);
 
 	private Board sut;// system under test
 	private Piece[][] board;// points to the Piece[][] in the sut Board
@@ -55,9 +59,8 @@ public class BoardTest {
 
 	@Test
 	public void tanEnPassantTest() {
-		System.out.println("Tan EnPassant Test:");
 		//Set up
-		File input = ChessTestingUtil.loadGameFile("tanEnPassantTest");
+		File input = ChessTestingUtil.loadGameFile("test_boards/tanEnPassantTest");
 		sut = new Board(input);
 
 		Pawn defense = (Pawn) sut.getPiece(1, 3);
@@ -66,7 +69,7 @@ public class BoardTest {
 		sut.updateChecks();
 		sut.displayBoard();
 
-		// Act - Move the captured Pawn double forward generate the capturer's moves
+		// Act - Move the captured Pawn double forward generate the attacker's moves
 		Move doublePawnForward = new Move(defense, 3, 3);
 		sut.applyMove(doublePawnForward);
 		List<Move> actualValidMoves = sut.generateValidMoves(attack);
@@ -75,7 +78,7 @@ public class BoardTest {
 		// EnPassant and single forward move should be valid
 		List<Move> expectedValidMoves = new ArrayList<Move>();
 		expectedValidMoves.add(new EnPassant(attack, 2, 3, defense));
-		expectedValidMoves.add(new Move(board[3][4], 2, 4));
+		expectedValidMoves.add(new Move(attack, 2, 4));
 
 		ChessAssertions.assertEqualsValidMoves(expectedValidMoves, actualValidMoves);
 	}

@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.text.StringCharacterIterator;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
@@ -22,9 +21,8 @@ public class Board {
 
 	private static final Logger LOG = LoggerFactory.getLogger(Board.class);
 
-	public final static int NEW_GAME = 0;// default setup
-	public final static int LOAD_GAME = 1;// load game from text file
-	public final static int EMPTY = 2;// empty board
+	// a single game board line in a game state file cannot exceed this number
+	private static final int GAME_FILE_LINE_LENGTH = 32;
 
 	// The game pieces are stored in this double array for quick lookup
 	// operations and moves
@@ -127,12 +125,12 @@ public class Board {
 	// used for testing only the Board and not the entire ChessBoard
 	public Board(File gameState) {
 		board = new Piece[8][8];
-		moves = new Stack<Move>();
-		whiteLocations = new ArrayList<Piece>();
-		tanLocations = new ArrayList<Piece>();
+		moves = new Stack<>();
+		whiteLocations = new ArrayList<>();
+		tanLocations = new ArrayList<>();
 
 		loadGameState(gameState);
-		generateAllMoves();// initialize
+		//generateAllMoves();// initialize
 	}
 
 	// both parameters must have the king listed first
@@ -167,89 +165,103 @@ public class Board {
 		}
 
 		String line;
-		// navigate to the game board
+		// navigate to the game board, skipping metadata processing
 		while(sc_game.hasNext()) {
 			line = sc_game.nextLine();
+			// indicates first line of the chess board
 			if(line.charAt(0) == '+') {
 				break;
 			}
 		}
 
-		String numMoves = null;
+		String numMoves;
 		// process the game board - first line of "+---+--"... can be skipped
 		int j = 0;// the y position
 		int i = 0;// the x position
 		while(sc_game.hasNext()) {
 			line = sc_game.nextLine();
-			if(line.charAt(0) != '+') {
-				StringCharacterIterator itr = new StringCharacterIterator(line);
-				int end = itr.getEndIndex();
-				char curr;// = itr.next();// this is the first '|' character in the line
-//				if(curr != '|') {
-//					throw new RuntimeException("GameState file malformed: Expected '|' and got " + curr);
-//				}
+			char curr = line.charAt(0);
+			// separator lines begin with '+' - ignore these lines as well as blank lines or comments
+			if(curr != '+' && curr != '/' && curr != ' ') {
+				// a valid line must begin with a '|'
+				if(curr != '|') {
+					LOG.error("GameState file malformed: Expected '|' and got \" + curr");
+					throw new RuntimeException("GameState file malformed");
+				}
+
 				// iterate over the line, adding pieces that appear
-				for(int k = 0; k <= end; k++) {
-					curr = itr.next();
+				// start at position 1 to skip the first '|'
+				int k =1;
+				while(k <= GAME_FILE_LINE_LENGTH) {
+					curr = line.charAt(k);
+					k++;
+					// look for a piece declaration
 					if(curr == 'k' || curr == 'q' || curr == 'r' || curr == 'b' || curr == 'n'
 							|| curr == 'p' || curr == 'K' || curr == 'Q' || curr == 'R'
 							|| curr == 'B' || curr == 'N' || curr == 'P') {
 						char type = curr;
-						curr = itr.next();
+						curr = line.charAt(k);
 						k++;
-						if(curr == ' ') {
-							// this piece has not moved yet
-							numMoves = "0";
-						} else if(Character.isDigit(curr)) {
+						numMoves = "0";// default # of moves
+						if(Character.isDigit(curr)) {
+							// this piece has a # of moves associated with it
 							char first = curr;
-							curr = itr.next();
+							curr = line.charAt(k);
 							k++;
+							// check if the # of moves is double digit
 							if(Character.isDigit(curr)) {
 								numMoves = Character.toString(first) + Character.toString(curr);
-							} else if(curr == ' '){
+							} else if(curr == '|') {
+								// if single digit # of moves -> must be formed as such: "...| P2|..."
+								// rather than: "...|P2 |..."
 								numMoves = Character.toString(first);
+								// increment i to maintain x pos
+								i++;
 							} else {
-								throw new RuntimeException("GameState file malformed: Expected a digit or ' '"
-										+ "\nBut got " + curr);
+								LOG.debug("Game state file not well-formed. Expected: '|' Got: '" + curr + "'");
+								throw new RuntimeException("Game state file not well-formed");
 							}
+						} else {
+							i++; // maintain proper x pos
 						}
 						// add the piece with the specified number of moves
+						// subtract 1 from i since i has been incremented
 						switch(type) {
 							case 'k':
-								placePiece(new King(Piece.TAN, j, i, Integer.parseInt(numMoves)));
+								placePiece(new King(Piece.TAN, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'K':
-								placePiece(new King(Piece.WHITE, j, i, Integer.parseInt(numMoves)));
+								placePiece(new King(Piece.WHITE, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'q':
-								placePiece(new Queen(Piece.TAN, j, i, Integer.parseInt(numMoves)));
+								placePiece(new Queen(Piece.TAN, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'Q':
-								placePiece(new Queen(Piece.WHITE, j, i, Integer.parseInt(numMoves)));
+								placePiece(new Queen(Piece.WHITE, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'b':
-								placePiece(new Bishop(Piece.TAN, j, i, Integer.parseInt(numMoves)));
+								placePiece(new Bishop(Piece.TAN, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'B':
-								placePiece(new Bishop(Piece.WHITE, j, i, Integer.parseInt(numMoves)));
+								placePiece(new Bishop(Piece.WHITE, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'n':
-								placePiece(new Knight(Piece.TAN, j, i, Integer.parseInt(numMoves)));
+								placePiece(new Knight(Piece.TAN, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'N':
-								placePiece(new Knight(Piece.WHITE, j, i, Integer.parseInt(numMoves)));
+								placePiece(new Knight(Piece.WHITE, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'p':
-								placePiece(new Pawn(Piece.TAN, j, i, Integer.parseInt(numMoves)));
+								placePiece(new Pawn(Piece.TAN, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'P':
-								placePiece(new Pawn(Piece.WHITE, j, i, Integer.parseInt(numMoves)));
+								placePiece(new Pawn(Piece.WHITE, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'r':
-								placePiece(new Rook(Piece.TAN, j, i, Integer.parseInt(numMoves)));
+								placePiece(new Rook(Piece.TAN, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'R':
-								placePiece(new Rook(Piece.WHITE, j, i, Integer.parseInt(numMoves)));
+								placePiece(new Rook(Piece.WHITE, j, i-1, Integer.parseInt(numMoves)));
 								break;
 						}
 					} else if(curr == '|') {
@@ -262,8 +274,6 @@ public class Board {
 				i = 0;
 			}
 		}
-		// TODO delete this
-		displayBoard();
 		sc_game.close();
 	}
 	
@@ -1567,7 +1577,7 @@ public class Board {
 			Pawn pawn = (Pawn) p;
 			if (pawn.color == Piece.TAN) {
 				// Note: Do not add pawn moves that move the pawn into the last
-				// file - upgrades handle this
+				// file - promotions handle this
 				if (pawn.y - 1 > 1) {
 					if (board[pawn.y - 1][pawn.x] == null) {
 						validMoves.add(new Move(p, pawn.y - 1, pawn.x));
