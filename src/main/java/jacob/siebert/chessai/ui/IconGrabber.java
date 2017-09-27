@@ -10,7 +10,7 @@ public class IconGrabber {
 		spriteSheet = s;
 	}
 	
-	// returns the icon related to the jacob.siebert.chessai.piece type
+	// returns the icon related to the piece type
 	public ImageIcon getIcon(char type, char color) {
 		
 		switch(type) {
@@ -30,7 +30,7 @@ public class IconGrabber {
 		return null;
 	}
 
-	// returns the icon related to the jacob.siebert.chessai.piece type
+	// returns the icon related to the piece type
 	public ImageIcon getIcon(Piece p) {
 		switch(p.type) {
 		case 'p':

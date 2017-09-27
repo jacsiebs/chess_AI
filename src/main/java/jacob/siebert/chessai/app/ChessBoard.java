@@ -26,15 +26,16 @@ import jacob.siebert.chessai.type.NewGameType;
 import jacob.siebert.chessai.ui.IconGrabber;
 import jacob.siebert.chessai.ui.PieceButton;
 import jacob.siebert.chessai.ui.SpriteSheet;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URL;
 import java.text.StringCharacterIterator;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.Stack;
-
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -73,6 +74,8 @@ import javax.swing.border.TitledBorder;
  */
 public class ChessBoard {
 
+	private static Logger LOG = LoggerFactory.getLogger(ChessBoard.class);
+
 	// FOR DEBUGGING ONLY
 	private boolean debug = false;
 
@@ -87,38 +90,38 @@ public class ChessBoard {
 	private final static int TOOLBAR_BUTTON_HEIGHT = 40;
 	private final static String WELCOME_MESSAGE = " Welcome! Press Start to begin a new game.";
 	private final static int NUM_STATS = 5;// number of stats being displayed
-
 	// panels
 	private JPanel boardUI;
 	private JPanel stats;
 	private JPanel topPart;// contains toolbar and messages
 	private JPanel tool_bar;
 	private JPanel messages;
-
+	// labels
 	private JLabel message;
 	private JLabel[] statistics;
-
+	// game vars
 	private GameMode gameMode;
 	private Player player1;
 	private Player player2;
 	private Player currentPlayer;// holds which player is currently moving
-
-	// sprites
-	private IconGrabber icon_grabber;
-	private PieceButton[][] buttonBoard;// defines a JButton board for the UI
-										// only, not used in AI
 	private Board board;// the game board used for computation
 	private Stack<PieceButton> changedBorders;
-
-	// stats
-	private int numMoves = 0;
-	private long turnTime;// Time taken for the AI to move
-
-	// used for tracking the clicks used to make moves
-	private boolean firstPress = true;
+	private boolean firstPress = true;// used for tracking the clicks used to make moves
 	private int xPress;
 	private int yPress;
 	private Piece selected;// the piece clicked by the current player
+	// sprites
+	private IconGrabber icon_grabber;
+	private PieceButton[][] buttonBoard;// defines a JButton board for the UI
+	private static final int SPRITESHEET_COLS = 6;
+	private static final int SPRITESHEET_ROWS = 2;
+	// image locations relative to resources
+	private static final String SPRITESHEET_LOC = "images/sprites.png";
+	private static final String CANCEL_BUTTON_LOC = "images/cancel_button_icon.png";
+	private static final String UNDO_BUTTON_LOC = "images/undo_button_icon.png";
+	// stats
+	private int numMoves = 0;
+	private long turnTime;// Time taken for the AI to move
 
 	public ChessBoard() {
 		initUI(false);// TODO fullscreen
@@ -184,7 +187,7 @@ public class ChessBoard {
 
 		// load sprites
 		// top row is tan, bottom row is white
-		icon_grabber = new IconGrabber(new SpriteSheet("sprites.png", 6, 2));
+		icon_grabber = new IconGrabber(new SpriteSheet(SPRITESHEET_LOC, SPRITESHEET_COLS, SPRITESHEET_ROWS));
 
 		// make chess board
 		// Grid is 9x9 - right-most column and bottom-most row are for labels
@@ -502,10 +505,16 @@ public class ChessBoard {
 		JButton cancel_button = new JButton();
 		cancel_button.setBackground(Color.white);
 		cancel_button.setPreferredSize(new Dimension(100, TOOLBAR_BUTTON_HEIGHT));
-		ImageIcon cancelIcon = new ImageIcon("cancel_button_icon.png");
+		// load image
+		URL image_url = this.getClass().getClassLoader().getResource(CANCEL_BUTTON_LOC);
+		if(image_url == null) {
+			LOG.error("Could not locate cancel icon image. ("+ CANCEL_BUTTON_LOC + ")");
+			return null;
+		}
+		ImageIcon cancelIcon = new ImageIcon(image_url);
 		Image img = cancelIcon.getImage();
-		Image newimg = img.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-		cancelIcon.setImage(newimg);
+		Image new_img = img.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+		cancelIcon.setImage(new_img);
 		cancel_button.setIcon(cancelIcon);
 		cancel_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -522,10 +531,16 @@ public class ChessBoard {
 		JButton undo_button = new JButton();
 		undo_button.setBackground(Color.white);
 		undo_button.setPreferredSize(new Dimension(100, TOOLBAR_BUTTON_HEIGHT));
-		ImageIcon undoIcon = new ImageIcon("undo_button_icon.png");
+		// get image and scale it properly
+		URL image_url = this.getClass().getClassLoader().getResource(UNDO_BUTTON_LOC);
+		if(image_url == null) {
+			LOG.error("Could not locate undo icon image. ("+ UNDO_BUTTON_LOC + ")");
+			return null;
+		}
+		ImageIcon undoIcon = new ImageIcon(image_url);
 		Image img = undoIcon.getImage();
-		Image newimg = img.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-		undoIcon.setImage(newimg);
+		Image new_img = img.getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+		undoIcon.setImage(new_img);
 		undo_button.setIcon(undoIcon);
 		undo_button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

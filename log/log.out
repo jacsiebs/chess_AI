@@ -1,1 +1,4 @@
 java.lang.NullPointerException
+java.lang.NullPointerException
+Spritesheet file not found or couldn't be loaded. (sprites.png)
+Initializing new board with default peices
