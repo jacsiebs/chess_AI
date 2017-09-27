@@ -21,6 +21,8 @@ import jacob.siebert.chessai.piece.*;
 import jacob.siebert.chessai.player.AI_Player;
 import jacob.siebert.chessai.player.HumanPlayer;
 import jacob.siebert.chessai.player.Player;
+import jacob.siebert.chessai.type.GameMode;
+import jacob.siebert.chessai.type.NewGameType;
 import jacob.siebert.chessai.ui.IconGrabber;
 import jacob.siebert.chessai.ui.PieceButton;
 import jacob.siebert.chessai.ui.SpriteSheet;
@@ -85,12 +87,7 @@ public class ChessBoard {
 	private final static int TOOLBAR_BUTTON_HEIGHT = 40;
 	private final static String WELCOME_MESSAGE = " Welcome! Press Start to begin a new game.";
 	private final static int NUM_STATS = 5;// number of stats being displayed
-	
-	// game modes (who is playing who)
-	public final static int H_v_H = 0;// human vs human
-	public final static int H_v_AI = 1;// human vs AI
-	public final static int AI_v_AI = 2;// AI vs AI
-	
+
 	// panels
 	private JPanel boardUI;
 	private JPanel stats;
@@ -101,6 +98,7 @@ public class ChessBoard {
 	private JLabel message;
 	private JLabel[] statistics;
 
+	private GameMode gameMode;
 	private Player player1;
 	private Player player2;
 	private Player currentPlayer;// holds which player is currently moving
@@ -123,12 +121,18 @@ public class ChessBoard {
 	private Piece selected;// the piece clicked by the current player
 
 	public ChessBoard() {
-		initUI(false);
+		initUI(false);// TODO fullscreen
+	}
+
+	// used for testing - loads a gamestate into the board
+	public ChessBoard(String gamestate_filename, GameMode gameMode) {
+		initUI(false);// TODO fullscreen
+		this.gameMode = gameMode;
+		initGame(NewGameType.LOAD, gameMode);
 	}
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
-
 			public void run() {
 				ChessBoard chessBoard = new ChessBoard();
 			}
@@ -544,8 +548,9 @@ public class ChessBoard {
 				Object[] options = { "Yes", "Cancel" };
 				int choice = JOptionPane.showOptionDialog(frame, "Are you sure you wish to resign the match?", "Resign",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
-				if (choice == 0)
-					initGame(Board.EMPTY, 0);
+				// TODO resign button
+				//if (choice == 0)
+					//initGame(NewGameType.EMPTY, 0);
 			}
 
 			// unused
@@ -597,22 +602,29 @@ public class ChessBoard {
 			public void mousePressed(MouseEvent e) {
 				// start new game
 				// new game of load game
-				int type = -1;
+				NewGameType type = NewGameType.EMPTY;
 				Object[] options = { "New Game", "Load Game", "Cancel" };
 				int choice = JOptionPane.showOptionDialog(frame, "Begin a new game or load an existing game?", "Start",
 						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[2]);
 				if (choice == 0)
-					type = Board.NEW_GAME;
+					type = NewGameType.NEW;
 				else if (choice == 1) {
-					// TODO
-					type = Board.LOAD_GAME;
+					type = NewGameType.LOAD;
 				}
 
 				// select game mode
 				Object[] _options = { "Human vs Human", "Human vs AI", "AI vs AI" };
 				choice = JOptionPane.showOptionDialog(frame, "Select game type", "Game Type",
 						JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, _options, options[2]);
-				initGame(type, choice);
+				if(choice == 0) {
+					initGame(type, GameMode.H_v_H);
+
+				} else if(choice == 1) {
+					initGame(type, GameMode.H_v_AI);
+
+				} else if(choice == 2) {
+					initGame(type, GameMode.AI_v_AI);
+				}
 			}
 
 			// unused
@@ -666,21 +678,22 @@ public class ChessBoard {
 		return quit_button;
 	}
 
-	/*
+	/**
 	 * Starts the game in the desired mode, gets user info, and allocates memory.
 	 * Called once a user begins a game by pressing "start"
-	 * 
+	 *
+	 * @param gameType - New game, load game, or empty game?
 	 * @param gameMode - 0: Human vs Human, 1: Human vs AI, 2: AI vs AI
 	 */
-	public void initGame(int gameType, int gameMode) {
+	public void initGame(NewGameType gameType, GameMode gameMode) {
 		changedBorders = new Stack<PieceButton>();
-		board = new Board(gameType);
+		board = new Board(gameType, this);
 
 		// TODO - choose who goes first
-		if (gameMode == 0) {
+		if (gameMode == GameMode.H_v_H) {
 			player1 = new HumanPlayer(Piece.TAN);
 			player2 = new HumanPlayer(Piece.WHITE);
-		} else if (gameMode == 1) {
+		} else if (gameMode == GameMode.H_v_AI) {
 			player1 = new HumanPlayer(Piece.TAN);
 			player2 = new AI_Player(Piece.WHITE, board);
 		} else {
@@ -688,18 +701,20 @@ public class ChessBoard {
 			player2 = new AI_Player(Piece.WHITE, board);
 		}
 		// new game
-		if (gameType == Board.NEW_GAME) {
+		if (gameType == NewGameType.NEW) {
 			currentPlayer = player1;
 			getPlayerInfo();
 			displayMessage("New Game: " + player1.getName() + " vs " + player2.getName());
 			newGamePieces();
 		}
 		// load game
-		else if (gameType == Board.LOAD_GAME) {
-			loadGameFromFile();
+		else if (gameType == NewGameType.LOAD) {
+			// TODO file not found
+			File gamestateFile = promptUserForFilename();
+			loadGameFromFile(gamestateFile);
 		}
 		// generally just used in testing
-		else if(gameType == Board.EMPTY) {
+		else if(gameType == NewGameType.EMPTY) {
 			currentPlayer = player1;
 			getPlayerInfo();
 		}
@@ -709,25 +724,29 @@ public class ChessBoard {
 		}
 		initStats();
 	}
-	
+
+	public File promptUserForFilename() {
+		File gamestate;
+		do {
+			String filename = JOptionPane.showInputDialog(frame, "Enter a filename:", "Load Game");
+			gamestate = new File(filename);
+		} while(!gamestate.exists());
+		return gamestate;
+	}
+
 	// TODO handle errors
-	private void loadGameFromFile() {
-		File game;
-		Scanner sc_game = null;
+	private void loadGameFromFile(File gamestate) {
+		Scanner sc_game;
 		boolean givenNumMoves = false;
 		boolean givenPlayer1Name = false;
 		boolean givenPlayer2Name = false;
 		boolean givenTurn = false;
 
-		// prompt user for filename
-		do {
-			String filename = JOptionPane.showInputDialog(frame, "Enter a filename:", "Load Game");
-			game = new File(filename);
-		} while(!game.exists());
 		try{
-			sc_game = new Scanner(game);
+			sc_game = new Scanner(gamestate);
 		} catch(FileNotFoundException e) {
 			e.printStackTrace();
+			return;
 		}
 
 		String line;
@@ -1028,7 +1047,7 @@ public class ChessBoard {
 			buttonBoard[tans[i][0]][tans[i][1]].clearIcon();
 		}
 		// clear game board
-		board = new Board(Board.EMPTY);
+		board = new Board(NewGameType.EMPTY, this);
 	}
 
 	// adds the pieces to the UI

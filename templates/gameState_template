@@ -13,10 +13,10 @@ player2Name=
 / gameMode - 0=human vs human, 1=human vs AI, 2=AI vs AI. Assumed to be 0 if not specified
 gameMode=
 
-/ Required game jacob.siebert.chessai.board:
+/ Required game board:
 /	R-rook, K-king, Q-queen, B-bishop, N-knight, P-pawn
-/	A capital letter represents a white jacob.siebert.chessai.piece and a lower case letter a tan jacob.siebert.chessai.piece
-/	The number directly following the character indicates how many moves this jacob.siebert.chessai.piece has made
+/	A capital letter represents a white piece and a lower case letter a tan piece
+/	The number directly following the character indicates how many moves this piece has made
 /		Only 0-99 are valid
 /		If no number is specified it is assumed to be 0
 +---+---+---+---+---+---+---+---+
@@ -35,4 +35,23 @@ gameMode=
 | p | p | p |   |   | p | p | p |
 +---+---+---+---+---+---+---+---+
 | r | n | b | k1|   | b | n | r |
++---+---+---+---+---+---+---+---+
+
+/ blank board
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |
 +---+---+---+---+---+---+---+---+

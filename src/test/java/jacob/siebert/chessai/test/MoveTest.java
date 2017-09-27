@@ -1,24 +1,24 @@
-package jacob.siebert.chessai.test;
-
-import static org.junit.Assert.assertTrue;
-
-import jacob.siebert.chessai.move.EnPassant;
-import jacob.siebert.chessai.piece.Pawn;
-import jacob.siebert.chessai.piece.Piece;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-public class MoveTest {
-
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
+//package jacob.siebert.chessai.test;
+//
+//import static org.junit.Assert.assertTrue;
+//
+//import jacob.siebert.chessai.move.EnPassant;
+//import jacob.siebert.chessai.piece.Pawn;
+//import jacob.siebert.chessai.piece.Piece;
+//
+//import org.junit.After;
+//import org.junit.Before;
+//import org.junit.Test;
+//
+//public class MoveTest {
+//
+//	@Before
+//	public void setUp() throws Exception {
+//	}
+//
+//	@After
+//	public void tearDown() throws Exception {
+//	}
 
 //	@Test
 //	public void enPassantEqualsTest() {
@@ -31,5 +31,5 @@ public class MoveTest {
 //
 //		assertTrue(e1.equals(e2));
 //	}
-
-}
+//
+//}

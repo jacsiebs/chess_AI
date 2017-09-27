@@ -1,16 +1,27 @@
 package jacob.siebert.chessai.board;
 
+import jacob.siebert.chessai.app.ChessBoard;
 import jacob.siebert.chessai.exception.NoSuchPieceException;
 import jacob.siebert.chessai.move.Castle;
 import jacob.siebert.chessai.move.EnPassant;
 import jacob.siebert.chessai.move.Move;
 import jacob.siebert.chessai.move.Promotion;
 import jacob.siebert.chessai.piece.*;
+import jacob.siebert.chessai.type.NewGameType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.text.StringCharacterIterator;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.Stack;
 
 public class Board {
+
+	private static final Logger LOG = LoggerFactory.getLogger(Board.class);
+
 	public final static int NEW_GAME = 0;// default setup
 	public final static int LOAD_GAME = 1;// load game from text file
 	public final static int EMPTY = 2;// empty board
@@ -53,13 +64,14 @@ public class Board {
 	}
 
 	// board type specifics which pieces are placed and where
-	public Board(int boardType) {
+	public Board(NewGameType boardType, ChessBoard owner) {
 		board = new Piece[8][8];
 		moves = new Stack<Move>();
 		whiteLocations = new ArrayList<Piece>();
 		tanLocations = new ArrayList<Piece>();
 		
-		if (NEW_GAME == boardType) {
+		if (NewGameType.NEW == boardType) {
+			LOG.info("Initializing new board with default peices");
 			board[0][4] = new King(Piece.WHITE, 0, 4);
 			whiteLocations.add(board[0][4]);
 			whiteKing = (King) board[0][4];
@@ -101,9 +113,25 @@ public class Board {
 			whiteLocations.add(board[0][7]);
 			board[7][7] = new Rook(Piece.TAN, 7, 7);
 			tanLocations.add(board[7][7]);
-		} else if (LOAD_GAME == boardType) {
+		} else if (NewGameType.LOAD == boardType) {
 			// TODO: read from text file
+			LOG.info("Loading game state from file");
+			File gameState = owner.promptUserForFilename();
+			loadGameState(gameState);
+		} else {
+			LOG.info("Initializing empty game board");
 		}
+		generateAllMoves();// initialize
+	}
+
+	// used for testing only the Board and not the entire ChessBoard
+	public Board(File gameState) {
+		board = new Piece[8][8];
+		moves = new Stack<Move>();
+		whiteLocations = new ArrayList<Piece>();
+		tanLocations = new ArrayList<Piece>();
+
+		loadGameState(gameState);
 		generateAllMoves();// initialize
 	}
 
@@ -126,6 +154,117 @@ public class Board {
 			whiteLocations.add(newP);
 			board[newP.y][newP.x] = newP;
 		}
+	}
+
+	// TODO: handle errors
+	private void loadGameState(File state) {
+		Scanner sc_game;
+		try {
+			sc_game = new Scanner(state);
+		} catch(FileNotFoundException e) {
+			LOG.debug(e.getMessage());// TODO getMessgage or toString?
+			return;
+		}
+
+		String line;
+		// navigate to the game board
+		while(sc_game.hasNext()) {
+			line = sc_game.nextLine();
+			if(line.charAt(0) == '+') {
+				break;
+			}
+		}
+
+		String numMoves = null;
+		// process the game board - first line of "+---+--"... can be skipped
+		int j = 0;// the y position
+		int i = 0;// the x position
+		while(sc_game.hasNext()) {
+			line = sc_game.nextLine();
+			if(line.charAt(0) != '+') {
+				StringCharacterIterator itr = new StringCharacterIterator(line);
+				int end = itr.getEndIndex();
+				char curr;// = itr.next();// this is the first '|' character in the line
+//				if(curr != '|') {
+//					throw new RuntimeException("GameState file malformed: Expected '|' and got " + curr);
+//				}
+				// iterate over the line, adding pieces that appear
+				for(int k = 0; k <= end; k++) {
+					curr = itr.next();
+					if(curr == 'k' || curr == 'q' || curr == 'r' || curr == 'b' || curr == 'n'
+							|| curr == 'p' || curr == 'K' || curr == 'Q' || curr == 'R'
+							|| curr == 'B' || curr == 'N' || curr == 'P') {
+						char type = curr;
+						curr = itr.next();
+						k++;
+						if(curr == ' ') {
+							// this piece has not moved yet
+							numMoves = "0";
+						} else if(Character.isDigit(curr)) {
+							char first = curr;
+							curr = itr.next();
+							k++;
+							if(Character.isDigit(curr)) {
+								numMoves = Character.toString(first) + Character.toString(curr);
+							} else if(curr == ' '){
+								numMoves = Character.toString(first);
+							} else {
+								throw new RuntimeException("GameState file malformed: Expected a digit or ' '"
+										+ "\nBut got " + curr);
+							}
+						}
+						// add the piece with the specified number of moves
+						switch(type) {
+							case 'k':
+								placePiece(new King(Piece.TAN, j, i, Integer.parseInt(numMoves)));
+								break;
+							case 'K':
+								placePiece(new King(Piece.WHITE, j, i, Integer.parseInt(numMoves)));
+								break;
+							case 'q':
+								placePiece(new Queen(Piece.TAN, j, i, Integer.parseInt(numMoves)));
+								break;
+							case 'Q':
+								placePiece(new Queen(Piece.WHITE, j, i, Integer.parseInt(numMoves)));
+								break;
+							case 'b':
+								placePiece(new Bishop(Piece.TAN, j, i, Integer.parseInt(numMoves)));
+								break;
+							case 'B':
+								placePiece(new Bishop(Piece.WHITE, j, i, Integer.parseInt(numMoves)));
+								break;
+							case 'n':
+								placePiece(new Knight(Piece.TAN, j, i, Integer.parseInt(numMoves)));
+								break;
+							case 'N':
+								placePiece(new Knight(Piece.WHITE, j, i, Integer.parseInt(numMoves)));
+								break;
+							case 'p':
+								placePiece(new Pawn(Piece.TAN, j, i, Integer.parseInt(numMoves)));
+								break;
+							case 'P':
+								placePiece(new Pawn(Piece.WHITE, j, i, Integer.parseInt(numMoves)));
+								break;
+							case 'r':
+								placePiece(new Rook(Piece.TAN, j, i, Integer.parseInt(numMoves)));
+								break;
+							case 'R':
+								placePiece(new Rook(Piece.WHITE, j, i, Integer.parseInt(numMoves)));
+								break;
+						}
+					} else if(curr == '|') {
+						// go on to the next x position
+						i++;
+					}
+				}
+			} else {
+				j++;
+				i = 0;
+			}
+		}
+		// TODO delete this
+		displayBoard();
+		sc_game.close();
 	}
 	
 	/** Removes the piece at the specified location
