@@ -6,15 +6,12 @@ import java.util.List;
 
 import jacob.siebert.chessai.assertion.ChessAssertions;
 import jacob.siebert.chessai.board.Board;
-import jacob.siebert.chessai.board.Square;
-import jacob.siebert.chessai.exception.NoSuchPieceException;
 import jacob.siebert.chessai.move.Castle;
 import jacob.siebert.chessai.move.EnPassant;
 import jacob.siebert.chessai.move.Move;
 import jacob.siebert.chessai.move.Promotion;
 import jacob.siebert.chessai.piece.*;
 
-import jacob.siebert.chessai.type.NewGameType;
 import jacob.siebert.chessai.util.ChessTestingUtil;
 import org.junit.After;
 import org.junit.Before;
@@ -66,9 +63,6 @@ public class BoardTest {
 		Pawn defense = (Pawn) sut.getPiece(1, 3);
 		Pawn attack = (Pawn) sut.getPiece(3, 4);
 
-		sut.updateChecks();
-		sut.displayBoard();
-
 		// Act - Move the captured Pawn double forward generate the attacker's moves
 		Move doublePawnForward = new Move(defense, 3, 3);
 		sut.applyMove(doublePawnForward);
@@ -83,33 +77,6 @@ public class BoardTest {
 		ChessAssertions.assertEqualsValidMoves(expectedValidMoves, actualValidMoves);
 	}
 
-//	@Test
-//	public void tanEnPassantTest() {
-//		System.out.println("Tan EnPassant Test:");
-//		//Set up
-//		sut.placePiece(new King(Piece.TAN, 7, 7, false));
-//		sut.placePiece(new King(Piece.WHITE, 0, 0, false));
-//		Pawn captured = new Pawn(Piece.WHITE, 1, 3, true);
-//		Pawn capturer = new Pawn(Piece.TAN, 3, 4, false);
-//		sut.placePiece(capturer);
-//		sut.placePiece(captured);
-//		sut.updateChecks();
-//		sut.displayBoard();
-//
-//		// Act - Move the captured Pawn double forward generate the capturer's moves
-//		Move doublePawnForward = new Move(captured, 3, 3);
-//		sut.applyMove(doublePawnForward);
-//		List<Move> actualValidMoves = sut.generateValidMoves(board[3][4]);
-//
-//		// Test
-//		// EnPassant and single forward move should be valid
-//		List<Move> expectedValidMoves = new ArrayList<Move>();
-//		expectedValidMoves.add(new EnPassant(capturer, 2, 3, captured));
-//		expectedValidMoves.add(new Move(board[3][4], 2, 4));
-//
-//		ChessAssertions.assertEqualsValidMoves(expectedValidMoves, actualValidMoves);
-//	}
-//
 //	@Test
 //	public void whiteEnPassantTest() {
 //		System.out.println("White EnPassant Test:");
@@ -136,76 +103,99 @@ public class BoardTest {
 //		ChessAssertions.assertEqualsValidMoves(expectedValidMoves, actualValidMoves);
 //	}
 //
-//	@Test
-//	public void castleTest() {
-//		System.out.println("Castle Tests:");
-//		// Set up
-//		// Test the king's side castle for white and Queen's side for tan
-//		// begin with a new board and remove the Pieces in the way of each castle
-//		sut = new Board(NewGameType.EMPTY);
-//		board = sut.getBoard();
-//
-//		if(!sut.removePiece(0, 6)) throw new NoSuchPieceException(0, 6);// white knight
-//		if(!sut.removePiece(0, 5)) throw new NoSuchPieceException(0, 5);// white bishop
-//		if(!sut.removePiece(7, 1)) throw new NoSuchPieceException(7, 1);// tan knight
-//		if(!sut.removePiece(7, 2)) throw new NoSuchPieceException(7, 2);// tan bishop
-//		if(!sut.removePiece(7, 3)) throw new NoSuchPieceException(7, 3);// tan queen
-//		King tanK = (King) board[7][4];
-//		King whiteK = (King) board[0][4];
-//		Rook tanR = (Rook) board[7][0];
-//		Rook whiteR = (Rook) board[0][7];
-//		sut.updateChecks();
-//		sut.displayBoard();
-//
-//		// act
-//		List<Move> whiteKingActual = sut.generateValidMoves(whiteK);
-//		List<Move> tanKingActual = sut.generateValidMoves(tanK);
-//
-//		// expected
-//		List<Move> whiteKingExpected = new ArrayList<Move>();
-//		whiteKingExpected.add(new Move(whiteK, 0, 5));// Move 1 square right
-//		whiteKingExpected.add(new Castle(whiteK, 0, 6, whiteR, 0, 5));// castle
-//		List<Move> tanKingExpected = new ArrayList<Move>();
-//		tanKingExpected.add(new Move(tanK, 7, 3));// Move 1 square left
-//		tanKingExpected.add(new Castle(tanK, 7, 2, tanR, 7, 3));// castle
-//
-//		// test
-//		System.out.println("King's Side Castle:");
-//		ChessAssertions.assertEqualsValidMoves(whiteKingExpected, whiteKingActual);
-//		System.out.println("Queen's Side Castle:");
-//		ChessAssertions.assertEqualsValidMoves(tanKingExpected, tanKingActual);
-//	}
-//
-//	@Test
-//	public void tanUpgradeTest() {
-//		System.out.println("Tan Promotion Test:");
-//		//Set up
-//		sut.placePiece(new King(Piece.WHITE, y(8), x('h')));
-//		sut.placePiece(new King(Piece.TAN, y(1), x('h')));
-//		Pawn up = new Pawn(Piece.TAN, 1, 3, false);
-//		sut.placePiece(up);
-//		Queen q1 = new Queen(Piece.WHITE, 0, 2);
-//		sut.placePiece(q1);
-//		sut.updateChecks();
-//		sut.displayBoard();
-//
-//		// Act
-//		List<Move> actualValidMoves = sut.generateValidMoves(board[1][3]);
-//
-//		// Test
-//		// Should be able to move forward by 1 and upgrade or take queen and upgrade
-//		List<Move> expectedValidMoves = new ArrayList<Move>();
-//		expectedValidMoves.add(new Promotion(up, 0, 3, new Queen(up.color, 0, 3)));
-//		expectedValidMoves.add(new Promotion(up, 0, 3, new Bishop(up.color, 0, 3)));
-//		expectedValidMoves.add(new Promotion(up, 0, 3, new Rook(up.color, 0, 3, false)));
-//		expectedValidMoves.add(new Promotion(up, 0, 3, new Knight(up.color, 0, 3)));
-//		expectedValidMoves.add(new Promotion(up, 0, 2, new Queen(up.color, 0, 2), q1));
-//		expectedValidMoves.add(new Promotion(up, 0, 2, new Bishop(up.color, 0, 2), q1));
-//		expectedValidMoves.add(new Promotion(up, 0, 2, new Rook(up.color, 0, 2, false), q1));
-//		expectedValidMoves.add(new Promotion(up, 0, 2, new Knight(up.color, 0, 2), q1));
-//
-//		ChessAssertions.assertEqualsValidMoves(expectedValidMoves, actualValidMoves);
-//	}
+	@Test
+	public void castleTest() {
+		// Set up
+		// Test the king's side castle for white and Queen's side for tan
+		// begin with a new board and remove the Pieces in the way of each castle
+		File input = ChessTestingUtil.loadGameFile("test_boards/castleTestsBasic");
+		sut = new Board(input);
+		board = sut.getBoard();
+
+		King tanK = (King) board[7][4];
+		King whiteK = (King) board[0][4];
+		Rook tanR = (Rook) board[7][0];
+		Rook whiteR = (Rook) board[0][7];
+
+		// act
+		List<Move> whiteKingActual = sut.generateValidMoves(whiteK);
+		List<Move> tanKingActual = sut.generateValidMoves(tanK);
+
+		// expected
+		List<Move> whiteKingExpected = new ArrayList<Move>();
+		whiteKingExpected.add(new Move(whiteK, 0, 5));// Move 1 square right
+		whiteKingExpected.add(new Move(whiteK, 1, 5));// Move 1 square down-right
+		whiteKingExpected.add(new Move(whiteK, 1, 3));// Move 1 square down-left
+		whiteKingExpected.add(new Move(whiteK, 0, 3));// Move 1 square left
+		whiteKingExpected.add(new Move(whiteK, 1, 4));// Move 1 square down
+		whiteKingExpected.add(new Castle(whiteK, 0, 6, whiteR, 0, 5));// castle
+
+		List<Move> tanKingExpected = new ArrayList<Move>();
+		tanKingExpected.add(new Move(tanK, 7, 3));// Move 1 square left
+		tanKingExpected.add(new Move(tanK, 7, 5));// Move 1 square right
+		tanKingExpected.add(new Move(tanK, 6, 3));// Move 1 square up-left
+		tanKingExpected.add(new Move(tanK, 6, 5));// Move 1 square up-right
+		tanKingExpected.add(new Move(tanK, 6, 4));// Move 1 square up
+		tanKingExpected.add(new Castle(tanK, 7, 2, tanR, 7, 3));// castle
+
+		// test
+		ChessAssertions.assertEqualsValidMoves(whiteKingExpected, whiteKingActual);
+		ChessAssertions.assertEqualsValidMoves(tanKingExpected, tanKingActual);
+	}
+
+	@Test
+	public void PromotionTestsBasic() {
+		// Set up
+		File input = ChessTestingUtil.loadGameFile("test_boards/castleTestsBasic");
+		sut = new Board(input);
+		board = sut.getBoard();
+
+		Pawn white_p1 = (Pawn) sut.getPiece(7, 0);
+		Pawn white_p2 = (Pawn) sut.getPiece(7, 1);
+		Pawn white_p3 = (Pawn) sut.getPiece(7, 2);
+		Pawn white_p4 = (Pawn) sut.getPiece(7, 7);
+		King white_k = (King) sut.getPiece(0, 0);
+		Pawn tan_p1 = (Pawn) sut.getPiece(1, 0);
+		Pawn tan_p2 = (Pawn) sut.getPiece(1, 3);
+		Pawn tan_p3 = (Pawn) sut.getPiece(1, 5);
+		King tan_k = (King) sut.getPiece(7, 7);
+
+		// Act
+		List<Move> white_p1_actualValidMoves = sut.generateValidMoves(white_p1);
+		List<Move> white_p2_actualValidMoves = sut.generateValidMoves(white_p2);
+		List<Move> white_p3_actualValidMoves = sut.generateValidMoves(white_p3);
+		List<Move> white_p4_actualValidMoves = sut.generateValidMoves(white_p4);
+		List<Move> white_k_actualValidMoves = sut.generateValidMoves(white_k);
+		List<Move> tan_p1_actualValidMoves = sut.generateValidMoves(tan_p1);
+		List<Move> tan_p2_actualValidMoves = sut.generateValidMoves(tan_p2);
+		List<Move> tan_p3_actualValidMoves = sut.generateValidMoves(tan_p3);
+		List<Move> tan_k_actualValidMoves = sut.generateValidMoves(tan_k);
+
+		// Expected TODO
+		List<Move> white_p1_expectedValidMoves = new ArrayList<>();
+		List<Move> white_p2_expectedValidMoves = new ArrayList<>();
+		List<Move> white_p3_expectedValidMoves = new ArrayList<>();
+		List<Move> white_p4_expectedValidMoves = new ArrayList<>();
+		List<Move> white_k_expectedValidMoves = new ArrayList<>();
+		List<Move> tan_p1_expectedValidMoves = new ArrayList<>();
+		List<Move> tan_p2_expectedValidMoves = new ArrayList<>();
+		List<Move> tan_p3_expectedValidMoves = new ArrayList<>();
+		List<Move> tan_k_expectedValidMoves = new ArrayList<>();
+
+		// Test
+		// Should be able to move forward by 1 and promote or take queen and promote
+		List<Move> white_expectedValidMoves = new ArrayList<Move>();
+		white_expectedValidMoves.add(new Promotion(up, 0, 3, new Queen(up.color, 0, 3)));
+		white_expectedValidMoves.add(new Promotion(up, 0, 3, new Bishop(up.color, 0, 3)));
+		white_expectedValidMoves.add(new Promotion(up, 0, 3, new Rook(up.color, 0, 3, false)));
+		white_expectedValidMoves.add(new Promotion(up, 0, 3, new Knight(up.color, 0, 3)));
+		white_expectedValidMoves.add(new Promotion(up, 0, 2, new Queen(up.color, 0, 2), q1));
+		white_expectedValidMoves.add(new Promotion(up, 0, 2, new Bishop(up.color, 0, 2), q1));
+		white_expectedValidMoves.add(new Promotion(up, 0, 2, new Rook(up.color, 0, 2, false), q1));
+		white_expectedValidMoves.add(new Promotion(up, 0, 2, new Knight(up.color, 0, 2), q1));
+
+		ChessAssertions.assertEqualsValidMoves(white_expectedValidMoves, actualValidMoves);
+	}
 //
 //	@Test
 //	public void whiteUpgradeTest() {
@@ -359,4 +349,25 @@ public class BoardTest {
 //		// test
 //		ChessAssertions.assertEqualsValidMoves(expected, actual);
 //	}
+
+	/**
+	 *
+	 * @param validMoves
+	 * @param p
+	 * @param yto
+	 * @param xto
+	 */
+	private void addAllPromotions(List<Move> validMoves, Pawn p, int yto, int xto) {
+		validMoves.add(new Promotion(p, yto, xto, new Knight(p.color, yto, xto)));
+		validMoves.add(new Promotion(p, yto, xto, new Queen(p.color, yto, xto)));
+		validMoves.add(new Promotion(p, yto, xto, new Rook(p.color, yto, xto)));
+		validMoves.add(new Promotion(p, yto, xto, new Bishop(p.color, yto, xto)));
+	}
+	// with a removed piece
+	private void addAllPromotions(List<Move> validMoves, Pawn p, int yto, int xto, Piece removed) {
+		validMoves.add(new Promotion(p, yto, xto, new Knight(p.color, yto, xto), removed));
+		validMoves.add(new Promotion(p, yto, xto, new Queen(p.color, yto, xto), removed));
+		validMoves.add(new Promotion(p, yto, xto, new Rook(p.color, yto, xto), removed));
+		validMoves.add(new Promotion(p, yto, xto, new Bishop(p.color, yto, xto), removed));
+	}
 }

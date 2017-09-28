@@ -2,15 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8a0377d-18da-4d97-a66d-57dc1918c0d1" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/resources/test_boards/castleTestsBasic" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/resources/test_boards/promotionTestsBasic" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log/log.out" afterPath="$PROJECT_DIR$/log/log.out" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/board/Board.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/board/Board.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/EnPassant.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/EnPassant.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/assertion/ChessAssertions.java" afterPath="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/assertion/ChessAssertions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/exception/NoSuchPieceException.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/exception/NoSuchPieceException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/Promotion.java" afterPath="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/Promotion.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/BoardTest.java" afterPath="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/BoardTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/util/ChessTestingUtil.java" afterPath="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/util/ChessTestingUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/resources/test_boards/tanEnPassantTest" afterPath="$PROJECT_DIR$/src/test/resources/test_boards/tanEnPassantTest" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/gameState_template" afterPath="$PROJECT_DIR$/templates/gameState_template" />
     </list>
     <ignored path="$PROJECT_DIR$/Chess/target/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -23,110 +22,134 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="gameState_template" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/gameState_template">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-338">
-              <caret line="26" column="20" lean-forward="false" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tanEnPassantTest" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/test_boards/tanEnPassantTest">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="10" column="33" lean-forward="true" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Board.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/board/Board.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
-              <caret line="416" column="0" lean-forward="false" selection-start-line="416" selection-start-column="0" selection-end-line="416" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#42113#42119#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BoardTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/BoardTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="69" column="27" lean-forward="false" selection-start-line="69" selection-start-column="27" selection-end-line="69" selection-end-column="27" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <marker date="1506548907296" expanded="false" signature="3364:3370" ph="&lt;~&gt;" />
-                <marker date="1506548907296" expanded="false" signature="4374:4380" ph="&lt;~&gt;" />
-                <marker date="1506548907296" expanded="false" signature="5732:5738" ph="&lt;~&gt;" />
-                <marker date="1506548907296" expanded="false" signature="5937:5943" ph="&lt;~&gt;" />
-                <marker date="1506548907296" expanded="false" signature="6993:6999" ph="&lt;~&gt;" />
-                <marker date="1506548907296" expanded="false" signature="8477:8483" ph="&lt;~&gt;" />
-                <marker date="1506548907296" expanded="false" signature="9821:9827" ph="&lt;~&gt;" />
-                <marker date="1506548907296" expanded="false" signature="10970:10989" ph="&lt;~&gt;" />
-                <marker date="1506548907296" expanded="false" signature="11035:11043" ph="&lt;~&gt;" />
-                <marker date="1506548907296" expanded="false" signature="11400:11408" ph="&lt;~&gt;" />
-                <marker date="1506548907296" expanded="false" signature="11651:11659" ph="&lt;~&gt;" />
-                <marker date="1506548907296" expanded="false" signature="11865:11873" ph="&lt;~&gt;" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChessAssertions.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/assertion/ChessAssertions.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
-              <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EnPassant.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/EnPassant.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Piece.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/piece/Piece.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Move.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/Move.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
-              <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-              <folding>
-                <element signature="e#1404#1405#0" expanded="true" />
-                <element signature="e#1423#1424#0" expanded="true" />
-                <element signature="e#1543#1544#0" expanded="true" />
-                <element signature="e#1564#1565#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.6810146">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="gameState_template" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/templates/gameState_template">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="170">
+                  <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="61" selection-end-column="31" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Board.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/board/Board.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="126">
+                  <caret line="1641" column="43" lean-forward="false" selection-start-line="1641" selection-start-column="43" selection-end-line="1641" selection-end-column="43" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#43042#43048#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ChessBoard.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/app/ChessBoard.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="205">
+                  <caret line="78" column="25" lean-forward="false" selection-start-line="78" selection-start-column="25" selection-end-line="78" selection-end-column="25" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="BoardTest.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/BoardTest.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="162">
+                  <caret line="172" column="0" lean-forward="true" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <marker date="1506575533437" expanded="false" signature="3148:3154" ph="&lt;~&gt;" />
+                    <marker date="1506575533437" expanded="false" signature="4032:4038" ph="&lt;~&gt;" />
+                    <marker date="1506575533437" expanded="false" signature="4523:4529" ph="&lt;~&gt;" />
+                    <marker date="1506575533437" expanded="false" signature="7062:7068" ph="&lt;~&gt;" />
+                    <marker date="1506575533437" expanded="false" signature="8578:8584" ph="&lt;~&gt;" />
+                    <marker date="1506575533437" expanded="false" signature="9922:9928" ph="&lt;~&gt;" />
+                    <marker date="1506575533437" expanded="false" signature="11071:11090" ph="&lt;~&gt;" />
+                    <marker date="1506575533437" expanded="false" signature="11136:11144" ph="&lt;~&gt;" />
+                    <marker date="1506575533437" expanded="false" signature="11501:11509" ph="&lt;~&gt;" />
+                    <marker date="1506575533437" expanded="false" signature="11752:11760" ph="&lt;~&gt;" />
+                    <marker date="1506575533437" expanded="false" signature="11966:11974" ph="&lt;~&gt;" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Promotion.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/Promotion.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="558">
+                  <caret line="40" column="18" lean-forward="false" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="promotionTestsBasic" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/test/resources/test_boards/promotionTestsBasic">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="126">
+                  <caret line="7" column="36" lean-forward="true" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="castleTestsBasic" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/test/resources/test_boards/castleTestsBasic">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="72">
+                  <caret line="4" column="12" lean-forward="false" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ChessAssertions.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/assertion/ChessAssertions.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="234">
+                  <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="EnPassant.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/EnPassant.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="201">
+                  <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="promotionTestsBasic" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/test/resources/test_boards/promotionTestsBasic">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="126">
+                  <caret line="7" column="36" lean-forward="false" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -155,8 +178,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Chess/src/test/Java/ThreatPathsUnitTest.java" />
-        <option value="$PROJECT_DIR$/Chess/src/test/Java/ChessBoardTest.java" />
         <option value="$PROJECT_DIR$/Chess/src/test/java/ChessBoardTest.java" />
         <option value="$PROJECT_DIR$/Chess/src/main/java/player/AI_Player.java" />
         <option value="$PROJECT_DIR$/Chess/src/main/java/piece/Bishop.java" />
@@ -177,9 +198,7 @@
         <option value="$PROJECT_DIR$/Chess/src/test/java/jacob/siebert/chessai/assertion/ChessAssertions.java" />
         <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/piece/Piece.java" />
         <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/Move.java" />
-        <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/Promotion.java" />
         <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/BookSet.java" />
-        <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/exception/NoSuchPieceException.java" />
         <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/Castle.java" />
         <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/player/Player.java" />
         <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/player/AI_Player.java" />
@@ -200,12 +219,16 @@
         <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/ui/SpriteSheet.java" />
         <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/app/ChessBoard.java" />
         <option value="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/util/ChessTestingUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/board/Board.java" />
         <option value="$PROJECT_DIR$/templates/gameState_template" />
         <option value="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/assertion/ChessAssertions.java" />
         <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/EnPassant.java" />
-        <option value="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/BoardTest.java" />
         <option value="$PROJECT_DIR$/src/test/resources/test_boards/tanEnPassantTest" />
+        <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/exception/NoSuchPieceException.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/test_boards/castleTests" />
+        <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/board/Board.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/test_boards/promotionTestsBasic" />
+        <option value="$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/Promotion.java" />
+        <option value="$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/BoardTest.java" />
       </list>
     </option>
   </component>
@@ -224,10 +247,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="662" />
-    <option name="y" value="37" />
-    <option name="width" value="1271" />
-    <option name="height" value="700" />
+    <option name="x" value="65" />
+    <option name="y" value="24" />
+    <option name="width" value="1273" />
+    <option name="height" value="708" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -268,6 +291,102 @@
               <item name="chess_AI" type="b2602c69:ProjectViewProjectNode" />
               <item name="chess_AI" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chess_AI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chess_AI" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chess_AI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chess_AI" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jacob" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chess_AI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chess_AI" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jacob" type="462c0819:PsiDirectoryNode" />
+              <item name="siebert" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chess_AI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chess_AI" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jacob" type="462c0819:PsiDirectoryNode" />
+              <item name="siebert" type="462c0819:PsiDirectoryNode" />
+              <item name="chessai" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chess_AI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chess_AI" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jacob" type="462c0819:PsiDirectoryNode" />
+              <item name="siebert" type="462c0819:PsiDirectoryNode" />
+              <item name="chessai" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chess_AI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chess_AI" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chess_AI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chess_AI" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chess_AI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chess_AI" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jacob" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chess_AI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chess_AI" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jacob" type="462c0819:PsiDirectoryNode" />
+              <item name="siebert" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chess_AI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chess_AI" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jacob" type="462c0819:PsiDirectoryNode" />
+              <item name="siebert" type="462c0819:PsiDirectoryNode" />
+              <item name="chessai" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chess_AI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chess_AI" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jacob" type="462c0819:PsiDirectoryNode" />
+              <item name="siebert" type="462c0819:PsiDirectoryNode" />
+              <item name="chessai" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -333,7 +452,33 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.BoardTest.tanEnPassantTest">
+  <component name="RunManager" selected="JUnit.BoardTest.castleTest">
+    <configuration name="BoardTest.castleTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <log_file path="$PROJECT_DIR$/log/log.out" checked="true" skipped="true" show_all="false" alias="Logger" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="jacob.siebert.chessai.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="chess_AI" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="jacob.siebert.chessai.test" />
+      <option name="MAIN_CLASS_NAME" value="jacob.siebert.chessai.test.BoardTest" />
+      <option name="METHOD_NAME" value="castleTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
     <configuration name="BoardTest.tanEnPassantTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <log_file path="$PROJECT_DIR$/log/log.out" checked="true" skipped="true" show_all="false" alias="Logger" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
@@ -603,7 +748,7 @@
       <properties />
       <listeners />
     </configuration>
-    <list size="7">
+    <list size="8">
       <item index="0" class="java.lang.String" itemvalue="Application.Chess_AI_JAR" />
       <item index="1" class="java.lang.String" itemvalue="Application.Chess_AI_JAR_Skip_Tests" />
       <item index="2" class="java.lang.String" itemvalue="Maven.Debug_Chess_AI_Maven" />
@@ -611,10 +756,12 @@
       <item index="4" class="java.lang.String" itemvalue="Maven.Chess_AI_Skip_Tests_Maven" />
       <item index="5" class="java.lang.String" itemvalue="Remote.Debug_CHESS_AI_JAR" />
       <item index="6" class="java.lang.String" itemvalue="JUnit.BoardTest.tanEnPassantTest" />
+      <item index="7" class="java.lang.String" itemvalue="JUnit.BoardTest.castleTest" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.BoardTest.tanEnPassantTest" />
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="JUnit.BoardTest.castleTest" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.BoardTest.tanEnPassantTest" />
       </list>
     </recent_temporary>
   </component>
@@ -640,35 +787,35 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="BoardTest_tanEnPassantTest - 2017.09.27 at 16h 11m 03s.xml">
-      <configuration name="BoardTest.tanEnPassantTest" configurationId="JUnit" />
+    <history-entry file="BoardTest_castleTest - 2017.09.27 at 23h 09m 08s.xml">
+      <configuration name="BoardTest.castleTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BoardTest_tanEnPassantTest - 2017.09.27 at 16h 13m 11s.xml">
-      <configuration name="BoardTest.tanEnPassantTest" configurationId="JUnit" />
+    <history-entry file="BoardTest_castleTest - 2017.09.27 at 23h 10m 34s.xml">
+      <configuration name="BoardTest.castleTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BoardTest_tanEnPassantTest - 2017.09.27 at 16h 14m 17s.xml">
-      <configuration name="BoardTest.tanEnPassantTest" configurationId="JUnit" />
+    <history-entry file="BoardTest_castleTest - 2017.09.27 at 23h 12m 17s.xml">
+      <configuration name="BoardTest.castleTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BoardTest_tanEnPassantTest - 2017.09.27 at 16h 23m 25s.xml">
-      <configuration name="BoardTest.tanEnPassantTest" configurationId="JUnit" />
+    <history-entry file="BoardTest_castleTest - 2017.09.27 at 23h 16m 14s.xml">
+      <configuration name="BoardTest.castleTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BoardTest_tanEnPassantTest - 2017.09.27 at 16h 27m 11s.xml">
-      <configuration name="BoardTest.tanEnPassantTest" configurationId="JUnit" />
+    <history-entry file="BoardTest_castleTest - 2017.09.27 at 23h 16m 25s.xml">
+      <configuration name="BoardTest.castleTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BoardTest_tanEnPassantTest - 2017.09.27 at 16h 31m 12s.xml">
-      <configuration name="BoardTest.tanEnPassantTest" configurationId="JUnit" />
+    <history-entry file="BoardTest_castleTest - 2017.09.27 at 23h 16m 57s.xml">
+      <configuration name="BoardTest.castleTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BoardTest_tanEnPassantTest - 2017.09.27 at 16h 35m 32s.xml">
-      <configuration name="BoardTest.tanEnPassantTest" configurationId="JUnit" />
+    <history-entry file="BoardTest_castleTest - 2017.09.27 at 23h 17m 21s.xml">
+      <configuration name="BoardTest.castleTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BoardTest_tanEnPassantTest - 2017.09.27 at 16h 47m 19s.xml">
-      <configuration name="BoardTest.tanEnPassantTest" configurationId="JUnit" />
+    <history-entry file="BoardTest_castleTest - 2017.09.27 at 23h 33m 12s.xml">
+      <configuration name="BoardTest.castleTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BoardTest_tanEnPassantTest - 2017.09.27 at 16h 48m 36s.xml">
-      <configuration name="BoardTest.tanEnPassantTest" configurationId="JUnit" />
+    <history-entry file="BoardTest_castleTest - 2017.09.27 at 23h 33m 23s.xml">
+      <configuration name="BoardTest.castleTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="BoardTest_tanEnPassantTest - 2017.09.27 at 16h 49m 08s.xml">
-      <configuration name="BoardTest.tanEnPassantTest" configurationId="JUnit" />
+    <history-entry file="BoardTest_castleTest - 2017.09.27 at 23h 38m 00s.xml">
+      <configuration name="BoardTest.castleTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -685,13 +832,13 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32917318" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917318" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1906226" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917318" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32917318" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22059953" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -714,25 +861,22 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/BoardTest.java</url>
-          <line>82</line>
+          <line>76</line>
           <properties />
           <option name="timeStamp" value="12" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/board/Board.java</url>
+          <line>202</line>
+          <properties />
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="13" />
+      <option name="time" value="19" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/assertion/ChessAssertions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="7" lean-forward="false" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Chess/.settings/org.eclipse.jdt.core.prefs" />
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -785,26 +929,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/Promotion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="81" column="12" lean-forward="true" selection-start-line="81" selection-start-column="12" selection-end-line="81" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/BookSet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/exception/NoSuchPieceException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -986,16 +1114,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/app/ChessBoard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="506" column="20" lean-forward="false" selection-start-line="506" selection-start-column="20" selection-end-line="506" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/log/log.out">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
@@ -1051,14 +1169,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/gameState_template">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-338">
-          <caret line="26" column="20" lean-forward="false" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/piece/Queen.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
@@ -1085,17 +1195,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/board/Board.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="416" column="0" lean-forward="false" selection-start-line="416" selection-start-column="0" selection-end-line="416" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#42113#42119#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/EnPassant.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="201">
@@ -1117,19 +1216,11 @@
         <state relative-caret-position="111">
           <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
           <folding>
-            <element signature="e#1404#1405#0" expanded="true" />
-            <element signature="e#1423#1424#0" expanded="true" />
-            <element signature="e#1543#1544#0" expanded="true" />
-            <element signature="e#1564#1565#0" expanded="true" />
+            <element signature="e#1404#1405#0" expanded="false" />
+            <element signature="e#1423#1424#0" expanded="false" />
+            <element signature="e#1543#1544#0" expanded="false" />
+            <element signature="e#1564#1565#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/assertion/ChessAssertions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1141,33 +1232,105 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/BoardTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="69" column="27" lean-forward="false" selection-start-line="69" selection-start-column="27" selection-end-line="69" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1506548907296" expanded="false" signature="3364:3370" ph="&lt;~&gt;" />
-            <marker date="1506548907296" expanded="false" signature="4374:4380" ph="&lt;~&gt;" />
-            <marker date="1506548907296" expanded="false" signature="5732:5738" ph="&lt;~&gt;" />
-            <marker date="1506548907296" expanded="false" signature="5937:5943" ph="&lt;~&gt;" />
-            <marker date="1506548907296" expanded="false" signature="6993:6999" ph="&lt;~&gt;" />
-            <marker date="1506548907296" expanded="false" signature="8477:8483" ph="&lt;~&gt;" />
-            <marker date="1506548907296" expanded="false" signature="9821:9827" ph="&lt;~&gt;" />
-            <marker date="1506548907296" expanded="false" signature="10970:10989" ph="&lt;~&gt;" />
-            <marker date="1506548907296" expanded="false" signature="11035:11043" ph="&lt;~&gt;" />
-            <marker date="1506548907296" expanded="false" signature="11400:11408" ph="&lt;~&gt;" />
-            <marker date="1506548907296" expanded="false" signature="11651:11659" ph="&lt;~&gt;" />
-            <marker date="1506548907296" expanded="false" signature="11865:11873" ph="&lt;~&gt;" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/resources/test_boards/tanEnPassantTest">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="10" column="33" lean-forward="true" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/app/ChessBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="78" column="25" lean-forward="false" selection-start-line="78" selection-start-column="25" selection-end-line="78" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/exception/NoSuchPieceException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="14" column="42" lean-forward="false" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
+          <folding>
+            <element signature="e#191#192#0" expanded="false" />
+            <element signature="e#267#268#0" expanded="false" />
+            <element signature="e#444#445#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/assertion/ChessAssertions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="99" column="0" lean-forward="false" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/test_boards/castleTestsBasic">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="12" lean-forward="false" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/gameState_template">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="61" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/board/Board.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="1641" column="43" lean-forward="false" selection-start-line="1641" selection-start-column="43" selection-end-line="1641" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#43042#43048#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jacob/siebert/chessai/move/Promotion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="40" column="18" lean-forward="false" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/test_boards/promotionTestsBasic">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="36" lean-forward="true" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/jacob/siebert/chessai/test/BoardTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="172" column="0" lean-forward="true" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1506575533437" expanded="false" signature="3148:3154" ph="&lt;~&gt;" />
+            <marker date="1506575533437" expanded="false" signature="4032:4038" ph="&lt;~&gt;" />
+            <marker date="1506575533437" expanded="false" signature="4523:4529" ph="&lt;~&gt;" />
+            <marker date="1506575533437" expanded="false" signature="7062:7068" ph="&lt;~&gt;" />
+            <marker date="1506575533437" expanded="false" signature="8578:8584" ph="&lt;~&gt;" />
+            <marker date="1506575533437" expanded="false" signature="9922:9928" ph="&lt;~&gt;" />
+            <marker date="1506575533437" expanded="false" signature="11071:11090" ph="&lt;~&gt;" />
+            <marker date="1506575533437" expanded="false" signature="11136:11144" ph="&lt;~&gt;" />
+            <marker date="1506575533437" expanded="false" signature="11501:11509" ph="&lt;~&gt;" />
+            <marker date="1506575533437" expanded="false" signature="11752:11760" ph="&lt;~&gt;" />
+            <marker date="1506575533437" expanded="false" signature="11966:11974" ph="&lt;~&gt;" />
+          </folding>
         </state>
       </provider>
     </entry>

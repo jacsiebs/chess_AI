@@ -6,7 +6,7 @@ import jacob.siebert.chessai.piece.*;
  * @author Jacob Siebert
  *
  * Promotion encapsulates a Move where a Pawn has reached the opponents last file,
- * allowing the jacob.siebert.chessai.player to upgrade the pawn into a knight, rook, queen, or bishop.
+ * allowing the player to upgrade the pawn into a knight, rook, queen, or bishop.
  */
 public class Promotion extends Move {
 	

@@ -130,6 +130,7 @@ public class Board {
 		tanLocations = new ArrayList<>();
 
 		loadGameState(gameState);
+		updateChecks();// calculate checks to produce valid gamestate
 		//generateAllMoves();// initialize
 	}
 
@@ -208,21 +209,42 @@ public class Board {
 							char first = curr;
 							curr = line.charAt(k);
 							k++;
-							// check if the # of moves is double digit
-							if(Character.isDigit(curr)) {
-								numMoves = Character.toString(first) + Character.toString(curr);
-							} else if(curr == '|') {
-								// if single digit # of moves -> must be formed as such: "...| P2|..."
-								// rather than: "...|P2 |..."
+							// if single digit # of moves -> must be formed as such: "...| P2|..."
+							// rather than: "...|P2 |..."
+							if(curr == '|') {
 								numMoves = Character.toString(first);
-								// increment i to maintain x pos
-								i++;
+								i++;// increment i to maintain x pos
+							}
+							// check if the # of moves is double digit
+							else if(Character.isDigit(curr)) {
+								numMoves = Character.toString(first) + Character.toString(curr);
+								curr = line.charAt(k);
+								k++;
+								if(curr != '|') {
+									LOG.debug("Game state file not well-formed. Expected: '|' Got: '" + curr + "'");
+									throw new RuntimeException("Game state file not well-formed");
+								}
+								i++;// increment i to maintain x pos
 							} else {
 								LOG.debug("Game state file not well-formed. Expected: '|' Got: '" + curr + "'");
 								throw new RuntimeException("Game state file not well-formed");
 							}
-						} else {
-							i++; // maintain proper x pos
+						}
+						// defaulting to 0 moves made
+						else if(curr == ' ') {
+							curr = line.charAt(k);
+							k++;
+							// next char must be a '|'
+							if(curr != '|') {
+								LOG.debug("Game state file not well-formed. Expected: '|' Got: '" + curr + "'");
+								throw new RuntimeException("Game state file not well-formed");
+							}
+							i++;// maintain proper x pos
+						}
+						// any letter must be followed by either a digit or a space!
+						else {
+							LOG.debug("Game state file not well-formed. Expected: ' ' OR {0-9} Got: '" + curr + "'");
+							throw new RuntimeException("Game state file not well-formed");
 						}
 						// add the piece with the specified number of moves
 						// subtract 1 from i since i has been incremented
