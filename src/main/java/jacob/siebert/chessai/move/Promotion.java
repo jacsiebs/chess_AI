@@ -1,6 +1,7 @@
 package jacob.siebert.chessai.move;
 
 import jacob.siebert.chessai.piece.*;
+import jacob.siebert.chessai.type.PieceColor;
 
 /**
  * @author Jacob Siebert
@@ -11,7 +12,7 @@ import jacob.siebert.chessai.piece.*;
 public class Promotion extends Move {
 	
 	private Piece upgraded;
-	
+
 	// capture and upgrade
 	public Promotion(Pawn p, int yto, int xto, Piece upgraded, Piece removed) {
 		super(p, yto, xto, removed);
@@ -19,7 +20,7 @@ public class Promotion extends Move {
 	}
 
 	// capture and upgrade - create new upgraded piece given type and color
-	public Promotion(Pawn p, int yto, int xto, char up_type, char up_color, Piece removed) {
+	public Promotion(Pawn p, int yto, int xto, char up_type, PieceColor up_color, Piece removed) {
 		super(p, yto, xto, removed);
 		switch(up_type) {
 		case 'q':
@@ -77,7 +78,7 @@ public class Promotion extends Move {
 		int y2 = 8 - yto;
 		char x1 = (char) (piece.x + 65);
 		char x2 = (char) (xto + 65);
-		if(piece.color == Piece.WHITE)
+		if(piece.isWhite())
 			return "Promotion: White moves " + piece.getName() + " " + x1+y1 + " to " + x2+y2 + ".";
 		else
 			return "Promotion: Tan moves " + piece.getName() + " " + x1+y1 + " to " + x2+y2
@@ -87,7 +88,7 @@ public class Promotion extends Move {
 	@Override
 	public Promotion clone() {
 		if(removed == null) {
-			return new Promotion(((Pawn) piece).clone(), yto, xto, upgraded.clone(), null);
+			return new Promotion(((Pawn) piece).clone(), yto, xto, upgraded.clone());
 		}
 		return new Promotion(((Pawn) piece).clone(), yto, xto, upgraded.clone(), removed.clone());
 	}

@@ -1,14 +1,16 @@
 package jacob.siebert.chessai.piece;
 
+import jacob.siebert.chessai.type.PieceColor;
+
 public class Queen extends Piece {
 	
-	public Queen(char color, int y, int x) {
+	public Queen(PieceColor color, int y, int x) {
 		super(color, y, x);
 		value = 9;
 		type = 'q';
 	}
 
-	public Queen(char color, int y, int x, int timesMoved) {
+	public Queen(PieceColor color, int y, int x, int timesMoved) {
 		super(color, y, x, timesMoved);
 		value = 9;
 		type = 'q';
@@ -16,9 +18,10 @@ public class Queen extends Piece {
 	
 	@Override
 	public Queen clone() {
-		return new Queen(color, y, x, timesMoved);
+		return new Queen(getColor(), y, x, timesMoved);
 	}
-	
+
+	@Override
 	public String getName() {
 		return "Queen";
 	}

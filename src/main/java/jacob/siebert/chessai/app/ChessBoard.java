@@ -18,10 +18,11 @@ import jacob.siebert.chessai.move.EnPassant;
 import jacob.siebert.chessai.move.Move;
 import jacob.siebert.chessai.move.Promotion;
 import jacob.siebert.chessai.piece.*;
-import jacob.siebert.chessai.player.AI_Player;
+import jacob.siebert.chessai.player.Basic_MinMax_AI;
 import jacob.siebert.chessai.player.HumanPlayer;
 import jacob.siebert.chessai.player.Player;
-import jacob.siebert.chessai.type.GameMode;
+import jacob.siebert.chessai.type.PieceColor;
+import jacob.siebert.chessai.type.PlayerTypes;
 import jacob.siebert.chessai.type.NewGameType;
 import jacob.siebert.chessai.ui.IconGrabber;
 import jacob.siebert.chessai.ui.PieceButton;
@@ -100,7 +101,7 @@ public class ChessBoard {
 	private JLabel message;
 	private JLabel[] statistics;
 	// game vars
-	private GameMode gameMode;
+	private PlayerTypes playerTypes;
 	private Player player1;
 	private Player player2;
 	private Player currentPlayer;// holds which player is currently moving
@@ -128,10 +129,10 @@ public class ChessBoard {
 	}
 
 	// used for testing - loads a gamestate into the board
-	public ChessBoard(String gamestate_filename, GameMode gameMode) {
+	public ChessBoard(String gamestate_filename, PlayerTypes playerTypes) {
 		initUI(false);// TODO fullscreen
-		this.gameMode = gameMode;
-		initGame(NewGameType.LOAD, gameMode);
+		this.playerTypes = playerTypes;
+		initGame(NewGameType.LOAD, playerTypes);
 	}
 
 	public static void main(String[] args) {
@@ -350,7 +351,7 @@ public class ChessBoard {
 			selected = board.getPiece(yPress, xPress);
 			// player1 can only move tans
 			if (currentPlayer == player1) {
-				if (selected.color == Piece.TAN) {
+				if (selected.isTan()) {
 					displayMessage(player1.getName() + " moving " + ((char) (xPress + 65))
 							+ (8 - yPress) + " to...");
 					selected_button.setBorder(BorderFactory.createLineBorder(Color.RED, 5));
@@ -362,7 +363,7 @@ public class ChessBoard {
 			}
 			// player2 may only move whites
 			else {
-				if (board.getPiece(yPress, xPress).color == Piece.WHITE) {
+				if (board.getPiece(yPress, xPress).isWhite()) {
 					displayMessage(player2.getName() + " moving " + ((char) (xPress + 65))
 							+ (8 - yPress) + " to...");
 					selected_button.setBorder(BorderFactory.createLineBorder(Color.RED));
@@ -373,7 +374,7 @@ public class ChessBoard {
 				}
 			}
 			// player had selected the wrong color
-			displayMessage("Cannot jacob.siebert.chessai.move opponent's pieces.");
+			displayMessage("Cannot move opponent's pieces.");
 			selected = null;
 		}
 	}
@@ -427,7 +428,7 @@ public class ChessBoard {
 		Pawn lastDoublePawn = board.getLastDoublePawn();
 		if(lastDoublePawn != null && selected instanceof Pawn && secondPress == null) {
 			Piece captured;
-			if(selected.color == Piece.TAN) {
+			if(selected.getColor() == PieceColor.TAN) {
 				captured = board.getPiece(second_selected_button.getYPos() + 1, second_selected_button.getXPos());
 			} else {
 				captured = board.getPiece(second_selected_button.getYPos() - 1, second_selected_button.getXPos());
@@ -445,7 +446,7 @@ public class ChessBoard {
 		 * move into the last row through a forward move or capture.
 		 */
 		if(selected instanceof Pawn) {
-			if(selected.color == Piece.TAN) {
+			if(selected.getColor() == PieceColor.TAN) {
 				// only open the upgrade menu if it is truly valid
 				if(yPress == 1 && secondYPress == 0) {
 					int xdif = xPress - secondXPress;
@@ -458,7 +459,7 @@ public class ChessBoard {
 								&& board.getPiece(0, xPress - xdif).isOpponent(selected))) {
 						char type = upgradeMenu();
 						return new Promotion((Pawn) selected, secondYPress, secondXPress,
-								type, selected.color, board.getPiece(secondYPress, secondXPress));
+								type, selected.getColor(), board.getPiece(secondYPress, secondXPress));
 					}
 				}
 			} 
@@ -477,7 +478,7 @@ public class ChessBoard {
 									&& board.getPiece(7, xPress - xdif).isOpponent(selected))) {
 						char type = upgradeMenu();
 						return new Promotion((Pawn) selected, secondYPress,
-								secondXPress, type, selected.color,
+								secondXPress, type, selected.getColor(),
 								board.getPiece(secondYPress, secondXPress));
 					}
 				}
@@ -632,13 +633,13 @@ public class ChessBoard {
 				choice = JOptionPane.showOptionDialog(frame, "Select game type", "Game Type",
 						JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, _options, options[2]);
 				if(choice == 0) {
-					initGame(type, GameMode.H_v_H);
+					initGame(type, PlayerTypes.H_v_H);
 
 				} else if(choice == 1) {
-					initGame(type, GameMode.H_v_AI);
+					initGame(type, PlayerTypes.H_v_AI);
 
 				} else if(choice == 2) {
-					initGame(type, GameMode.AI_v_AI);
+					initGame(type, PlayerTypes.AI_v_AI);
 				}
 			}
 
@@ -698,22 +699,22 @@ public class ChessBoard {
 	 * Called once a user begins a game by pressing "start"
 	 *
 	 * @param gameType - New game, load game, or empty game?
-	 * @param gameMode - 0: Human vs Human, 1: Human vs AI, 2: AI vs AI
+	 * @param playerTypes - 0: Human vs Human, 1: Human vs AI, 2: AI vs AI
 	 */
-	public void initGame(NewGameType gameType, GameMode gameMode) {
+	public void initGame(NewGameType gameType, PlayerTypes playerTypes) {
 		changedBorders = new Stack<PieceButton>();
 		board = new Board(gameType, this);
 
 		// TODO - choose who goes first
-		if (gameMode == GameMode.H_v_H) {
-			player1 = new HumanPlayer(Piece.TAN);
-			player2 = new HumanPlayer(Piece.WHITE);
-		} else if (gameMode == GameMode.H_v_AI) {
-			player1 = new HumanPlayer(Piece.TAN);
-			player2 = new AI_Player(Piece.WHITE, board);
+		if (playerTypes == PlayerTypes.H_v_H) {
+			player1 = new HumanPlayer(PieceColor.TAN);
+			player2 = new HumanPlayer(PieceColor.WHITE);
+		} else if (playerTypes == PlayerTypes.H_v_AI) {
+			player1 = new HumanPlayer(PieceColor.TAN);
+			player2 = new Basic_MinMax_AI(PieceColor.WHITE, board);
 		} else {
-			player1 = new AI_Player(Piece.TAN, board);
-			player2 = new AI_Player(Piece.WHITE, board);
+			player1 = new Basic_MinMax_AI(PieceColor.TAN, board);
+			player2 = new Basic_MinMax_AI(PieceColor.WHITE, board);
 		}
 		// new game
 		if (gameType == NewGameType.NEW) {
@@ -862,40 +863,40 @@ public class ChessBoard {
 						// add the piece with the specified number of moves
 						switch(type) {
 							case 'k':
-								board.placePiece(new King(Piece.TAN, j, i, Integer.parseInt(numMoves)));
+								board.placePiece(new King(PieceColor.TAN, j, i, Integer.parseInt(numMoves)));
 								break;
 							case 'K':
-								board.placePiece(new King(Piece.WHITE, j, i, Integer.parseInt(numMoves)));
+								board.placePiece(new King(PieceColor.WHITE, j, i, Integer.parseInt(numMoves)));
 								break;
 							case 'q':
-								board.placePiece(new Queen(Piece.TAN, j, i, Integer.parseInt(numMoves)));
+								board.placePiece(new Queen(PieceColor.TAN, j, i, Integer.parseInt(numMoves)));
 								break;
 							case 'Q':
-								board.placePiece(new Queen(Piece.WHITE, j, i, Integer.parseInt(numMoves)));
+								board.placePiece(new Queen(PieceColor.WHITE, j, i, Integer.parseInt(numMoves)));
 								break;
 							case 'b':
-								board.placePiece(new Bishop(Piece.TAN, j, i, Integer.parseInt(numMoves)));
+								board.placePiece(new Bishop(PieceColor.TAN, j, i, Integer.parseInt(numMoves)));
 								break;
 							case 'B':
-								board.placePiece(new Bishop(Piece.WHITE, j, i, Integer.parseInt(numMoves)));
+								board.placePiece(new Bishop(PieceColor.WHITE, j, i, Integer.parseInt(numMoves)));
 								break;
 							case 'n':
-								board.placePiece(new Knight(Piece.TAN, j, i, Integer.parseInt(numMoves)));
+								board.placePiece(new Knight(PieceColor.TAN, j, i, Integer.parseInt(numMoves)));
 								break;
 							case 'N':
-								board.placePiece(new Knight(Piece.WHITE, j, i, Integer.parseInt(numMoves)));
+								board.placePiece(new Knight(PieceColor.WHITE, j, i, Integer.parseInt(numMoves)));
 								break;
 							case 'p':
-								board.placePiece(new Pawn(Piece.TAN, j, i, Integer.parseInt(numMoves)));
+								board.placePiece(new Pawn(PieceColor.TAN, j, i, Integer.parseInt(numMoves)));
 								break;
 							case 'P':
-								board.placePiece(new Pawn(Piece.WHITE, j, i, Integer.parseInt(numMoves)));
+								board.placePiece(new Pawn(PieceColor.WHITE, j, i, Integer.parseInt(numMoves)));
 								break;
 							case 'r':
-								board.placePiece(new Rook(Piece.TAN, j, i, Integer.parseInt(numMoves)));
+								board.placePiece(new Rook(PieceColor.TAN, j, i, Integer.parseInt(numMoves)));
 								break;
 							case 'R':
-								board.placePiece(new Rook(Piece.WHITE, j, i, Integer.parseInt(numMoves)));
+								board.placePiece(new Rook(PieceColor.WHITE, j, i, Integer.parseInt(numMoves)));
 								break;
 						}
 					} else if(curr == '|') {
@@ -933,10 +934,10 @@ public class ChessBoard {
 			Move undone = board.undoLastMove();
 			// undo it on the UI
 			Piece moved = undone.getSelectedPiece();
-			buttonBoard[moved.y][moved.x].setPiece(moved.type, moved.color);
+			buttonBoard[moved.y][moved.x].setPiece(moved.type, moved.getColor());
 			try {
 				Piece removed = undone.getRemovedPiece();
-				buttonBoard[removed.y][removed.x].setPiece(removed.type, removed.color);
+				buttonBoard[removed.y][removed.x].setPiece(removed.type, removed.getColor());
 			} catch (NoSuchPieceException e1) {
 				buttonBoard[undone.yto][undone.xto].removePiece();
 			}
@@ -998,23 +999,24 @@ public class ChessBoard {
 		board.displayBoard();
 		System.out.println("--------------------------------");
 	}
-	
+
+	// TODO
 	private long makeAIMove() {
 		Date start = new Date();
-
-		Move AI_move = currentPlayer.nextMove(board, 3);
-		displayMessage(currentPlayer.getName() + " jacob.siebert.chessai.move: " + AI_move);// TODO make look nicer
-
-		board.applyMove(AI_move);
-
-		make_move_UI(AI_move);
-
-		// next player's turn
-		if (currentPlayer == player1)
-			currentPlayer = player2;
-		else
-			currentPlayer = player1;
-
+//
+//		Move AI_move = currentPlayer.nextMove(board, 3);
+//		displayMessage(currentPlayer.getName() + " jacob.siebert.chessai.move: " + AI_move);// TODO make look nicer
+//
+//		board.applyMove(AI_move);
+//
+//		make_move_UI(AI_move);
+//
+//		// next player's turn
+//		if (currentPlayer == player1)
+//			currentPlayer = player2;
+//		else
+//			currentPlayer = player1;
+//
 		Date end = new Date();
 		return end.getTime() - start.getTime();
 	}
@@ -1029,25 +1031,25 @@ public class ChessBoard {
 			Castle c = (Castle) m;
 			// move king
 			buttonBoard[c.yfrom][c.xfrom].removePiece();
-			buttonBoard[c.yto][c.xto].setPiece(c.getSelectedPiece().type, c.getSelectedPiece().color);
+			buttonBoard[c.yto][c.xto].setPiece(c.getSelectedPiece().type, c.getSelectedPiece().getColor());
 			// move rook
 			buttonBoard[c.castled_yFrom][c.castled_xFrom].removePiece();
-			buttonBoard[c.castled_yto][c.castled_xto].setPiece(c.getCastled().type, c.getCastled().color);
+			buttonBoard[c.castled_yto][c.castled_xto].setPiece(c.getCastled().type, c.getCastled().getColor());
 		} else if(m instanceof Promotion) {
 			Promotion u = (Promotion) m;
 			buttonBoard[u.yfrom][u.xfrom].removePiece();
 			// will overwrite a the capture piece if it exists
-			buttonBoard[u.yto][u.xto].setPiece(u.getUpgraded().type, u.getUpgraded().color);
+			buttonBoard[u.yto][u.xto].setPiece(u.getUpgraded().type, u.getUpgraded().getColor());
 		} else if(m instanceof EnPassant) {
 			EnPassant ep = (EnPassant) m;
 			buttonBoard[ep.yfrom][ep.xfrom].removePiece();
-			buttonBoard[ep.yto][ep.xto].setPiece(m.getSelectedPiece().type, m.getSelectedPiece().color);
+			buttonBoard[ep.yto][ep.xto].setPiece(m.getSelectedPiece().type, m.getSelectedPiece().getColor());
 			// remove captured piece
 			buttonBoard[ep.getRemovedPiece().y][ep.getRemovedPiece().x].removePiece();
 		} else {
 			buttonBoard[m.yfrom][m.xfrom].removePiece();
 			// will overwrite a the capture piece if it exists
-			buttonBoard[m.yto][m.xto].setPiece(m.getSelectedPiece().type, m.getSelectedPiece().color);
+			buttonBoard[m.yto][m.xto].setPiece(m.getSelectedPiece().type, m.getSelectedPiece().getColor());
 		}
 	}
 
@@ -1068,10 +1070,10 @@ public class ChessBoard {
 	// adds the pieces to the UI
 	public void newGamePieces() {
 		for (Piece p : board.getTanPieces()) {
-			buttonBoard[p.y][p.x].setPiece(p.type, p.color);
+			buttonBoard[p.y][p.x].setPiece(p.type, p.getColor());
 		}
 		for (Piece p : board.getWhitePieces()) {
-			buttonBoard[p.y][p.x].setPiece(p.type, p.color);
+			buttonBoard[p.y][p.x].setPiece(p.type, p.getColor());
 		}
 	}
 
@@ -1179,7 +1181,7 @@ public class ChessBoard {
 	}
 
 	public void debugPiece(Piece p) {
-		if (p.color == Piece.TAN)
+		if (p.getColor() == PieceColor.TAN)
 			displayMessage("Type:" + p.type + "  Y: " + p.y + "  X:" + p.x + "  Color:Tan");
 		else
 			displayMessage("Type:" + p.type + "  Y: " + p.y + "  X:" + p.x + "  Color:White");

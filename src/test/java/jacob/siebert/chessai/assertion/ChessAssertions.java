@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import jacob.siebert.chessai.board.Board;
 import jacob.siebert.chessai.board.Square;
 import jacob.siebert.chessai.move.Move;
+import jacob.siebert.chessai.piece.King;
+import jacob.siebert.chessai.type.PieceColor;
 
 /**
  * @author Jacob Siebert
@@ -100,6 +103,29 @@ public class ChessAssertions {
 			throw new AssertionError();
 		}
 		return pass;
+	}
+
+	public static void isInCheckmate(Board board, PieceColor color) {
+		if(!board.isInCheckMate(color)) {
+			System.out.println("FAIL -- Expected a checkmate!");
+			throw new AssertionError();
+		}
+	}
+
+	public static void assertIsInCheck(Board board, King k) {
+		if(!board.isInCheck(k)) {
+			System.out.println("FAIL -- " + k.toString() + " was expected " +
+					"to be in check.");
+			throw new AssertionError();
+		}
+	}
+
+	public static void assertIsNotInCheck(Board board, King k) {
+		if(board.isInCheck(k)) {
+			System.out.println("FAIL -- " + k.toString() + " was expected " +
+					"to not be in check.");
+			throw new AssertionError();
+		}
 	}
 	
 	public static void assertEqualsThreatPaths(ArrayList<ArrayList<Square>> expected,

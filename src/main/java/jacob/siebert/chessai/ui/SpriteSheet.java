@@ -1,5 +1,6 @@
 package jacob.siebert.chessai.ui;
 
+import jacob.siebert.chessai.type.PieceColor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,16 +37,25 @@ public class SpriteSheet {
 		yjump = spriteSheet.getHeight() / rows;
 	}
 
-	// TODO: unused - is there a use case?
 	// gets the sprite based on the column and row
 	// uses 0 based indexing
-	public BufferedImage getSprite(int column, int row) {
+	public BufferedImage getSprite(int column, PieceColor color) {
+		int row = getRowOfColor(color);
 		if((column+1)*xjump <= spriteSheet.getWidth() && 
 				(row+1)*yjump <= spriteSheet.getHeight()) {
 			return spriteSheet.getSubimage(column * xjump, row * yjump, xjump, yjump);
 		} else {
 			System.out.println("Can't locate the sprite");
 			return null;
+		}
+	}
+
+	private int getRowOfColor(PieceColor color) {
+		if(color == PieceColor.TAN) {
+			return 0;
+		} else {
+			// white
+			return 1;
 		}
 	}
 }

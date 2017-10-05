@@ -39,7 +39,7 @@ public class EnPassant extends Move {
 		int y2 = 8 - yto;
 		char x1 = (char) (piece.x + 65);
 		char x2 = (char) (xto + 65);
-		if(piece.color == Piece.WHITE)
+		if(piece.isWhite())
 			return "EnPassant: White moves " + piece.getName() + " " + x1+y1 + " to " + x2+y2 + ".";
 		else
 			return "EnPassant: Tan moves " + piece.getName() + " " + x1+y1 + " to " + x2+y2 + ".";

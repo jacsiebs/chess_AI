@@ -1,15 +1,17 @@
 package jacob.siebert.chessai.piece;
 
 import jacob.siebert.chessai.move.Move;
+import jacob.siebert.chessai.type.PieceColor;
 
 import java.util.ArrayList;
 
 public abstract class Piece {
-	public final static char WHITE = 1;
-	public final static char TAN = 0;
-	// protected boolean isThreatened;
-	// 0 = white; 1 = tan
-	public char color;
+//	public final static char WHITE = 1;
+//	public final static char TAN = 0;
+//	 protected boolean isThreatened;
+//	// 0 = white; 1 = tan
+//	public char color;
+	private PieceColor color;
 	public int timesMoved;
 	// counts (y,x) from top left corner
 	public int x;
@@ -22,14 +24,14 @@ public abstract class Piece {
 	public char type;
 	
 	// timesMoved assumed to be 0
-	public Piece(char color, int y, int x) {
+	public Piece(PieceColor color, int y, int x) {
 		this.color = color;
 		this.y = y;
 		this.x = x;
 		timesMoved = 0;
 	}
 	
-	public Piece(char color, int y, int x, int timesMoved) {
+	public Piece(PieceColor color, int y, int x, int timesMoved) {
 		this.color = color;
 		this.y = y;
 		this.x = x;
@@ -37,16 +39,19 @@ public abstract class Piece {
 	}
 
 	public boolean isOpponent(Piece opp) {
-		if (opp.color == color)
-			return false;
-		return true;
+		return color != opp.getColor();
 	}
 	
 	public boolean hasMoved() {
-		if(timesMoved == 0) {
-			return true;
-		}
-		return false;
+		return timesMoved != 0;
+	}
+
+	public boolean isTan() {
+		return color == PieceColor.TAN;
+	}
+
+	public boolean isWhite() {
+		return color == PieceColor.WHITE;
 	}
 	
 	public char getType() {
@@ -55,13 +60,15 @@ public abstract class Piece {
 	
 	public abstract String getName();
 
+	public PieceColor getColor() { return color; }
+
 	public void setYX(int newy, int newx) {
 		y = newy;
 		x = newx;
 	}
 
 	/*
-	 * Returns this jacob.siebert.chessai.piece's valid moves assuming the list remains valid. Be sure
+	 * Returns this piece's valid moves assuming the list remains valid. Be sure
 	 * the valid moves have been updated before calling this method.
 	 */
 	public ArrayList<Move> getValidMoves() {
@@ -88,9 +95,6 @@ public abstract class Piece {
 	
 	// used for testing
 	public boolean equalsIgnoreTimesMoved(Piece p) {
-		if(y != p.y || x != p.x || type != p.type || color != p.color) {
-			return false;
-		}
-		return true;
+		return y == p.y && x == p.x && type == p.type && color == p.color;
 	}
 }

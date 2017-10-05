@@ -1,14 +1,32 @@
 package jacob.siebert.chessai.player;
 
-import jacob.siebert.chessai.board.Board;
-import jacob.siebert.chessai.move.Move;
+import jacob.siebert.chessai.type.PieceColor;
 
-public interface Player {
+public abstract class Player {
 
-	public boolean isHuman();
-	public void setName(String name);
-	public String getName();
-	public void setColor(char color);
-	public char getColor();
-	public Move nextMove(Board board, int maxDepth);
+	private String name;
+	private PieceColor color;
+
+	public Player(PieceColor color) {
+		this.color = color;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public PieceColor getColor() {
+		return color;
+	}
+
+	public void setColor(PieceColor color) {
+		this.color = color;
+	}
+
+	public abstract boolean isHuman();
+
 }

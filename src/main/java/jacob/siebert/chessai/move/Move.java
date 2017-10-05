@@ -3,9 +3,9 @@ package jacob.siebert.chessai.move;
 import jacob.siebert.chessai.piece.Piece;
 
 /**
- * @author Jacob
+ * @author Jacob Siebert
  *
- * Encapsulates a single jacob.siebert.chessai.player's Move, including the Piece moved, any Piece captured for
+ * Encapsulates a single player's Move, including the Piece moved, any Piece captured for
  * easy undoing, and the new location of the moved Piece. A moved Piece is cloned to preserve
  * its old location for undoing. 
  * Three Special Moves exist as subclasses:
@@ -13,15 +13,15 @@ import jacob.siebert.chessai.piece.Piece;
  */
 public class Move {
 	public Piece piece;
-	public Piece removed;// The jacob.siebert.chessai.piece removed by this jacob.siebert.chessai.move, null if none. Also contains the castled jacob.siebert.chessai.piece.
-	// the location the jacob.siebert.chessai.piece will be moved to
+	public Piece removed;// The piece removed by this move, null if none. Also contains the castled piece.
+	// the location the piece will be moved to
 	public int xto;
 	public int yto;
-	// used for undo operations since the jacob.siebert.chessai.piece's coordinates change - set in constructor
+	// used for undo operations since the piece's coordinates change - set in constructor
 	public int xfrom;
 	public int yfrom;
 	
-	// The removed jacob.siebert.chessai.piece is assumed to be null
+	// The removed piece is assumed to be null
 	public Move(Piece p, int yto, int xto) {
 		piece = p;
 		xfrom = p.x;
@@ -30,7 +30,7 @@ public class Move {
 		this.yto= yto;
 	}
 	
-	// With removed jacob.siebert.chessai.piece specified - can be null if a removed jacob.siebert.chessai.piece does not exist
+	// With removed piece specified - can be null if a removed piece does not exist
 	public Move(Piece p, int yto, int xto, Piece removed) {
 		piece = p;
 		xfrom = p.x;
@@ -66,17 +66,17 @@ public class Move {
 		int y2 = 8 - yto;
 		char x1 = (char) (piece.x + 65);
 		char x2 = (char) (xto + 65);
-		if(piece.color == Piece.WHITE)
+		if(piece.isWhite())
 			return "White moves " + piece.getName() + " " + x1+y1 + " to " + x2+y2 + ".";
 		else
 			return "Tan moves " + piece.getName() + " " + x1+y1 + " to " + x2+y2 + ".";
 	}
 	
 	/**
-	 * Detects if this jacob.siebert.chessai.move is equal to another jacob.siebert.chessai.move.
+	 * Detects if this move is equal to another move.
 	 * Recall that a instance method is always called on the actual class type of the object
-	 * and therefore if m is an instance of any subclass of jacob.siebert.chessai.move, return false.
-	 * @param m - the other jacob.siebert.chessai.move to compare
+	 * and therefore if m is an instance of any subclass of move, return false.
+	 * @param m - the other move to compare
 	 * @return are the moves equivalent?
 	 */
 	public boolean equals(Move m) {
@@ -84,14 +84,14 @@ public class Move {
 		if(m instanceof Castle || m instanceof EnPassant || m instanceof Promotion) {
 			return false;
 		}
-		// Check normal jacob.siebert.chessai.move info
+		// Check normal move info
 		if(xto != m.xto || yto != m.yto){
 			return false;
 		}
 		if(!piece.equals(m.getSelectedPiece())) {
 			return false;
 		}
-		// check the jacob.siebert.chessai.piece removed by performing the moves if it exists
+		// check the piece removed by performing the moves if it exists
 		if(removed != null) {
 			if(m.getRemovedPiece() == null) {
 				return false;
@@ -102,7 +102,7 @@ public class Move {
 		return true;
 	}
 	
-	// returns a new jacob.siebert.chessai.move with all pieces cloned
+	// returns a new move with all pieces cloned
 	public Move clone() {
 		if(removed == null) {
 			return new Move(piece.clone(), yto, xto);

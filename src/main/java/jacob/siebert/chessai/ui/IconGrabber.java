@@ -2,6 +2,7 @@ package jacob.siebert.chessai.ui;
 
 import javax.swing.ImageIcon;
 import jacob.siebert.chessai.piece.Piece;
+import jacob.siebert.chessai.type.PieceColor;
 
 public class IconGrabber {
 	private SpriteSheet spriteSheet;
@@ -11,7 +12,7 @@ public class IconGrabber {
 	}
 	
 	// returns the icon related to the piece type
-	public ImageIcon getIcon(char type, char color) {
+	public ImageIcon getIcon(char type, PieceColor color) {
 		
 		switch(type) {
 		case 'p':
@@ -34,17 +35,17 @@ public class IconGrabber {
 	public ImageIcon getIcon(Piece p) {
 		switch(p.type) {
 		case 'p':
-			return new ImageIcon(spriteSheet.getSprite(5, p.color));
+			return new ImageIcon(spriteSheet.getSprite(5, p.getColor()));
 		case 'b':
-			return new ImageIcon(spriteSheet.getSprite(4, p.color));
+			return new ImageIcon(spriteSheet.getSprite(4, p.getColor()));
 		case 'n':
-			return new ImageIcon(spriteSheet.getSprite(3, p.color));
+			return new ImageIcon(spriteSheet.getSprite(3, p.getColor()));
 		case 'r':
-			return new ImageIcon(spriteSheet.getSprite(2, p.color));
+			return new ImageIcon(spriteSheet.getSprite(2, p.getColor()));
 		case 'q':
-			return new ImageIcon(spriteSheet.getSprite(1, p.color));
+			return new ImageIcon(spriteSheet.getSprite(1, p.getColor()));
 		case 'k':
-			return new ImageIcon(spriteSheet.getSprite(0, p.color));
+			return new ImageIcon(spriteSheet.getSprite(0, p.getColor()));
 		}
 		return null;
 	}

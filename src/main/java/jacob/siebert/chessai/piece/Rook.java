@@ -1,26 +1,29 @@
 package jacob.siebert.chessai.piece;
 
+import jacob.siebert.chessai.type.PieceColor;
+
 public class Rook extends Piece {
 	
-	public Rook(char color, int y, int x) {
+	public Rook(PieceColor color, int y, int x) {
 		super(color, y, x);
 		value = 5;
 		type = 'r';
 	}
 	
-	public Rook(char color, int y, int x, int timesMoved) {
+	public Rook(PieceColor color, int y, int x, int timesMoved) {
 		super(color, y, x, timesMoved);
 		value = 5;
 		type = 'r';
 	}
-	
+
+	@Override
 	public String getName() {
 		return "Rook";
 	}
 	
 	@Override
 	public Rook clone() {
-		return new Rook(color, y, x, timesMoved);
+		return new Rook(getColor(), y, x, timesMoved);
 	}
 
 	@Override

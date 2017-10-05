@@ -7,6 +7,8 @@ import jacob.siebert.chessai.move.EnPassant;
 import jacob.siebert.chessai.move.Move;
 import jacob.siebert.chessai.move.Promotion;
 import jacob.siebert.chessai.piece.*;
+import jacob.siebert.chessai.type.BoardStatus;
+import jacob.siebert.chessai.type.PieceColor;
 import jacob.siebert.chessai.type.NewGameType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +30,7 @@ public class Board {
 	// operations and moves
 	// is deep copied by using the white and tan locations arraylists
 	private Piece[][] board;
+	private BoardStatus status;
 	// a list of all active pieces on each side
 	private ArrayList<Piece> whiteLocations;
 	private ArrayList<Piece> tanLocations;
@@ -63,6 +66,7 @@ public class Board {
 
 	// board type specifics which pieces are placed and where
 	public Board(NewGameType boardType, ChessBoard owner) {
+		status = BoardStatus.INIT;
 		board = new Piece[8][8];
 		moves = new Stack<Move>();
 		whiteLocations = new ArrayList<Piece>();
@@ -70,46 +74,46 @@ public class Board {
 		
 		if (NewGameType.NEW == boardType) {
 			LOG.info("Initializing new board with default peices");
-			board[0][4] = new King(Piece.WHITE, 0, 4);
+			board[0][4] = new King(PieceColor.WHITE, 0, 4);
 			whiteLocations.add(board[0][4]);
 			whiteKing = (King) board[0][4];
-			board[7][4] = new King(Piece.TAN, 7, 4);
+			board[7][4] = new King(PieceColor.TAN, 7, 4);
 			tanLocations.add(board[7][4]);
 			tanKing = (King) board[7][4];
 			
 			for (int i = 0; i < 8; i++) {
-				board[1][i] = new Pawn(Piece.WHITE, 1, i);
+				board[1][i] = new Pawn(PieceColor.WHITE, 1, i);
 				whiteLocations.add(board[1][i]);
-				board[6][i] = new Pawn(Piece.TAN, 6, i);
+				board[6][i] = new Pawn(PieceColor.TAN, 6, i);
 				tanLocations.add(board[6][i]);
 			}
-			board[0][0] = new Rook(Piece.WHITE, 0, 0);
+			board[0][0] = new Rook(PieceColor.WHITE, 0, 0);
 			whiteLocations.add(board[0][0]);
-			board[7][0] = new Rook(Piece.TAN, 7, 0);
+			board[7][0] = new Rook(PieceColor.TAN, 7, 0);
 			tanLocations.add(board[7][0]);
-			board[0][1] = new Knight(Piece.WHITE, 0, 1);
+			board[0][1] = new Knight(PieceColor.WHITE, 0, 1);
 			whiteLocations.add(board[0][1]);
-			board[7][1] = new Knight(Piece.TAN, 7, 1);
+			board[7][1] = new Knight(PieceColor.TAN, 7, 1);
 			tanLocations.add(board[7][1]);
-			board[0][2] = new Bishop(Piece.WHITE, 0, 2);
+			board[0][2] = new Bishop(PieceColor.WHITE, 0, 2);
 			whiteLocations.add(board[0][2]);
-			board[7][2] = new Bishop(Piece.TAN, 7, 2);
+			board[7][2] = new Bishop(PieceColor.TAN, 7, 2);
 			tanLocations.add(board[7][2]);
-			board[7][3] = new Queen(Piece.TAN, 7, 3);
+			board[7][3] = new Queen(PieceColor.TAN, 7, 3);
 			tanLocations.add(board[7][3]);
-			board[0][3] = new Queen(Piece.WHITE, 0, 3);
+			board[0][3] = new Queen(PieceColor.WHITE, 0, 3);
 			whiteLocations.add(board[0][3]);
-			board[0][5] = new Bishop(Piece.WHITE, 0, 5);
+			board[0][5] = new Bishop(PieceColor.WHITE, 0, 5);
 			whiteLocations.add(board[0][5]);
-			board[7][5] = new Bishop(Piece.TAN, 7, 5);
+			board[7][5] = new Bishop(PieceColor.TAN, 7, 5);
 			tanLocations.add(board[7][5]);
-			board[0][6] = new Knight(Piece.WHITE, 0, 6);
+			board[0][6] = new Knight(PieceColor.WHITE, 0, 6);
 			whiteLocations.add(board[0][6]);
-			board[7][6] = new Knight(Piece.TAN, 7, 6);
+			board[7][6] = new Knight(PieceColor.TAN, 7, 6);
 			tanLocations.add(board[7][6]);
-			board[0][7] = new Rook(Piece.WHITE, 0, 7);
+			board[0][7] = new Rook(PieceColor.WHITE, 0, 7);
 			whiteLocations.add(board[0][7]);
-			board[7][7] = new Rook(Piece.TAN, 7, 7);
+			board[7][7] = new Rook(PieceColor.TAN, 7, 7);
 			tanLocations.add(board[7][7]);
 		} else if (NewGameType.LOAD == boardType) {
 			// TODO: read from text file
@@ -250,40 +254,40 @@ public class Board {
 						// subtract 1 from i since i has been incremented
 						switch(type) {
 							case 'k':
-								placePiece(new King(Piece.TAN, j, i-1, Integer.parseInt(numMoves)));
+								placePiece(new King(PieceColor.TAN, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'K':
-								placePiece(new King(Piece.WHITE, j, i-1, Integer.parseInt(numMoves)));
+								placePiece(new King(PieceColor.WHITE, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'q':
-								placePiece(new Queen(Piece.TAN, j, i-1, Integer.parseInt(numMoves)));
+								placePiece(new Queen(PieceColor.TAN, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'Q':
-								placePiece(new Queen(Piece.WHITE, j, i-1, Integer.parseInt(numMoves)));
+								placePiece(new Queen(PieceColor.WHITE, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'b':
-								placePiece(new Bishop(Piece.TAN, j, i-1, Integer.parseInt(numMoves)));
+								placePiece(new Bishop(PieceColor.TAN, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'B':
-								placePiece(new Bishop(Piece.WHITE, j, i-1, Integer.parseInt(numMoves)));
+								placePiece(new Bishop(PieceColor.WHITE, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'n':
-								placePiece(new Knight(Piece.TAN, j, i-1, Integer.parseInt(numMoves)));
+								placePiece(new Knight(PieceColor.TAN, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'N':
-								placePiece(new Knight(Piece.WHITE, j, i-1, Integer.parseInt(numMoves)));
+								placePiece(new Knight(PieceColor.WHITE, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'p':
-								placePiece(new Pawn(Piece.TAN, j, i-1, Integer.parseInt(numMoves)));
+								placePiece(new Pawn(PieceColor.TAN, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'P':
-								placePiece(new Pawn(Piece.WHITE, j, i-1, Integer.parseInt(numMoves)));
+								placePiece(new Pawn(PieceColor.WHITE, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'r':
-								placePiece(new Rook(Piece.TAN, j, i-1, Integer.parseInt(numMoves)));
+								placePiece(new Rook(PieceColor.TAN, j, i-1, Integer.parseInt(numMoves)));
 								break;
 							case 'R':
-								placePiece(new Rook(Piece.WHITE, j, i-1, Integer.parseInt(numMoves)));
+								placePiece(new Rook(PieceColor.WHITE, j, i-1, Integer.parseInt(numMoves)));
 								break;
 						}
 					} else if(curr == '|') {
@@ -297,6 +301,7 @@ public class Board {
 			}
 		}
 		sc_game.close();
+		displayBoard();
 	}
 	
 	/** Removes the piece at the specified location
@@ -340,6 +345,11 @@ public class Board {
 
 	// TODO
 	public boolean gameOver() {
+		return false;
+	}
+
+	// used for testing
+	public boolean isInCheckMate(PieceColor color) {
 		return false;
 	}
 
@@ -399,7 +409,7 @@ public class Board {
 	 * @return True if the Piece was found
 	 */
 	private boolean removePieceFromLocationsList(Piece removed) {
-		if (removed.color == Piece.TAN) {
+		if (removed.isTan()) {
 			for (Piece o : tanLocations) {
 				if (removed.equals(o)) {
 					tanLocations.remove(o);
@@ -417,11 +427,11 @@ public class Board {
 		return false;
 	}
 
-	private void addPieceToLocationsList(Piece add) {
-		if(add.color == Piece.TAN) {
-			tanLocations.add(add);
+	private void addPieceToLocationsList(Piece p) {
+		if(p.isTan()) {
+			tanLocations.add(p);
 		} else {
-			whiteLocations.add(add);
+			whiteLocations.add(p);
 		}
 	}
 	
@@ -751,7 +761,7 @@ public class Board {
 	 */
 	public void placePiece(Piece p) {
 		board[p.y][p.x] = p;
-		if(p.color == Piece.TAN) {
+		if(p.getColor() == PieceColor.TAN) {
 			tanLocations.add(p);
 			if(p instanceof King) {
 				if(tanKing != null) {
@@ -818,7 +828,7 @@ public class Board {
 		return board[s.getY()][s.getX()];
 	}
 
-	/*
+	/**
 	 * Checks if any pieces of the opposing color are threatening the specified
 	 * square. Does this by conducting a search outwards from the square,
 	 * checking straight, diagonal, and knight moves.
@@ -827,7 +837,7 @@ public class Board {
 	 * 
 	 * @param
 	 */
-	public boolean isThreatenedSquare(char color, int y, int x) {
+	public boolean isThreatenedSquare(PieceColor color, int y, int x) {
 		// check straight paths
 		// search down
 		int j = y + 1;
@@ -836,7 +846,7 @@ public class Board {
 			j++;
 		}
 		if (j < 8) {
-			if (board[j][i].color != color) {
+			if (board[j][i].getColor() != color) {
 				if (board[j][i] instanceof Rook || board[j][i] instanceof Queen) {
 					return true;
 				}
@@ -852,7 +862,7 @@ public class Board {
 			i--;
 		}
 		if (i >= 0) {
-			if (board[j][i].color != color) {
+			if (board[j][i].getColor() != color) {
 				if (board[j][i] instanceof Rook || board[j][i] instanceof Queen) {
 					return true;
 				} else if (i == x - 1 && board[j][i] instanceof King) {
@@ -867,7 +877,7 @@ public class Board {
 			j--;
 		}
 		if (j >= 0) {
-			if (board[j][i].color != color) {
+			if (board[j][i].getColor() != color) {
 				if (board[j][i] instanceof Rook || board[j][i] instanceof Queen) {
 					return true;
 				} else if (j == y - 1 && board[j][i] instanceof King) {
@@ -882,7 +892,7 @@ public class Board {
 			i++;
 		}
 		if (i < 8) {
-			if (board[j][i].color != color) {
+			if (board[j][i].getColor() != color) {
 				if (board[j][i] instanceof Rook || board[j][i] instanceof Queen) {
 					return true;
 				} else if (i == x + 1 && board[j][i] instanceof King) {
@@ -900,13 +910,13 @@ public class Board {
 			i++;
 		}
 		if (j < 8 && i < 8) {
-			if (board[j][i].color != color) {
+			if (board[j][i].getColor() != color) {
 				if (board[j][i] instanceof Bishop || board[j][i] instanceof Queen) {
 					return true;
 				}
 				if (j == y + 1 && i == x + 1) {
 					// only tan pawns can threaten from below diagonally
-					if (board[j][i] instanceof King || (board[j][i] instanceof Pawn && board[j][i].color == Piece.TAN))
+					if (board[j][i] instanceof King || (board[j][i] instanceof Pawn && board[j][i].getColor() == PieceColor.TAN))
 						return true;
 				}
 			}
@@ -919,13 +929,13 @@ public class Board {
 			i--;
 		}
 		if (j < 8 && i >= 0) {
-			if (board[j][i].color != color) {
+			if (board[j][i].getColor() != color) {
 				if (board[j][i] instanceof Bishop || board[j][i] instanceof Queen) {
 					return true;
 				}
 				if (j == y + 1 && i == x - 1) {
 					// only tan pawns can threaten from below diagonally
-					if ((board[j][i].color == Piece.TAN && board[j][i] instanceof Pawn) || board[j][i] instanceof King)
+					if ((board[j][i].getColor() == PieceColor.TAN && board[j][i] instanceof Pawn) || board[j][i] instanceof King)
 						return true;
 				}
 			}
@@ -938,13 +948,13 @@ public class Board {
 			i--;
 		}
 		if (j >= 0 && i >= 0) {
-			if (board[j][i].color != color) {
+			if (board[j][i].getColor() != color) {
 				if (board[j][i] instanceof Bishop || board[j][i] instanceof Queen) {
 					return true;
 				}
 				if (j == y - 1 && i == x - 1) {
 					// only white pawns can threaten diagonally from above
-					if ((board[j][i].color == Piece.WHITE && board[j][i] instanceof Pawn)
+					if ((board[j][i].getColor() == PieceColor.WHITE && board[j][i] instanceof Pawn)
 							|| board[j][i] instanceof King) {
 						return true;
 					}
@@ -959,12 +969,12 @@ public class Board {
 			i++;
 		}
 		if (j >= 0 && i < 8) {
-			if (board[j][i].color != color) {
+			if (board[j][i].getColor() != color) {
 				if (board[j][i] instanceof Bishop || board[j][i] instanceof Queen) {
 					return true;
 				}
 				if (j == y - 1 && i == x + 1) {
-					if ((board[j][i].color == Piece.WHITE && board[j][i] instanceof Pawn)
+					if ((board[j][i].getColor() == PieceColor.WHITE && board[j][i] instanceof Pawn)
 							|| board[j][i] instanceof King) {
 						return true;
 					}
@@ -978,7 +988,7 @@ public class Board {
 		for (int k = 0; k < 8; k++) {
 			if (y + h < 8 && y + h >= 0 && x + g < 8 && x + g >= 0) {
 				if (board[y + h][x + g] != null) {
-					if (board[y + h][x + g].color != color && board[y + h][x + g] instanceof Knight) {
+					if (board[y + h][x + g].getColor() != color && board[y + h][x + g] instanceof Knight) {
 						return true;
 					}
 				}
@@ -1019,7 +1029,7 @@ public class Board {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (board[i][j] != null) {
-					if(board[i][j].color == Piece.TAN) System.out.print("| " + board[i][j].type + " ");// lower case
+					if(board[i][j].getColor() == PieceColor.TAN) System.out.print("| " + board[i][j].type + " ");// lower case
 					else System.out.print("| " + (char)(board[i][j].type - 32) + " ");// upper case
 				} else System.out.print("|   ");
 			}
@@ -1037,7 +1047,7 @@ public class Board {
 		ArrayList<ArrayList<Square>> threatPaths = generateThreatPaths(k);
 		// if no threat paths -> not in check
 		if (!threatPaths.isEmpty()) {
-			if (k.color == Piece.TAN) {
+			if (k.getColor() == PieceColor.TAN) {
 				tanCheck = true;
 				tanThreats = findThreats(k, threatPaths);
 			} else {
@@ -1047,7 +1057,7 @@ public class Board {
 			return true;
 		} else {
 			// reset if not in check
-			if (k.color == Piece.TAN) {
+			if (k.getColor() == PieceColor.TAN) {
 				tanCheck = false;
 				tanThreats = null;
 			} else {
@@ -1203,7 +1213,7 @@ public class Board {
 					threatPaths.add(temp);
 				} else if (j == y + 1 && i == x + 1) {
 					// only tan pawns can threaten from below diagonally
-					if (board[j][i] instanceof Pawn && board[j][i].color == Piece.TAN) {
+					if (board[j][i] instanceof Pawn && board[j][i].getColor() == PieceColor.TAN) {
 						temp = new ArrayList<Square>();
 						temp.add(new Square(j, i));
 						threatPaths.add(temp);
@@ -1230,7 +1240,7 @@ public class Board {
 					threatPaths.add(temp);
 				} else if (j == y + 1 && i == x - 1) {
 					// only tan pawns can threaten from below diagonally
-					if (board[j][i].color == Piece.TAN && board[j][i] instanceof Pawn) {
+					if (board[j][i].getColor() == PieceColor.TAN && board[j][i] instanceof Pawn) {
 						temp = new ArrayList<Square>();
 						temp.add(new Square(j, i));
 						threatPaths.add(temp);
@@ -1257,7 +1267,7 @@ public class Board {
 					threatPaths.add(temp);
 				} else if (j == y - 1 && i == x - 1) {
 					// only white pawns can threaten diagonally from above
-					if (board[j][i].color == Piece.WHITE && board[j][i] instanceof Pawn) {
+					if (board[j][i].getColor() == PieceColor.WHITE && board[j][i] instanceof Pawn) {
 						temp = new ArrayList<Square>();
 						temp.add(new Square(j, i));
 						threatPaths.add(temp);
@@ -1283,7 +1293,7 @@ public class Board {
 					}
 					threatPaths.add(temp);
 				} else if (j == y - 1 && i == x + 1) {
-					if (board[j][i].color == Piece.WHITE && board[j][i] instanceof Pawn) {
+					if (board[j][i].getColor() == PieceColor.WHITE && board[j][i] instanceof Pawn) {
 						temp = new ArrayList<Square>();
 						temp.add(new Square(j, i));
 						threatPaths.add(temp);
@@ -1345,7 +1355,7 @@ public class Board {
 	private int isBlockingCheck(Piece p) {
 		int status;
 		// check if the king is already in check
-		if(p.color == Piece.TAN) {	
+		if(p.getColor() == PieceColor.TAN) {
 			if(tanCheck) {
 				throw new RuntimeException("Called isBlockingCheck() when there was already a check.");
 			}
@@ -1356,7 +1366,7 @@ public class Board {
 		}
 		// Remove the piece from the board and test if it puts the king in check
 		Piece removed = takeAndRemovePiece(p.y, p.x);
-		if(p.color == Piece.TAN) {		
+		if(p.getColor() == PieceColor.TAN) {
 			// check if the piece is capable of capturing the threat, thus removing the check
 			if(isInCheck(getTanKing())) {
 				// if error here then this method was not called during a check on King k
@@ -1476,11 +1486,11 @@ public class Board {
 		else if(xdif == ydif) {
 			// pawn captures
 			if(ydif > 0) {
-				if(taker.color == Piece.TAN && taker instanceof Pawn) {
+				if(taker.getColor() == PieceColor.TAN && taker instanceof Pawn) {
 					return true;
 				}
 			} else {// ydif < 0
-				if(taker.color == Piece.WHITE && taker instanceof Pawn) {
+				if(taker.getColor() == PieceColor.WHITE && taker instanceof Pawn) {
 					return true;
 				}
 			}
@@ -1553,7 +1563,7 @@ public class Board {
 		
 		// test if the piece is blocking a check for its king
 		if(!(p instanceof King)) {
-			if(p.color == Piece.TAN) {
+			if(p.getColor() == PieceColor.TAN) {
 				if(!tanCheck) {
 					int blockingStatus = isBlockingCheck(p);
 					// If a piece is blocking a check it cannot move
@@ -1597,7 +1607,7 @@ public class Board {
 		if (p instanceof Pawn) {
 			// player1's pawn must move up
 			Pawn pawn = (Pawn) p;
-			if (pawn.color == Piece.TAN) {
+			if (pawn.getColor() == PieceColor.TAN) {
 				// Note: Do not add pawn moves that move the pawn into the last
 				// file - promotions handle this
 				if (pawn.y - 1 > 1) {
@@ -1639,30 +1649,30 @@ public class Board {
 				if (pawn.y == 1) {
 					// spawn new pieces for the upgrade
 					if (board[0][pawn.x] == null) {
-						validMoves.add(new Promotion(pawn, 0, pawn.x, new Queen(pawn.color, 0, pawn.x)));
-						validMoves.add(new Promotion(pawn, 0, pawn.x, new Bishop(pawn.color, 0, pawn.x)));
-						validMoves.add(new Promotion(pawn, 0, pawn.x, new Knight(pawn.color, 0, pawn.x)));
-						validMoves.add(new Promotion(pawn, 0, pawn.x, new Rook(pawn.color, 0, pawn.x)));
+						validMoves.add(new Promotion(pawn, 0, pawn.x, new Queen(pawn.getColor(), 0, pawn.x)));
+						validMoves.add(new Promotion(pawn, 0, pawn.x, new Bishop(pawn.getColor(), 0, pawn.x)));
+						validMoves.add(new Promotion(pawn, 0, pawn.x, new Knight(pawn.getColor(), 0, pawn.x)));
+						validMoves.add(new Promotion(pawn, 0, pawn.x, new Rook(pawn.getColor(), 0, pawn.x)));
 					}
-					// Capture and Promotion - store removed piece in the move here
+					// Capture and Promotion - store removedL piece in the move here
 					if (pawn.x > 0 && board[0][pawn.x - 1] != null && board[0][pawn.x - 1].isOpponent(pawn)) {
-						validMoves.add(new Promotion(pawn, 0, pawn.x - 1, new Queen(pawn.color, 0, pawn.x - 1),
+						validMoves.add(new Promotion(pawn, 0, pawn.x - 1, new Queen(pawn.getColor(), 0, pawn.x - 1),
 								board[0][pawn.x - 1]));
-						validMoves.add(new Promotion(pawn, 0, pawn.x - 1, new Bishop(pawn.color, 0, pawn.x - 1),
+						validMoves.add(new Promotion(pawn, 0, pawn.x - 1, new Bishop(pawn.getColor(), 0, pawn.x - 1),
 								board[0][pawn.x - 1]));
-						validMoves.add(new Promotion(pawn, 0, pawn.x - 1, new Knight(pawn.color, 0, pawn.x - 1),
+						validMoves.add(new Promotion(pawn, 0, pawn.x - 1, new Knight(pawn.getColor(), 0, pawn.x - 1),
 								board[0][pawn.x - 1]));
-						validMoves.add(new Promotion(pawn, 0, pawn.x - 1, new Rook(pawn.color, 0, pawn.x - 1),
+						validMoves.add(new Promotion(pawn, 0, pawn.x - 1, new Rook(pawn.getColor(), 0, pawn.x - 1),
 								board[0][pawn.x - 1]));
 					}
 					if (pawn.x < 7 && board[0][pawn.x + 1] != null && board[0][pawn.x + 1].isOpponent(pawn)) {
-						validMoves.add(new Promotion(pawn, 0, pawn.x + 1, new Queen(pawn.color, 0, pawn.x + 1),
+						validMoves.add(new Promotion(pawn, 0, pawn.x + 1, new Queen(pawn.getColor(), 0, pawn.x + 1),
 								board[0][pawn.x + 1]));
-						validMoves.add(new Promotion(pawn, 0, pawn.x + 1, new Bishop(pawn.color, 0, pawn.x + 1),
+						validMoves.add(new Promotion(pawn, 0, pawn.x + 1, new Bishop(pawn.getColor(), 0, pawn.x + 1),
 								board[0][pawn.x + 1]));
-						validMoves.add(new Promotion(pawn, 0, pawn.x + 1, new Knight(pawn.color, 0, pawn.x + 1),
+						validMoves.add(new Promotion(pawn, 0, pawn.x + 1, new Knight(pawn.getColor(), 0, pawn.x + 1),
 								board[0][pawn.x + 1]));
-						validMoves.add(new Promotion(pawn, 0, pawn.x + 1, new Rook(pawn.color, 0, pawn.x + 1),
+						validMoves.add(new Promotion(pawn, 0, pawn.x + 1, new Rook(pawn.getColor(), 0, pawn.x + 1),
 								board[0][pawn.x + 1]));
 					}
 				}
@@ -1707,29 +1717,29 @@ public class Board {
 				// Upgrades
 				if (pawn.y == 6) {
 					if (board[7][pawn.x] == null) {
-						validMoves.add(new Promotion(pawn, 7, pawn.x, new Queen(pawn.color, 7, pawn.x)));
-						validMoves.add(new Promotion(pawn, 7, pawn.x, new Bishop(pawn.color, 7, pawn.x)));
-						validMoves.add(new Promotion(pawn, 7, pawn.x, new Knight(pawn.color, 7, pawn.x)));
-						validMoves.add(new Promotion(pawn, 7, pawn.x, new Rook(pawn.color, 7, pawn.x)));
+						validMoves.add(new Promotion(pawn, 7, pawn.x, new Queen(pawn.getColor(), 7, pawn.x)));
+						validMoves.add(new Promotion(pawn, 7, pawn.x, new Bishop(pawn.getColor(), 7, pawn.x)));
+						validMoves.add(new Promotion(pawn, 7, pawn.x, new Knight(pawn.getColor(), 7, pawn.x)));
+						validMoves.add(new Promotion(pawn, 7, pawn.x, new Rook(pawn.getColor(), 7, pawn.x)));
 					}
 					if (pawn.x > 0 && board[7][pawn.x - 1] != null && board[7][pawn.x - 1].isOpponent(pawn)) {
-						validMoves.add(new Promotion(pawn, 7, pawn.x - 1, new Queen(pawn.color, 7, pawn.x - 1),
+						validMoves.add(new Promotion(pawn, 7, pawn.x - 1, new Queen(pawn.getColor(), 7, pawn.x - 1),
 								board[7][pawn.x - 1]));
-						validMoves.add(new Promotion(pawn, 7, pawn.x - 1, new Bishop(pawn.color, 7, pawn.x - 1),
+						validMoves.add(new Promotion(pawn, 7, pawn.x - 1, new Bishop(pawn.getColor(), 7, pawn.x - 1),
 								board[7][pawn.x - 1]));
-						validMoves.add(new Promotion(pawn, 7, pawn.x - 1, new Knight(pawn.color, 7, pawn.x - 1),
+						validMoves.add(new Promotion(pawn, 7, pawn.x - 1, new Knight(pawn.getColor(), 7, pawn.x - 1),
 								board[7][pawn.x - 1]));
-						validMoves.add(new Promotion(pawn, 7, pawn.x - 1, new Rook(pawn.color, 7, pawn.x - 1),
+						validMoves.add(new Promotion(pawn, 7, pawn.x - 1, new Rook(pawn.getColor(), 7, pawn.x - 1),
 								board[7][pawn.x - 1]));
 					}
 					if (pawn.x < 7 && board[7][pawn.x + 1] != null && board[7][pawn.x + 1].isOpponent(pawn)) {
-						validMoves.add(new Promotion(pawn, 7, pawn.x + 1, new Queen(pawn.color, 7, pawn.x + 1),
+						validMoves.add(new Promotion(pawn, 7, pawn.x + 1, new Queen(pawn.getColor(), 7, pawn.x + 1),
 								board[7][pawn.x + 1]));
-						validMoves.add(new Promotion(pawn, 7, pawn.x + 1, new Bishop(pawn.color, 7, pawn.x + 1),
+						validMoves.add(new Promotion(pawn, 7, pawn.x + 1, new Bishop(pawn.getColor(), 7, pawn.x + 1),
 								board[7][pawn.x + 1]));
-						validMoves.add(new Promotion(pawn, 7, pawn.x + 1, new Knight(pawn.color, 7, pawn.x + 1),
+						validMoves.add(new Promotion(pawn, 7, pawn.x + 1, new Knight(pawn.getColor(), 7, pawn.x + 1),
 								board[7][pawn.x + 1]));
-						validMoves.add(new Promotion(pawn, 7, pawn.x + 1, new Rook(pawn.color, 7, pawn.x + 1),
+						validMoves.add(new Promotion(pawn, 7, pawn.x + 1, new Rook(pawn.getColor(), 7, pawn.x + 1),
 								board[7][pawn.x + 1]));
 					}
 				}
@@ -1795,7 +1805,7 @@ public class Board {
 				while (i >= 0 && board[kTemp.y][i] == null) {
 					// only check for threats on squares where the king crosses or ends up
 					if(i >= 2) {
-						if(isThreatenedSquare(kTemp.color, kTemp.y, i)) {
+						if(isThreatenedSquare(kTemp.getColor(), kTemp.y, i)) {
 							break;
 						}
 					}
@@ -1815,7 +1825,7 @@ public class Board {
 				while (i < 8 && board[kTemp.y][i] == null) {
 					// only check for threats on squares where the king crosses or ends up
 					if(i < 7) {
-						if(isThreatenedSquare(kTemp.color, kTemp.y, i)) {
+						if(isThreatenedSquare(kTemp.getColor(), kTemp.y, i)) {
 							break;
 						}
 					}
@@ -1834,7 +1844,7 @@ public class Board {
 
 			// add normal king moves
 			if (p.y + 1 < 8) {
-				if (!isThreatenedSquare(p.color, p.y + 1, p.x)) {
+				if (!isThreatenedSquare(p.getColor(), p.y + 1, p.x)) {
 					if (board[p.y + 1][p.x] == null) {
 						validMoves.add(new Move(p, p.y + 1, p.x));
 					} else if (p.isOpponent(board[p.y + 1][p.x])) {
@@ -1842,7 +1852,7 @@ public class Board {
 					}
 				}
 				if (p.x + 1 < 8) {
-					if (!isThreatenedSquare(p.color, p.y + 1, p.x + 1)) {
+					if (!isThreatenedSquare(p.getColor(), p.y + 1, p.x + 1)) {
 						if (board[p.y + 1][p.x + 1] == null) {
 							validMoves.add(new Move(p, p.y + 1, p.x + 1));
 						} else if (p.isOpponent(board[p.y + 1][p.x + 1])) {
@@ -1851,7 +1861,7 @@ public class Board {
 					}
 				}
 				if (p.x - 1 >= 0) {
-					if (!isThreatenedSquare(p.color, p.y + 1, p.x - 1)) {
+					if (!isThreatenedSquare(p.getColor(), p.y + 1, p.x - 1)) {
 						if (board[p.y + 1][p.x - 1] == null) {
 							validMoves.add(new Move(p, p.y + 1, p.x - 1));
 						} else if (p.isOpponent(board[p.y + 1][p.x - 1])) {
@@ -1861,7 +1871,7 @@ public class Board {
 				}
 			}
 			if (p.y - 1 >= 0) {
-				if (!isThreatenedSquare(p.color, p.y - 1, p.x)) {
+				if (!isThreatenedSquare(p.getColor(), p.y - 1, p.x)) {
 					if (board[p.y - 1][p.x] == null) {
 						validMoves.add(new Move(p, p.y - 1, p.x));
 					} else if (p.isOpponent(board[p.y - 1][p.x])) {
@@ -1869,7 +1879,7 @@ public class Board {
 					}
 				}
 				if (p.x + 1 < 8) {
-					if (!isThreatenedSquare(p.color, p.y - 1, p.x + 1)) {
+					if (!isThreatenedSquare(p.getColor(), p.y - 1, p.x + 1)) {
 						if (board[p.y - 1][p.x + 1] == null) {
 							validMoves.add(new Move(p, p.y - 1, p.x + 1));
 						} else if (p.isOpponent(board[p.y - 1][p.x + 1])) {
@@ -1878,7 +1888,7 @@ public class Board {
 					}
 				}
 				if (p.x - 1 >= 0) {
-					if (!isThreatenedSquare(p.color, p.y - 1, p.x - 1)) {
+					if (!isThreatenedSquare(p.getColor(), p.y - 1, p.x - 1)) {
 						if (board[p.y - 1][p.x - 1] == null) {
 							validMoves.add(new Move(p, p.y - 1, p.x - 1));
 						} else if (p.isOpponent(board[p.y - 1][p.x - 1])) {
@@ -1888,7 +1898,7 @@ public class Board {
 				}
 			}
 			if (p.x - 1 >= 0) {
-				if (!isThreatenedSquare(p.color, p.y, p.x - 1)) {
+				if (!isThreatenedSquare(p.getColor(), p.y, p.x - 1)) {
 					if (board[p.y][p.x - 1] == null) {
 						validMoves.add(new Move(p, p.y, p.x - 1));
 					} else if (p.isOpponent(board[p.y][p.x - 1])) {
@@ -1897,7 +1907,7 @@ public class Board {
 				}
 			}
 			if (p.x + 1 < 8) {
-				if (!isThreatenedSquare(p.color, p.y, p.x + 1)) {
+				if (!isThreatenedSquare(p.getColor(), p.y, p.x + 1)) {
 					if (board[p.y][p.x + 1] == null) {
 						validMoves.add(new Move(p, p.y, p.x + 1));
 					} else if (p.isOpponent(board[p.y][p.x + 1])) {
@@ -1917,7 +1927,7 @@ public class Board {
 			 * or else return no valid moves (checkmate).
 			 * Search through all valid moves generated thus far and remove 
 			 * any that do not break the check. */
-			if (p.color == Piece.TAN) {
+			if (p.getColor() == PieceColor.TAN) {
 				if (tanCheck) {
 					ArrayList<Move> getOutOfCheckMoves = new ArrayList<Move>();
 					ArrayList<ArrayList<Square>> threatPaths = generateThreatPaths(getTanKing());
