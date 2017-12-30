@@ -35,7 +35,7 @@ public class Basic_MinMax_AI extends Player implements MinMax_AI {
 //			ArrayList<Move> validMoves = null;//TODO board.generateAllMoves(currTurn);
 //
 ////			System.out.println("\n---------------------------------------------");
-////			board.displayBoard();
+////			board.printBoard();
 ////			System.out.println("Moves I'm considering for board:");
 //
 //			for (Move m : validMoves) {
@@ -47,7 +47,7 @@ public class Basic_MinMax_AI extends Player implements MinMax_AI {
 //				// rewarded
 ////				System.out.println(m);
 //				searcher.applyMove(m);
-////				searcher.displayBoard();
+////				searcher.printBoard();
 //				curr_sbe = minAction(searcher, 1, maxDepth, Integer.MIN_VALUE, Integer.MAX_VALUE);
 ////				System.out.println("   sbe was " + curr_sbe);
 //				// store best move
@@ -96,7 +96,7 @@ public class Basic_MinMax_AI extends Player implements MinMax_AI {
 
 		// if at depth limit or terminal state, return the sbe value
 		if (currentDepth >= maxDepth || state.gameOver()) {
-//			state.displayBoard();
+//			state.printBoard();
 			return state.sbe();
 		}
 		changeTurn();

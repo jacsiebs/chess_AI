@@ -1,5 +1,6 @@
 package jacob.siebert.chessai.piece;
 
+import jacob.siebert.chessai.board.Square;
 import jacob.siebert.chessai.move.Move;
 import jacob.siebert.chessai.type.PieceColor;
 
@@ -46,6 +47,10 @@ public abstract class Piece {
 		return timesMoved != 0;
 	}
 
+	public void incrementTimesMoved() {
+		timesMoved++;
+	}
+
 	public boolean isTan() {
 		return color == PieceColor.TAN;
 	}
@@ -65,6 +70,13 @@ public abstract class Piece {
 	public void setYX(int newy, int newx) {
 		y = newy;
 		x = newx;
+	}
+
+	public int getY() { return y; }
+	public int getX() { return x; }
+	// TODO: convert to only using a squares
+	public Square getSquare() {
+		return new Square(y, x);
 	}
 
 	/*

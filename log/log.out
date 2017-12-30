@@ -12,3 +12,868 @@ GameState file malformed: Expected '|' and got " + curr
 Initializing new board with default peices
 Initializing new board with default peices
 Initializing new board with default peices
+Game File not found for file: test_boards/stalemateTest_1
+
+Game File not found for file: test_boards/stalemateTest_1
+
+**************** Board Test *****************
+Checkmate Test 1:
+
+
+**************** Board Test *****************
+Checkmate Test 2:
+
+
+**************** Board Test *****************
+Pinned to King Test:
+
+
+**************** Board Test *****************
+Stalemate Test 1:
+Game File not found for file: test_boards/stalemateTest_1
+
+
+
+**************** Board Test *****************
+Promotion Test:
+
+
+**************** Board Test *****************
+Castle Test:
+
+
+**************** Board Test *****************
+Tan Enpassant Test:
+
+
+**************** Board Test *****************
+Basic Check Test
+
+
+**************** Board Test *****************
+Checkmate Test 1:
+
+
+**************** Board Test *****************
+Checkmate Test 2:
+
+
+**************** Board Test *****************
+Pinned to King Test:
+
+
+**************** Board Test *****************
+Stalemate Test 1:
+Game File not found for file: test_boards/stalemateTest_1
+
+
+
+**************** Board Test *****************
+Promotion Test:
+
+
+**************** Board Test *****************
+Castle Test:
+
+
+**************** Board Test *****************
+Tan Enpassant Test:
+
+
+**************** Board Test *****************
+Basic Check Test
+
+
+**************** Board Test *****************
+Checkmate Test 1:
+
+
+**************** Board Test *****************
+Checkmate Test 2:
+
+
+**************** Board Test *****************
+Pinned to King Test:
+ FAIL -- Move (Tan moves Queen F4 to F5.) was expected to be present.
+ FAIL -- Move (Tan moves Queen F4 to F6.) was expected to be present.
+ FAIL -- Move (Tan moves Queen F4 to F7.) was expected to be present.
+ FAIL -- Move (Tan moves Queen F4 to F8.) was expected to be present.
+ PASS -- Move (Tan moves King F3 to G3.) was present once.
+ PASS -- Move (Tan moves King F3 to G2.) was present once.
+ PASS -- Move (Tan moves King F3 to F2.) was present once.
+ PASS -- Move (Tan moves King F3 to E2.) was present once.
+ PASS -- Move (Tan moves King F3 to E3.) was present once.
+ Expected validMoves to contain 9 moves.
+	 However the actual validMoves contains 6 moves.
+ Expected Moves:
+	 Tan moves Queen F4 to F5.
+	 Tan moves Queen F4 to F6.
+	 Tan moves Queen F4 to F7.
+	 Tan moves Queen F4 to F8.
+	 Tan moves King F3 to G3.
+	 Tan moves King F3 to G2.
+	 Tan moves King F3 to F2.
+	 Tan moves King F3 to E2.
+	 Tan moves King F3 to E3.
+
+ Actual Moves:
+	 Tan moves King F3 to F2.
+	 Tan moves King F3 to G2.
+	 Tan moves King F3 to E2.
+	 Tan moves King F3 to E3.
+	 Tan moves King F3 to G3.
+	 Tan moves Pawn E4 to C6.
+
+
+**************** Board Test *****************
+Stalemate Test 1:
+Game File not found for file: test_boards/stalemateTest_1
+
+
+
+**************** Board Test *****************
+Promotion Test:
+ PASS -- Move (Promotion: White moves Pawn A2 to A1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to A1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to A1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to A1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn B2 to C1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn B2 to C1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn B2 to C1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn B2 to C1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn C2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn C2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn C2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn C2 to B1.) was present once.
+ PASS -- Move (White moves King A8 to B7.) was present once.
+ PASS -- Move (White moves King A8 to A7.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to C8 and becomes Knight.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to C8 and becomes Queen.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to C8 and becomes Rook.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to C8 and becomes Bishop.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to D8 and becomes Knight.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to D8 and becomes Queen.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to D8 and becomes Rook.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to D8 and becomes Bishop.) was present once.
+ PASS -- Move (Tan moves King H1 to G2.) was present once.
+
+
+**************** Board Test *****************
+Castle Test:
+ PASS -- Move (White moves King E8 to F8.) was present once.
+ PASS -- Move (White moves King E8 to F7.) was present once.
+ PASS -- Move (White moves King E8 to D7.) was present once.
+ PASS -- Move (White moves King E8 to D8.) was present once.
+ PASS -- Move (White moves King E8 to E7.) was present once.
+ PASS -- Move (Castle: White moves King E8 to G8.) was present once.
+ PASS -- Move (Tan moves King E1 to D1.) was present once.
+ PASS -- Move (Tan moves King E1 to F1.) was present once.
+ PASS -- Move (Tan moves King E1 to D2.) was present once.
+ PASS -- Move (Tan moves King E1 to F2.) was present once.
+ PASS -- Move (Tan moves King E1 to E2.) was present once.
+ PASS -- Move (Castle: Tan moves King E1 to C1.) was present once.
+
+
+**************** Board Test *****************
+Tan Enpassant Test:
+ PASS -- Move (EnPassant: Tan moves Pawn E5 to D6.) was present once.
+ PASS -- Move (Tan moves Pawn E5 to E6.) was present once.
+
+
+**************** Board Test *****************
+Basic Check Test
+ PASS -- Move (Tan moves Pawn E3 to E4.) was present once.
+ PASS -- Move (Tan moves King D3 to D2.) was present once.
+ PASS -- Move (Tan moves King D3 to E2.) was present once.
+ PASS -- Move (Tan moves Rook D4 to E4.) was present once.
+ PASS -- Move (Tan moves Queen H4 to E4.) was present once.
+ PASS -- Move (Tan moves Queen H4 to H7.) was present once.
+ PASS -- Move (Tan moves Bishop H1 to E4.) was present once.
+
+
+**************** Board Test *****************
+Checkmate Test 1:
++---+---+---+---+---+---+---+---+
+| K |   |   |   |   |   |   |   |  0
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  1
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  2
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  3
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  4
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  5
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   | p | p | p |  6
++---+---+---+---+---+---+---+---+
+| Q |   |   |   |   |   | k |   |  7
++---+---+---+---+---+---+---+---+
+/ 0   1   2   3   4   5   6   7  
+
+
+
+**************** Board Test *****************
+Checkmate Test 2:
++---+---+---+---+---+---+---+---+
+| K |   |   |   |   |   |   | R |  0
++---+---+---+---+---+---+---+---+
+|   | B |   |   |   |   |   |   |  1
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  2
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  3
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  4
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   | p |   |  5
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   | p | k |   |  6
++---+---+---+---+---+---+---+---+
+| Q |   |   |   |   |   |   |   |  7
++---+---+---+---+---+---+---+---+
+/ 0   1   2   3   4   5   6   7  
+
+
+
+**************** Board Test *****************
+Pinned to King Test:
++---+---+---+---+---+---+---+---+
+| K |   |   |   |   | R |   |   |  0
++---+---+---+---+---+---+---+---+
+|   |   | B |   |   |   |   |   |  1
++---+---+---+---+---+---+---+---+
+|   |   | B |   |   |   |   |   |  2
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   | P |  3
++---+---+---+---+---+---+---+---+
+|   |   |   |   | p | q |   |   |  4
++---+---+---+---+---+---+---+---+
+| R |   | n |   |   | k |   |   |  5
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  6
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  7
++---+---+---+---+---+---+---+---+
+/ 0   1   2   3   4   5   6   7  
+
+ FAIL -- Move (Tan moves Queen F4 to F5.) was expected to be present.
+ FAIL -- Move (Tan moves Queen F4 to F6.) was expected to be present.
+ FAIL -- Move (Tan moves Queen F4 to F7.) was expected to be present.
+ FAIL -- Move (Tan moves Queen F4 to F8.) was expected to be present.
+ PASS -- Move (Tan moves King F3 to G3.) was present once.
+ PASS -- Move (Tan moves King F3 to G2.) was present once.
+ PASS -- Move (Tan moves King F3 to F2.) was present once.
+ PASS -- Move (Tan moves King F3 to E2.) was present once.
+ PASS -- Move (Tan moves King F3 to E3.) was present once.
+ Expected validMoves to contain 9 moves.
+	 However the actual validMoves contains 6 moves.
+ Expected Moves:
+	 Tan moves Queen F4 to F5.
+	 Tan moves Queen F4 to F6.
+	 Tan moves Queen F4 to F7.
+	 Tan moves Queen F4 to F8.
+	 Tan moves King F3 to G3.
+	 Tan moves King F3 to G2.
+	 Tan moves King F3 to F2.
+	 Tan moves King F3 to E2.
+	 Tan moves King F3 to E3.
+
+ Actual Moves:
+	 Tan moves King F3 to F2.
+	 Tan moves King F3 to G2.
+	 Tan moves King F3 to E2.
+	 Tan moves King F3 to E3.
+	 Tan moves King F3 to G3.
+	 Tan moves Pawn E4 to C6.
+
+
+**************** Board Test *****************
+Stalemate Test 1:
+Game File not found for file: test_boards/stalemateTest_1
+
+
+
+**************** Board Test *****************
+Promotion Test:
++---+---+---+---+---+---+---+---+
+| K |   | R |   |   | q |   |   |  0
++---+---+---+---+---+---+---+---+
+| p |   |   | p |   | p |   |   |  1
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  2
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  3
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  4
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   | P |   |  5
++---+---+---+---+---+---+---+---+
+| P | P | P |   |   |   |   | P |  6
++---+---+---+---+---+---+---+---+
+|   | r | b |   |   |   |   | k |  7
++---+---+---+---+---+---+---+---+
+/ 0   1   2   3   4   5   6   7  
+
+ PASS -- Move (Promotion: White moves Pawn A2 to A1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to A1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to A1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to A1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn B2 to C1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn B2 to C1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn B2 to C1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn B2 to C1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn C2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn C2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn C2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn C2 to B1.) was present once.
+ PASS -- Move (White moves King A8 to B7.) was present once.
+ PASS -- Move (White moves King A8 to A7.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to C8 and becomes Knight.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to C8 and becomes Queen.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to C8 and becomes Rook.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to C8 and becomes Bishop.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to D8 and becomes Knight.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to D8 and becomes Queen.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to D8 and becomes Rook.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to D8 and becomes Bishop.) was present once.
+ PASS -- Move (Tan moves King H1 to G2.) was present once.
+
+
+**************** Board Test *****************
+Castle Test:
++---+---+---+---+---+---+---+---+
+|   | R |   |   | K |   |   | R |  0
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  1
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  2
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  3
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  4
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  5
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  6
++---+---+---+---+---+---+---+---+
+| r |   |   |   | k |   | n | r |  7
++---+---+---+---+---+---+---+---+
+/ 0   1   2   3   4   5   6   7  
+
+ PASS -- Move (White moves King E8 to F8.) was present once.
+ PASS -- Move (White moves King E8 to F7.) was present once.
+ PASS -- Move (White moves King E8 to D7.) was present once.
+ PASS -- Move (White moves King E8 to D8.) was present once.
+ PASS -- Move (White moves King E8 to E7.) was present once.
+ PASS -- Move (Castle: White moves King E8 to G8.) was present once.
+ PASS -- Move (Tan moves King E1 to D1.) was present once.
+ PASS -- Move (Tan moves King E1 to F1.) was present once.
+ PASS -- Move (Tan moves King E1 to D2.) was present once.
+ PASS -- Move (Tan moves King E1 to F2.) was present once.
+ PASS -- Move (Tan moves King E1 to E2.) was present once.
+ PASS -- Move (Castle: Tan moves King E1 to C1.) was present once.
+
+
+**************** Board Test *****************
+Tan Enpassant Test:
++---+---+---+---+---+---+---+---+
+| K |   |   |   |   |   |   |   |  0
++---+---+---+---+---+---+---+---+
+|   |   |   | P |   |   |   |   |  1
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  2
++---+---+---+---+---+---+---+---+
+|   |   |   |   | p |   |   |   |  3
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  4
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  5
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  6
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   | k |  7
++---+---+---+---+---+---+---+---+
+/ 0   1   2   3   4   5   6   7  
+
+ PASS -- Move (EnPassant: Tan moves Pawn E5 to D6.) was present once.
+ PASS -- Move (Tan moves Pawn E5 to E6.) was present once.
+
+
+**************** Board Test *****************
+Basic Check Test
++---+---+---+---+---+---+---+---+
+| K |   | R |   |   |   |   |   |  0
++---+---+---+---+---+---+---+---+
+|   | B |   |   |   |   |   | B |  1
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  2
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  3
++---+---+---+---+---+---+---+---+
+|   |   |   | r |   |   |   | q |  4
++---+---+---+---+---+---+---+---+
+|   |   |   | k | p |   |   |   |  5
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  6
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   | b |  7
++---+---+---+---+---+---+---+---+
+/ 0   1   2   3   4   5   6   7  
+
+ PASS -- Move (Tan moves Pawn E3 to E4.) was present once.
+ PASS -- Move (Tan moves King D3 to D2.) was present once.
+ PASS -- Move (Tan moves King D3 to E2.) was present once.
+ PASS -- Move (Tan moves Rook D4 to E4.) was present once.
+ PASS -- Move (Tan moves Queen H4 to E4.) was present once.
+ PASS -- Move (Tan moves Queen H4 to H7.) was present once.
+ PASS -- Move (Tan moves Bishop H1 to E4.) was present once.
+
+
+**************** Board Test *****************
+Checkmate Test 1:
++---+---+---+---+---+---+---+---+
+| K |   |   |   |   |   |   |   |  0
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  1
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  2
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  3
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  4
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  5
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   | p | p | p |  6
++---+---+---+---+---+---+---+---+
+| Q |   |   |   |   |   | k |   |  7
++---+---+---+---+---+---+---+---+
+/ 0   1   2   3   4   5   6   7  
+
+FAIL -- Expected a checkmate!
+
+
+**************** Board Test *****************
+Checkmate Test 2:
++---+---+---+---+---+---+---+---+
+| K |   |   |   |   |   |   | R |  0
++---+---+---+---+---+---+---+---+
+|   | B |   |   |   |   |   |   |  1
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  2
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  3
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  4
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   | p |   |  5
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   | p | k |   |  6
++---+---+---+---+---+---+---+---+
+| Q |   |   |   |   |   |   |   |  7
++---+---+---+---+---+---+---+---+
+/ 0   1   2   3   4   5   6   7  
+
+FAIL -- Expected a checkmate!
+
+
+**************** Board Test *****************
+Pinned to King Test:
++---+---+---+---+---+---+---+---+
+| K |   |   |   |   | R |   |   |  0
++---+---+---+---+---+---+---+---+
+|   |   | B |   |   |   |   |   |  1
++---+---+---+---+---+---+---+---+
+|   |   | B |   |   |   |   |   |  2
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   | P |  3
++---+---+---+---+---+---+---+---+
+|   |   |   |   | p | q |   |   |  4
++---+---+---+---+---+---+---+---+
+| R |   | n |   |   | k |   |   |  5
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  6
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  7
++---+---+---+---+---+---+---+---+
+/ 0   1   2   3   4   5   6   7  
+
+ FAIL -- Move (Tan moves Queen F4 to F5.) was expected to be present.
+ FAIL -- Move (Tan moves Queen F4 to F6.) was expected to be present.
+ FAIL -- Move (Tan moves Queen F4 to F7.) was expected to be present.
+ FAIL -- Move (Tan moves Queen F4 to F8.) was expected to be present.
+ PASS -- Move (Tan moves King F3 to G3.) was present once.
+ PASS -- Move (Tan moves King F3 to G2.) was present once.
+ PASS -- Move (Tan moves King F3 to F2.) was present once.
+ PASS -- Move (Tan moves King F3 to E2.) was present once.
+ PASS -- Move (Tan moves King F3 to E3.) was present once.
+ Expected validMoves to contain 9 moves.
+	 However the actual validMoves contains 6 moves.
+ Expected Moves:
+	 Tan moves Queen F4 to F5.
+	 Tan moves Queen F4 to F6.
+	 Tan moves Queen F4 to F7.
+	 Tan moves Queen F4 to F8.
+	 Tan moves King F3 to G3.
+	 Tan moves King F3 to G2.
+	 Tan moves King F3 to F2.
+	 Tan moves King F3 to E2.
+	 Tan moves King F3 to E3.
+
+ Actual Moves:
+	 Tan moves King F3 to F2.
+	 Tan moves King F3 to G2.
+	 Tan moves King F3 to E2.
+	 Tan moves King F3 to E3.
+	 Tan moves King F3 to G3.
+	 Tan moves Pawn E4 to C6.
+
+
+**************** Board Test *****************
+Stalemate Test 1:
+Game File not found for file: test_boards/stalemateTest_1
+
+
+
+**************** Board Test *****************
+Promotion Test:
++---+---+---+---+---+---+---+---+
+| K |   | R |   |   | q |   |   |  0
++---+---+---+---+---+---+---+---+
+| p |   |   | p |   | p |   |   |  1
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  2
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  3
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  4
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   | P |   |  5
++---+---+---+---+---+---+---+---+
+| P | P | P |   |   |   |   | P |  6
++---+---+---+---+---+---+---+---+
+|   | r | b |   |   |   |   | k |  7
++---+---+---+---+---+---+---+---+
+/ 0   1   2   3   4   5   6   7  
+
+ PASS -- Move (Promotion: White moves Pawn A2 to A1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to A1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to A1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to A1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn B2 to C1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn B2 to C1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn B2 to C1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn B2 to C1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn C2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn C2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn C2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn C2 to B1.) was present once.
+ PASS -- Move (White moves King A8 to B7.) was present once.
+ PASS -- Move (White moves King A8 to A7.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to C8 and becomes Knight.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to C8 and becomes Queen.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to C8 and becomes Rook.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to C8 and becomes Bishop.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to D8 and becomes Knight.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to D8 and becomes Queen.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to D8 and becomes Rook.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to D8 and becomes Bishop.) was present once.
+ PASS -- Move (Tan moves King H1 to G2.) was present once.
+
+
+**************** Board Test *****************
+Castle Test:
++---+---+---+---+---+---+---+---+
+|   | R |   |   | K |   |   | R |  0
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  1
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  2
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  3
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  4
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  5
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  6
++---+---+---+---+---+---+---+---+
+| r |   |   |   | k |   | n | r |  7
++---+---+---+---+---+---+---+---+
+/ 0   1   2   3   4   5   6   7  
+
+ PASS -- Move (White moves King E8 to F8.) was present once.
+ PASS -- Move (White moves King E8 to F7.) was present once.
+ PASS -- Move (White moves King E8 to D7.) was present once.
+ PASS -- Move (White moves King E8 to D8.) was present once.
+ PASS -- Move (White moves King E8 to E7.) was present once.
+ PASS -- Move (Castle: White moves King E8 to G8.) was present once.
+ PASS -- Move (Tan moves King E1 to D1.) was present once.
+ PASS -- Move (Tan moves King E1 to F1.) was present once.
+ PASS -- Move (Tan moves King E1 to D2.) was present once.
+ PASS -- Move (Tan moves King E1 to F2.) was present once.
+ PASS -- Move (Tan moves King E1 to E2.) was present once.
+ PASS -- Move (Castle: Tan moves King E1 to C1.) was present once.
+
+
+**************** Board Test *****************
+Tan Enpassant Test:
++---+---+---+---+---+---+---+---+
+| K |   |   |   |   |   |   |   |  0
++---+---+---+---+---+---+---+---+
+|   |   |   | P |   |   |   |   |  1
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  2
++---+---+---+---+---+---+---+---+
+|   |   |   |   | p |   |   |   |  3
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  4
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  5
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  6
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   | k |  7
++---+---+---+---+---+---+---+---+
+/ 0   1   2   3   4   5   6   7  
+
+ PASS -- Move (EnPassant: Tan moves Pawn E5 to D6.) was present once.
+ PASS -- Move (Tan moves Pawn E5 to E6.) was present once.
+
+
+**************** Board Test *****************
+Basic Check Test
++---+---+---+---+---+---+---+---+
+| K |   | R |   |   |   |   |   |  0
++---+---+---+---+---+---+---+---+
+|   | B |   |   |   |   |   | B |  1
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  2
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  3
++---+---+---+---+---+---+---+---+
+|   |   |   | r |   |   |   | q |  4
++---+---+---+---+---+---+---+---+
+|   |   |   | k | p |   |   |   |  5
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  6
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   | b |  7
++---+---+---+---+---+---+---+---+
+/ 0   1   2   3   4   5   6   7  
+
+ PASS -- Move (Tan moves Pawn E3 to E4.) was present once.
+ PASS -- Move (Tan moves King D3 to D2.) was present once.
+ PASS -- Move (Tan moves King D3 to E2.) was present once.
+ PASS -- Move (Tan moves Rook D4 to E4.) was present once.
+ PASS -- Move (Tan moves Queen H4 to E4.) was present once.
+ PASS -- Move (Tan moves Queen H4 to H7.) was present once.
+ PASS -- Move (Tan moves Bishop H1 to E4.) was present once.
+
+
+**************** Board Test *****************
+Pinned to King Test:
++---+---+---+---+---+---+---+---+
+| K |   |   |   |   | R |   |   |  0
++---+---+---+---+---+---+---+---+
+|   |   | B |   |   |   |   |   |  1
++---+---+---+---+---+---+---+---+
+|   |   | B |   |   |   |   |   |  2
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   | P |  3
++---+---+---+---+---+---+---+---+
+|   |   |   |   | p | q |   |   |  4
++---+---+---+---+---+---+---+---+
+| R |   | n |   |   | k |   |   |  5
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  6
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  7
++---+---+---+---+---+---+---+---+
+/ 0   1   2   3   4   5   6   7  
+
+ FAIL -- Move (Tan moves Queen F4 to F5.) was expected to be present.
+ FAIL -- Move (Tan moves Queen F4 to F6.) was expected to be present.
+ FAIL -- Move (Tan moves Queen F4 to F7.) was expected to be present.
+ FAIL -- Move (Tan moves Queen F4 to F8.) was expected to be present.
+ PASS -- Move (Tan moves King F3 to G3.) was present once.
+ PASS -- Move (Tan moves King F3 to G2.) was present once.
+ PASS -- Move (Tan moves King F3 to F2.) was present once.
+ PASS -- Move (Tan moves King F3 to E2.) was present once.
+ PASS -- Move (Tan moves King F3 to E3.) was present once.
+ Expected validMoves to contain 9 moves.
+	 However the actual validMoves contains 6 moves.
+ Expected Moves:
+	 Tan moves Queen F4 to F5.
+	 Tan moves Queen F4 to F6.
+	 Tan moves Queen F4 to F7.
+	 Tan moves Queen F4 to F8.
+	 Tan moves King F3 to G3.
+	 Tan moves King F3 to G2.
+	 Tan moves King F3 to F2.
+	 Tan moves King F3 to E2.
+	 Tan moves King F3 to E3.
+
+ Actual Moves:
+	 Tan moves King F3 to F2.
+	 Tan moves King F3 to G2.
+	 Tan moves King F3 to E2.
+	 Tan moves King F3 to E3.
+	 Tan moves King F3 to G3.
+	 Tan moves Pawn E4 to C6.
+
+
+**************** Board Test *****************
+Promotion Test:
++---+---+---+---+---+---+---+---+
+| K |   | R |   |   | q |   |   |  0
++---+---+---+---+---+---+---+---+
+| p |   |   | p |   | p |   |   |  1
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  2
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  3
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  4
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   | P |   |  5
++---+---+---+---+---+---+---+---+
+| P | P | P |   |   |   |   | P |  6
++---+---+---+---+---+---+---+---+
+|   | r | b |   |   |   |   | k |  7
++---+---+---+---+---+---+---+---+
+/ 0   1   2   3   4   5   6   7  
+
+ PASS -- Move (Promotion: White moves Pawn A2 to A1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to A1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to A1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to A1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn A2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn B2 to C1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn B2 to C1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn B2 to C1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn B2 to C1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn C2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn C2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn C2 to B1.) was present once.
+ PASS -- Move (Promotion: White moves Pawn C2 to B1.) was present once.
+ PASS -- Move (White moves King A8 to B7.) was present once.
+ PASS -- Move (White moves King A8 to A7.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to C8 and becomes Knight.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to C8 and becomes Queen.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to C8 and becomes Rook.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to C8 and becomes Bishop.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to D8 and becomes Knight.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to D8 and becomes Queen.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to D8 and becomes Rook.) was present once.
+ PASS -- Move (Promotion: Tan moves Pawn D7 to D8 and becomes Bishop.) was present once.
+ PASS -- Move (Tan moves King H1 to G2.) was present once.
+
+
+**************** Board Test *****************
+Castle Test:
++---+---+---+---+---+---+---+---+
+|   | R |   |   | K |   |   | R |  0
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  1
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  2
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  3
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  4
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  5
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  6
++---+---+---+---+---+---+---+---+
+| r |   |   |   | k |   | n | r |  7
++---+---+---+---+---+---+---+---+
+/ 0   1   2   3   4   5   6   7  
+
+ PASS -- Move (White moves King E8 to F8.) was present once.
+ PASS -- Move (White moves King E8 to F7.) was present once.
+ PASS -- Move (White moves King E8 to D7.) was present once.
+ PASS -- Move (White moves King E8 to D8.) was present once.
+ PASS -- Move (White moves King E8 to E7.) was present once.
+ PASS -- Move (Castle: White moves King E8 to G8.) was present once.
+ PASS -- Move (Tan moves King E1 to D1.) was present once.
+ PASS -- Move (Tan moves King E1 to F1.) was present once.
+ PASS -- Move (Tan moves King E1 to D2.) was present once.
+ PASS -- Move (Tan moves King E1 to F2.) was present once.
+ PASS -- Move (Tan moves King E1 to E2.) was present once.
+ PASS -- Move (Castle: Tan moves King E1 to C1.) was present once.
+
+
+**************** Board Test *****************
+Tan Enpassant Test:
++---+---+---+---+---+---+---+---+
+| K |   |   |   |   |   |   |   |  0
++---+---+---+---+---+---+---+---+
+|   |   |   | P |   |   |   |   |  1
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  2
++---+---+---+---+---+---+---+---+
+|   |   |   |   | p |   |   |   |  3
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  4
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  5
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  6
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   | k |  7
++---+---+---+---+---+---+---+---+
+/ 0   1   2   3   4   5   6   7  
+
+ PASS -- Move (EnPassant: Tan moves Pawn E5 to D6.) was present once.
+ PASS -- Move (Tan moves Pawn E5 to E6.) was present once.
+
+
+**************** Board Test *****************
+Basic Check Test:
++---+---+---+---+---+---+---+---+
+| K |   | R |   |   |   |   |   |  0
++---+---+---+---+---+---+---+---+
+|   | B |   |   |   |   |   | B |  1
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  2
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  3
++---+---+---+---+---+---+---+---+
+|   |   |   | r |   |   |   | q |  4
++---+---+---+---+---+---+---+---+
+|   |   |   | k | p |   |   |   |  5
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |  6
++---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   | b |  7
++---+---+---+---+---+---+---+---+
+/ 0   1   2   3   4   5   6   7  
+
+ PASS -- Move (Tan moves Pawn E3 to E4.) was present once.
+ PASS -- Move (Tan moves King D3 to D2.) was present once.
+ PASS -- Move (Tan moves King D3 to E2.) was present once.
+ PASS -- Move (Tan moves Rook D4 to E4.) was present once.
+ PASS -- Move (Tan moves Queen H4 to E4.) was present once.
+ PASS -- Move (Tan moves Queen H4 to H7.) was present once.
+ PASS -- Move (Tan moves Bishop H1 to E4.) was present once.
+
+

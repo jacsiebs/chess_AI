@@ -9,6 +9,8 @@ import jacob.siebert.chessai.board.Square;
 import jacob.siebert.chessai.move.Move;
 import jacob.siebert.chessai.piece.King;
 import jacob.siebert.chessai.type.PieceColor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Jacob Siebert
@@ -18,15 +20,17 @@ import jacob.siebert.chessai.type.PieceColor;
  */
 public class ChessAssertions {
 
+	private static Logger LOG = LoggerFactory.getLogger(ChessAssertions.class);
+
 	// Tests if 2 moves are equal
-	// catches the assertion jacob.siebert.chessai.exception and prints relevant info
+	// catches the assertion exception and prints relevant info
 	public static boolean assertMoveEquals(Move expected, Move actual) {
 			if(expected.equals(actual)) {
-				System.out.println(" PASS -- Move: " + expected.toString());
+				LOG.info(" PASS -- Move: " + expected.toString());
 				return true;
 			} else {
 
-				System.out.println(" FAIL -- Expected: " + expected.toString()
+				LOG.error(" FAIL -- Expected: " + expected.toString()
 						+ "\n\t Actual: " + actual.toString());
 				throw new AssertionError();
 			}
@@ -44,14 +48,14 @@ public class ChessAssertions {
 			}
 		}
 		if(count == 0) {
-			System.out.println(" FAIL -- Move (" + expected.toString() + ") was expected to be present.");
+			LOG.error(" FAIL -- Move (" + expected.toString() + ") was expected to be present.");
 			throw new AssertionError();
 		}
 		else if(count == 1) {
-			System.out.println(" PASS -- Move (" + expected.toString() + ") was present once.");
+			LOG.info(" PASS -- Move (" + expected.toString() + ") was present once.");
 			return true;
 		} else {
-			System.out.println(" FAIL -- Move (" + expected.toString() + ") was present " + count + " times.");
+			LOG.error(" FAIL -- Move (" + expected.toString() + ") was present " + count + " times.");
 			throw new AssertionError();
 		}
 	}
@@ -65,13 +69,13 @@ public class ChessAssertions {
 		
 		if(expected == null) {
 			if(!actual.isEmpty()) {
-				System.out.println(" FAIL -- Expected no moves to be valid.\n  Moves that were generated:");
+				LOG.error(" FAIL -- Expected no moves to be valid.\n  Moves that were generated:");
 				for(Move m : actual) {
-					System.out.println("   " + m);
+					LOG.error("   " + m);
 				}
 				throw new AssertionError();
 			} else {
-				System.out.println(" PASS -- No moves were expected and none were generated.");
+				LOG.info(" PASS -- No moves were expected and none were generated.");
 				return true;
 			}
 		}
@@ -86,19 +90,19 @@ public class ChessAssertions {
 		}
 		// test the length of the move lists
 		if(expected.size() != actual.size()) {
-			System.out.println(" Expected validMoves to contain " + expected.size()
+			LOG.error(" Expected validMoves to contain " + expected.size()
 				+ " moves.\n\t However the actual validMoves contains " + actual.size() + " moves.");
 			pass = false;
 		}
 		// print each list
 		if(!pass) {
-			System.out.println(" Expected Moves:");
+			LOG.error(" Expected Moves:");
 			for(Move m : expected) {
-				System.out.println("\t " + m);
+				LOG.error("\t " + m);
 			}
-			System.out.println("\n Actual Moves:");
+			LOG.error("\n Actual Moves:");
 			for(Move m : actual) {
-				System.out.println("\t " + m);
+				LOG.error("\t " + m);
 			}
 			throw new AssertionError();
 		}
@@ -107,14 +111,14 @@ public class ChessAssertions {
 
 	public static void isInCheckmate(Board board, PieceColor color) {
 		if(!board.isInCheckMate(color)) {
-			System.out.println("FAIL -- Expected a checkmate!");
+			LOG.error("FAIL -- Expected a checkmate!");
 			throw new AssertionError();
 		}
 	}
 
 	public static void assertIsInCheck(Board board, King k) {
 		if(!board.isInCheck(k)) {
-			System.out.println("FAIL -- " + k.toString() + " was expected " +
+			LOG.error("FAIL -- " + k.toString() + " was expected " +
 					"to be in check.");
 			throw new AssertionError();
 		}
@@ -122,7 +126,7 @@ public class ChessAssertions {
 
 	public static void assertIsNotInCheck(Board board, King k) {
 		if(board.isInCheck(k)) {
-			System.out.println("FAIL -- " + k.toString() + " was expected " +
+			LOG.error("FAIL -- " + k.toString() + " was expected " +
 					"to not be in check.");
 			throw new AssertionError();
 		}

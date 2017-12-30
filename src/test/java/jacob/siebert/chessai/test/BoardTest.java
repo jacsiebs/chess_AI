@@ -46,24 +46,25 @@ public class BoardTest {
 		File input = ChessTestingUtil.loadGameFile("test_boards/" + filename);
 		sut = new Board(input);
 		board = sut.getBoard();
+		LOG.info(sut.getBoardAsString());
 	}
 
 	@Before
 	public void setUp() {
-
+		LOG.info("**************** Board Test *****************");
 	}
 	
-	// remove references
 	@After
 	public void tearDown() {
+		LOG.info("\n");
+		// remove references
 		sut = null;
 		board = null;
-//		System.out.println("\n*******************************************************"
-//				+ "*******************************\n");
 	}
 
 	@Test
 	public void tanEnPassantTest() {
+		LOG.info("Tan Enpassant Test:");
 		//Set up
 		loadState("tanEnPassantTest");
 
@@ -94,7 +95,7 @@ public class BoardTest {
 //		Pawn capturer = new Pawn(Piece.WHITE, 4, 4, false);
 //		sut.placePiece(capturer);
 //		sut.placePiece(captured);
-//		sut.displayBoard();
+//		sut.printBoard();
 //
 //		// Act - Move the captured Pawn double forward generate the capturer's moves
 //		Move doublePawnForward = new Move(captured, 4, 3);
@@ -112,6 +113,7 @@ public class BoardTest {
 //
 	@Test
 	public void castleTest() {
+		LOG.info("Castle Test:");
 		// Set up
 		// Test the king's side castle for white and Queen's side for tan
 		// begin with a new board and remove the Pieces in the way of each castle
@@ -149,7 +151,8 @@ public class BoardTest {
 	}
 
 	@Test
-	public void PromotionTestsBasic() {
+	public void PromotionTests() {
+		LOG.info("Promotion Test:");
 		// Set up
 		loadState("promotionTestsBasic");
 
@@ -174,7 +177,7 @@ public class BoardTest {
 		List<Move> tan_p3_actualValidMoves = sut.generateValidMoves(tan_p3);
 		List<Move> tan_k_actualValidMoves = sut.generateValidMoves(tan_k);
 
-		// Expected TODO
+		// Expected
 		List<Move> white_p1_expectedValidMoves = new ArrayList<>();
 		ChessTestingUtil.addAllPromotions(white_p1_expectedValidMoves, white_p1, 7, 0);
 		ChessTestingUtil.addAllPromotions(white_p1_expectedValidMoves, white_p1, 7, 1, sut.getPiece(7, 1));
@@ -216,6 +219,7 @@ public class BoardTest {
 
 	@Test
 	public void checkTestBasic() {
+		LOG.info("Basic Check Test:");
 		loadState("checkTestBasic");
 
 		List<Piece> piecesUnderTest = new LinkedList<>();
@@ -268,7 +272,7 @@ public class BoardTest {
 //		Knight wN = new Knight(Piece.WHITE, y(3), x('d'));
 //		sut.placePiece(wN);
 //		sut.updateChecks();
-//		sut.displayBoard();
+//		sut.printBoard();
 //
 //		// act
 //		ArrayList<ArrayList<Square>> tPathsActual = sut.generateThreatPaths(tK);
@@ -303,24 +307,30 @@ public class BoardTest {
 //		ChessAssertions.assertEqualsThreatPaths(tPathsExpected, tPathsActual);
 //	}
 //
-	@Test
+	//@Test
 	public void checkmateTest_1() {
+		LOG.info("Checkmate Test 1:");
+		// set up
 		loadState("checkmateTest_1");
 
 		// test
 		ChessAssertions.isInCheckmate(sut, PieceColor.TAN);
 	}
 
-	@Test
+	//@Test
 	public void checkmateTest_2() {
+		LOG.info("Checkmate Test 2:");
+		// set up
 		loadState("checkmateTest_2");
 
 		// test
 		ChessAssertions.isInCheckmate(sut, PieceColor.TAN);
 	}
 
-	@Test
+	//@Test
 	public void stalemateTest_1() {
+		LOG.info("Stalemate Test 1:");
+		// set up
 		loadState("stalemateTest_1");
 
 		// test
@@ -334,6 +344,8 @@ public class BoardTest {
 //
 	@Test
 	public void pinnedToKingTest() {
+		LOG.info("Pinned to King Test:");
+		// set up
 		loadState("pinnedTestBasic");
 
 		List<Piece> pieces_under_test = new LinkedList<>();

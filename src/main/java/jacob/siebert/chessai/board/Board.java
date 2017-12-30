@@ -31,6 +31,7 @@ public class Board {
 	// is deep copied by using the white and tan locations arraylists
 	private Piece[][] board;
 	private BoardStatus status;
+	private ChessBoard owner;// The ChessBoard app using this board if it exists
 	// a list of all active pieces on each side
 	private ArrayList<Piece> whiteLocations;
 	private ArrayList<Piece> tanLocations;
@@ -66,6 +67,7 @@ public class Board {
 
 	// board type specifics which pieces are placed and where
 	public Board(NewGameType boardType, ChessBoard owner) {
+		this.owner = owner;
 		status = BoardStatus.INIT;
 		board = new Piece[8][8];
 		moves = new Stack<Move>();
@@ -301,7 +303,6 @@ public class Board {
 			}
 		}
 		sc_game.close();
-		displayBoard();
 	}
 	
 	/** Removes the piece at the specified location
@@ -341,16 +342,6 @@ public class Board {
 
 	public Board clone() {
 		return new Board(tanLocations, whiteLocations);
-	}
-
-	// TODO
-	public boolean gameOver() {
-		return false;
-	}
-
-	// used for testing
-	public boolean isInCheckMate(PieceColor color) {
-		return false;
 	}
 
 	public Piece[][] getBoard() {
@@ -782,21 +773,22 @@ public class Board {
 
 	/*
 	 * Generates the moves for every piece in play. This method should only be
-	 * used on initial setup.
+	 * used on initial setup (new game or loading a gamestate).
 	 */
 	public void generateAllMoves() {
 		/* Note: Enhanced for loops cannot be used here since the iterator will throw a 
 		 * concurrentModificationException since generateValidMoves() calls isBlockingCheck()
 		 * which temporarily removes the piece being iterated over - throwing the exception.
 		 * Without the iterator, isBlockingCheck() will simply restore the state without issue.*/
+		updateChecks();
 		Piece p;
 		// tan
-		for (int i = 0; i < tanLocations.size(); i++) {
+		for(int i = 0; i < tanLocations.size(); i++) {
 			p = tanLocations.get(i);
 			p.setValidMoves(generateValidMoves(p));
 		}
 		// white
-		for (int i = 0; i < whiteLocations.size(); i++) {
+		for(int i = 0; i < whiteLocations.size(); i++) {
 			p = whiteLocations.get(i);
 			p.setValidMoves(generateValidMoves(p));
 		}
@@ -1022,21 +1014,34 @@ public class Board {
 		return false;
 	}
 
-	// used for debugging only - displays board in console
-	// prints tan pieces as lower case and white as upper case
-	public void displayBoard() {
-		System.out.println("+---+---+---+---+---+---+---+---+");
+	/**
+	 * Prints the current board to the console
+	 */
+	public void printBoard() {
+		System.out.println(getBoardAsString());
+	}
+
+	public String getBoardAsString() {
+		StringBuilder brd_str = new StringBuilder();
+		brd_str.append("+---+---+---+---+---+---+---+---+\n");
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (board[i][j] != null) {
-					if(board[i][j].getColor() == PieceColor.TAN) System.out.print("| " + board[i][j].type + " ");// lower case
-					else System.out.print("| " + (char)(board[i][j].type - 32) + " ");// upper case
-				} else System.out.print("|   ");
+					if(board[i][j].isTan()) {
+						brd_str.append("| ").append(board[i][j].type).append(" ");// lower case
+					}
+					else {
+						brd_str.append("| ").append((char)(board[i][j].type - 32)).append(" ");// upper case
+					}
+				} else {
+					brd_str.append("|   ");
+				}
 			}
-			System.out.println("|");
-			System.out.println("+---+---+---+---+---+---+---+---+");
+			brd_str.append("|  ").append(i).append('\n');// label the rows
+			brd_str.append("+---+---+---+---+---+---+---+---+\n");
 		}
-		System.out.println("\n");
+		brd_str.append("/ 0   1   2   3   4   5   6   7  \n");// label the columns
+		return brd_str.toString();
 	}
 	
 	/**Checks if the given king is in check, also sets the respective global vars
@@ -1047,7 +1052,7 @@ public class Board {
 		ArrayList<ArrayList<Square>> threatPaths = generateThreatPaths(k);
 		// if no threat paths -> not in check
 		if (!threatPaths.isEmpty()) {
-			if (k.getColor() == PieceColor.TAN) {
+			if (k.isTan()) {
 				tanCheck = true;
 				tanThreats = findThreats(k, threatPaths);
 			} else {
@@ -1057,7 +1062,7 @@ public class Board {
 			return true;
 		} else {
 			// reset if not in check
-			if (k.getColor() == PieceColor.TAN) {
+			if (k.isTan()) {
 				tanCheck = false;
 				tanThreats = null;
 			} else {
@@ -1343,12 +1348,9 @@ public class Board {
 		}
 		return threatPaths;
 	}
-
-	private static final int NOT_BLOCKING_CHECK = 100;
-	private static final int BLOCKING_CHECK = 101;
-	private static final int CAN_ELIMINATE_CHECK = 102;
 	
-	/**Assumes this Piece's color is not in check. Checks should also be updated.
+	/**
+	 * Assumes this Piece's color is not in check. Checks should also be updated.
 	 * @param p - The Piece to check this for 
 	 * @return True is the Piece is stopping the king from being in check
 	 */
@@ -1548,22 +1550,58 @@ public class Board {
 		// cannot capture this piece
 		return false;
 	}
-	
+
+	/**
+	 * Updates the check status and the threat paths for both kings.
+	 * If a king is in check, also check if it is in checkmate and,
+	 * if so, end the game.
+	 */
 	public void updateChecks() {
-		isInCheck(getTanKing());
-		isInCheck(getWhiteKing());
+		if(isInCheck(getTanKing())) {
+			// tan king is in check -> is it checkmated?
+			if(isInCheckmate(getTanKing())) {
+				// white has won
+				status = BoardStatus.TAN_CHECKMATED;
+				// notify ChessBoard parent if this Board is running as an app
+				if(owner != null) {
+					owner.gameOver(status);
+				}
+			}
+		}
+		if(isInCheck(getWhiteKing())) {
+			// white king is in check -> is it checkmated?
+			if(isInCheckmate(getWhiteKing())) {
+				// tan has won
+				status = BoardStatus.WHITE_CHECKMATED;
+				// notify ChessBoard parent if this Board is running as an app
+				if(owner != null) {
+					owner.gameOver(status);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Returns if the given King has been checkmated.
+	 * Note: This function assumes checks have been updated!
+	 * @param k - the king
+	 * @return is this king checkmated?
+	 */
+	private boolean isInCheckmate(King k) {
+		if(k.isTan()) {
+			return tanCheck && generateValidMoves(k).isEmpty();
+		} else {
+			return whiteCheck && generateValidMoves(k).isEmpty();
+		}
 	}
 	
 	public ArrayList<Move> generateValidMoves(Piece p) {
 		// note: check is handled at the bottom of this method
-		if(p == null) {
-			throw new NoSuchPieceException("Generating moves for a null jacob.siebert.chessai.piece.");
-		}
-		ArrayList<Move> validMoves = new ArrayList<Move>();
-		
+		ArrayList<Move> validMoves = new ArrayList<>();
+		p.setValidMoves(validMoves);
 		// test if the piece is blocking a check for its king
 		if(!(p instanceof King)) {
-			if(p.getColor() == PieceColor.TAN) {
+			if(p.isTan()) {
 				if(!tanCheck) {
 					int blockingStatus = isBlockingCheck(p);
 					// If a piece is blocking a check it cannot move
@@ -1613,7 +1651,7 @@ public class Board {
 				if (pawn.y - 1 > 1) {
 					if (board[pawn.y - 1][pawn.x] == null) {
 						validMoves.add(new Move(p, pawn.y - 1, pawn.x));
-						if (pawn.hasMoved()) {
+						if (!pawn.hasMoved()) {
 							if (pawn.y - 2 >= 0) {
 								if (board[p.y - 2][p.x] == null) {
 									validMoves.add(new Move(p, pawn.y - 2, pawn.x));
@@ -1684,7 +1722,7 @@ public class Board {
 				if (pawn.y + 1 < 6) {
 					if (board[pawn.y + 1][pawn.x] == null) {
 						validMoves.add(new Move(p, pawn.y + 1, pawn.x));
-						if (pawn.hasMoved()) {
+						if (!pawn.hasMoved()) {
 							if (pawn.y + 2 < 8) {
 								if (board[pawn.y + 2][pawn.x] == null) {
 									validMoves.add(new Move(p, pawn.y + 2, pawn.x));
@@ -1790,8 +1828,10 @@ public class Board {
 			validMoves.addAll(getStraightMoves(p));
 		} else if (p instanceof King) {
 			King kTemp = (King) p;
-			// check if the king is in check
-			boolean check = isInCheck(kTemp);
+			// get this king's check status
+			boolean check;
+			if(kTemp.isTan()) check = tanCheck;
+			else check = whiteCheck;
 
 			/* Check if this king is able to Castle: 
 			 1. King Unmoved
@@ -1799,7 +1839,7 @@ public class Board {
 			 3. Rook unmoved
 			 4. Clear path between king and rook
 			 5. No square that the king must cross is threatened.*/
-			if (kTemp.hasMoved() && !check) {
+			if (!kTemp.hasMoved() && !check) {
 				int i = kTemp.x - 1;
 				// check if the Queen's side castle is open
 				while (i >= 0 && board[kTemp.y][i] == null) {
@@ -1814,7 +1854,7 @@ public class Board {
 				if (board[kTemp.y][i] != null) {
 					if (board[kTemp.y][i] instanceof Rook) {
 						Rook rook = ((Rook) board[kTemp.y][i]);
-						if(rook.hasMoved()) {
+						if(!rook.hasMoved()) {
 							validMoves.add(new Castle(kTemp, kTemp.y, kTemp.x - 2, rook, rook.y, rook.x + 3));
 						}
 					}
@@ -1835,7 +1875,7 @@ public class Board {
 					// if the rook is in the original square
 					if (board[kTemp.y][i] instanceof Rook) {
 						Rook rook = ((Rook) board[kTemp.y][i]);
-						if (rook.hasMoved()) {
+						if (!rook.hasMoved()) {
 							validMoves.add(new Castle(kTemp, kTemp.y, kTemp.x + 2, rook, rook.y, rook.x - 2));
 						}
 					}
@@ -1915,10 +1955,6 @@ public class Board {
 					}
 				}
 			}
-			// check if the king is in checkmate
-			// ckeckmate occurs when the kings position is threatened, the king
-			// cannot move to an unthreatened square, and no blocks can be setup
-
 		}
 
 		// If your king is in check - must get out
@@ -1927,9 +1963,10 @@ public class Board {
 			 * or else return no valid moves (checkmate).
 			 * Search through all valid moves generated thus far and remove 
 			 * any that do not break the check. */
-			if (p.getColor() == PieceColor.TAN) {
+			if (p.isTan()) {
 				if (tanCheck) {
-					ArrayList<Move> getOutOfCheckMoves = new ArrayList<Move>();
+					ArrayList<Move> getOutOfCheckMoves = new ArrayList<>();
+					p.setValidMoves(getOutOfCheckMoves);
 					ArrayList<ArrayList<Square>> threatPaths = generateThreatPaths(getTanKing());
 					// for every one of this pieces valid moves
 					for (Move m : validMoves) {
@@ -1954,7 +1991,6 @@ public class Board {
 							}
 						}
 						if (haltsThreat) {
-//							System.out.println("Move added to get out of check.");
 							getOutOfCheckMoves.add(m);
 						}
 					}
@@ -1962,7 +1998,8 @@ public class Board {
 				}
 			} else {
 				if (whiteCheck) {
-					ArrayList<Move> getOutOfCheckMoves = new ArrayList<Move>();
+					ArrayList<Move> getOutOfCheckMoves = new ArrayList<>();
+					p.setValidMoves(getOutOfCheckMoves);
 					ArrayList<ArrayList<Square>> threatPaths = generateThreatPaths(getWhiteKing());
 					for (Move m : validMoves) {
 						boolean haltsThreat = false;

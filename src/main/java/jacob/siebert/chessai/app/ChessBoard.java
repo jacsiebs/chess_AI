@@ -21,6 +21,7 @@ import jacob.siebert.chessai.piece.*;
 import jacob.siebert.chessai.player.Basic_MinMax_AI;
 import jacob.siebert.chessai.player.HumanPlayer;
 import jacob.siebert.chessai.player.Player;
+import jacob.siebert.chessai.type.BoardStatus;
 import jacob.siebert.chessai.type.PieceColor;
 import jacob.siebert.chessai.type.PlayerTypes;
 import jacob.siebert.chessai.type.NewGameType;
@@ -996,8 +997,25 @@ public class ChessBoard {
 
 		// DELETE THIS
 		System.out.println("--------------------------------");
-		board.displayBoard();
+		board.printBoard();
 		System.out.println("--------------------------------");
+	}
+
+	/**TODO
+	 * Called by the Board once it has detected a checkmate or a stalemate.
+	 * Prints game over messages and ends the current game.
+	 */
+	public void gameOver(BoardStatus status) {
+		if(status == BoardStatus.TAN_CHECKMATED) {
+			LOG.info("Game over! White has won!");
+		} else if(status == BoardStatus.WHITE_CHECKMATED) {
+			LOG.info("Game over! Tan has won!");
+		} else if(status == BoardStatus.STALEMATE) {
+			LOG.info("Game over! Stalemate!");
+		} else {
+			LOG.error("Game over called when the game is still in progress!");
+			throw new RuntimeException("Game over called when the game is still in progress!");
+		}
 	}
 
 	// TODO
